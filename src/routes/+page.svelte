@@ -12,6 +12,6 @@
 	/>
 </svelte:head>
 
-<main class="px-5 pt-5">
+<main>
 	<Builder blocks={data.blocks} />
 </main>
