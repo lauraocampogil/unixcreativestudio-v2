@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Builder from '$lib/sections/builder.svelte';
+	import Builder from '#lib/sections/builder.svelte';
 
 	let { data } = $props();
 </script>
