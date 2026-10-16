@@ -4,10 +4,31 @@
 	import { page } from '$app/state';
 	import { locales, localizeHref } from '#lib/paraglide/runtime.js';
 	import './layout.css';
+	import 'lenis/dist/lenis.css';
+	import Lenis from 'lenis';
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import favicon from '#lib/assets/favicon.svg';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
+
+	// Scroll fluide (Lenis) synchronisé avec GSAP ScrollTrigger
+	$effect(() => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		gsap.registerPlugin(ScrollTrigger);
+
+		const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+		lenis.on('scroll', ScrollTrigger.update);
+		const raf = (time: number) => lenis.raf(time * 1000);
+		gsap.ticker.add(raf);
+		gsap.ticker.lagSmoothing(0);
+
+		return () => {
+			gsap.ticker.remove(raf);
+			lenis.destroy();
+		};
+	});
 </script>
 
 <svelte:head>
