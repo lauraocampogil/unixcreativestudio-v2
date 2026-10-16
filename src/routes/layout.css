@@ -1,1 +1,120 @@
 @import 'tailwindcss';
+
+/* ============ FONTS ============ */
+@font-face {
+	font-family: 'Apfel Grotezk';
+	src: url('/fonts/ApfelGrotezk-Fett.woff2') format('woff2');
+	font-weight: 700;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Apfel Grotezk';
+	src: url('/fonts/ApfelGrotezk-Satt.woff2') format('woff2');
+	font-weight: 900;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Haskoy';
+	src: url('/fonts/Haskoy-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Haskoy';
+	src: url('/fonts/Haskoy-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Haskoy';
+	src: url('/fonts/Haskoy-SemiBold.woff2') format('woff2');
+	font-weight: 600;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Haskoy';
+	src: url('/fonts/Haskoy-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-display: swap;
+}
+
+/* ============ TOKENS (from Figma variables) ============ */
+@theme {
+	/* Colors */
+	--color-background: #fefbf4;
+	--color-primary: #94adff;
+	--color-primary-accent: #6b8bf7;
+	--color-primary-dark: #466ff8;
+	--color-secondary-accent: #8f7dff;
+	--color-tertiary: #ffbcf9;
+	--color-dark: #000000;
+	--color-dark-light: #8b8b8b;
+
+	/* Font families */
+	--font-display: 'Apfel Grotezk', system-ui, sans-serif;
+	--font-sans: 'Haskoy', system-ui, sans-serif;
+
+	/* Breakpoints (Figma: mobile 393px, desktop 1440px) */
+	--breakpoint-desktop: 90rem; /* 1440px */
+}
+
+/* ============ TYPOGRAPHY ============
+   Fluid sizes: exact Figma mobile size at 393px,
+   exact Figma desktop size at 1440px, smooth in between. */
+
+@utility text-h1 {
+	font-family: var(--font-display);
+	font-weight: 900;
+	text-transform: uppercase;
+	line-height: 0.95;
+	font-size: clamp(2.5rem, 1.937rem + 2.2923vw, 4rem); /* 40 → 64 */
+}
+
+@utility text-lead {
+	font-family: var(--font-sans);
+	font-weight: 600;
+	line-height: 1.05;
+	font-size: clamp(1.25rem, 0.9685rem + 1.1461vw, 2rem); /* 20 → 32 */
+}
+
+@utility text-h3 {
+	font-family: var(--font-sans);
+	font-weight: 700; /* Bold on mobile */
+	line-height: 1.2;
+	font-size: clamp(1.25rem, 1.0623rem + 0.7641vw, 1.75rem); /* 20 → 28 */
+
+	@media (width >= 64rem) {
+		font-weight: 600; /* SemiBold on desktop */
+	}
+}
+
+@utility text-body {
+	font-family: var(--font-sans);
+	font-weight: 400;
+	line-height: 1.25;
+	font-size: clamp(1rem, 0.9062rem + 0.382vw, 1.25rem); /* 16 → 20 */
+}
+
+@utility text-body-hero {
+	font-family: var(--font-sans);
+	font-weight: 400;
+	line-height: 1.15;
+	font-size: clamp(1rem, 0.9062rem + 0.382vw, 1.25rem); /* 16 → 20 */
+}
+
+@utility text-tag {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.05;
+	font-size: clamp(0.9375rem, 0.8202rem + 0.4776vw, 1.25rem); /* 15 → 20 */
+}
+
+/* ============ BASE ============ */
+@layer base {
+	html {
+		background-color: var(--color-background);
+		color: var(--color-dark);
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
+	}
+}
