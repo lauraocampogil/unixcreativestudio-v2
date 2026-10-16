@@ -50,12 +50,30 @@
 	--color-dark: #000000;
 	--color-dark-light: #8b8b8b;
 
+	/* Radius (Figma) */
+	--radius-section: 30px; /* grandes sections (hero, footer…) */
+	--radius-card: 15px; /* cartes, images, blocs */
+	--radius-pill: 40px; /* boutons */
+
 	/* Font families */
 	--font-display: 'Apfel Grotezk', system-ui, sans-serif;
 	--font-sans: 'Haskoy', system-ui, sans-serif;
 
-	/* Breakpoints (Figma: mobile 393px, desktop 1440px) */
-	--breakpoint-desktop: 90rem; /* 1440px */
+	/* Breakpoints (mêmes que tes autres sites) */
+	--breakpoint-2xs: 375px;
+	--breakpoint-xs: 480px;
+	--breakpoint-xl: 1280px;
+	--breakpoint-3xl: 1920px;
+}
+
+/* ============ GRID ============
+   Figma desktop : 8 colonnes, gouttière 20px, marges 80px (contenu 1280px).
+   Mobile : padding 20px (px-5). */
+.grid-section {
+	@apply xl:grid xl:grid-cols-8 xl:gap-x-5 xl:px-20;
+}
+.sm-grid-section {
+	@apply sm:grid sm:grid-cols-8 sm:gap-x-5;
 }
 
 /* ============ TYPOGRAPHY ============
