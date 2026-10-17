@@ -32,10 +32,169 @@ export const load: PageServerLoad = async () => {
 		]
 	});
 
+	const services = await safeSingleton('Services', {
+		title: 'Services',
+		items: [
+			{
+				title: 'Web Design & Development',
+				problem:
+					"Right now, someone is looking for what you do. Without a good website, they choose someone else. Let's make sure they choose you.",
+				what: "What it is: your business's home online. It shows who you are, what you offer and how to reach you, on phone and computer.",
+				href: '/services/web-design'
+			},
+			{
+				title: 'SEO',
+				problem:
+					"Every day, people search Google for your service. If you're not on the first page, your competitors get the call.",
+				what: 'What it is: we make your website easy for Google to understand and show, so you appear when people search.',
+				href: '/services/seo'
+			},
+			{
+				title: 'Ads',
+				problem:
+					"Your competitors are already on your clients' screens. Ads put you there too, from the first week.",
+				what: 'What it is: paid ads that show your business to the right people on Google and Social Media. You choose the budget, we do the rest.',
+				href: '/services/ads'
+			},
+			{
+				title: 'Mobile app',
+				problem:
+					'Your clients spend hours on their phone. An app keeps you one tap away, so they come back to you, not to someone else.',
+				what: 'What it is: an app your clients download on their phone. They can book, buy or hear from you in one tap.',
+				href: '/services/mobile-app'
+			}
+		]
+	});
+
+	const ourWork = await safeSingleton('OurWork', {
+		tag: 'Our work',
+		title: "Businesses we've helped grow",
+		items: [
+			{
+				name: 'Brussels Summit Academy',
+				category: 'Football academy',
+				type: 'Website',
+				tagline: 'A sporty website that brings in new players',
+				image: '/images/work/bsa.webp',
+				href: 'https://brussels-summitacademy.be/'
+			},
+			{
+				name: 'Shiynelly Lashes',
+				category: 'Lash studio',
+				type: 'Website',
+				tagline: 'An elegant website with online booking',
+				image: '/images/work/shiynelly.webp',
+				href: 'https://shiynellylashes.com/'
+			},
+			{
+				name: 'Entraide Bruxelles',
+				category: 'Non-profit',
+				type: 'Website',
+				tagline: "A fresh website that's easy to read",
+				image: '/images/work/entraide.webp',
+				href: 'https://www.entraide-bruxelles.be/'
+			},
+			{
+				name: 'Yaniswash',
+				category: 'Carwash',
+				type: 'Website',
+				tagline: 'Book a car wash in a few clicks',
+				image: '/images/work/yaniswash.webp',
+				href: 'https://yaniswash.be'
+			},
+			{
+				name: 'Inesscoach',
+				category: 'Football mental coaching',
+				type: 'Website',
+				tagline: 'Book and pay for a session online',
+				image: '/images/work/inesscoach.webp',
+				href: 'https://www.iness-coach.com/'
+			}
+		]
+	});
+
+	const quiz = await safeSingleton('Quiz', {
+		tag: 'Quiz',
+		title: 'Not sure where to start?',
+		intro:
+			"That's okay, most people aren't. Answer 3 quick questions and we'll point you the right way. No call needed.",
+		questionsLabel: 'Questions',
+		recommendationLabel: 'Our recommendation',
+		cta: "Let's do it"
+	});
+
+	// ⚠️ Textes d'exemple : à remplacer par les vrais avis des clients (ou à leur faire valider) avant la mise en ligne
+	const reviews = await safeSingleton('Reviews', {
+		label: 'What our client says',
+		items: [
+			{
+				quote:
+					'Best designer in town, good job, good person, always listening. Thanks to Unix we have a lot more views from all over.',
+				name: 'InessCoach',
+				role: 'Founder',
+				logo: '/images/reviews/inesscoach.png'
+			},
+			{
+				quote:
+					'Our new website is clear and easy to read for everyone. Families find our activities in a few seconds, and we get more sign-ups every month.',
+				name: 'Entraide Bruxelles',
+				role: 'Coordinator',
+				logo: '/images/reviews/entraide.png'
+			},
+			{
+				quote:
+					'Unix understood our academy right away. The website feels sporty and proud, and new players now sign up directly online.',
+				name: 'Brussels Summit Academy',
+				role: 'Founder',
+				logo: '/images/reviews/bsa.png'
+			}
+		]
+	});
+
+	const faq = await safeSingleton('Faq', {
+		tag: 'FAQ',
+		title: 'Good to know',
+		text: "Can't find your question? We usually respond on the same day.",
+		linkLabel: 'Get in touch',
+		linkHref: '/contact',
+		items: [
+			{
+				question: "I don't know what I need. Where do I start?",
+				answer: 'With the 3-question quiz. It tells you which service fits and what it costs.'
+			},
+			{
+				question: 'Do I have to call you?',
+				answer: "Not at all. Form, email or WhatsApp work just fine. We only call if you'd like us to."
+			},
+			{
+				question: 'Can I change the text myself later?',
+				answer: 'Yes. If you like, we add a simple editor so you can change text and photos yourself.'
+			},
+			{
+				question: 'Who owns the website?',
+				answer: 'You do. The website, the domain and all accounts are in your name.'
+			},
+			{
+				question: 'What if something breaks?',
+				answer: 'For one year after launch, we fix any technical bug for free.'
+			}
+		]
+	});
+
+	const marquee = await safeSingleton('Marquee', {
+		items: ['Bloom your business', 'Get found', 'Get clients', 'Grow online', 'Stress less']
+	});
+
 	const blocks = [
 		{ type: 'HeroBlock', props: hero },
 		{ type: 'TitleLineBlock', props: titleLine },
-		{ type: 'WhatWeDoBlock', props: whatWeDo }
+		{ type: 'WhatWeDoBlock', props: whatWeDo },
+		{ type: 'ServicesBlock', props: services },
+		{ type: 'OurWorkBlock', props: ourWork },
+		{ type: 'QuizBlock', props: quiz },
+		{ type: 'ReviewsBlock', props: reviews },
+		{ type: 'FaqBlock', props: faq },
+		{ type: 'MarqueeBlock', props: marquee }
 	];
 
 	return { blocks };
