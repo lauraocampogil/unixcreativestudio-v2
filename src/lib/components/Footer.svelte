@@ -89,7 +89,7 @@
 		<a
 			bind:this={cta}
 			href="/contact"
-			class="relative col-span-8 flex min-h-[380px] cursor-pointer flex-col justify-between overflow-hidden rounded-section bg-primary-dark p-3 sm:p-8 lg:h-[596px] lg:px-12 lg:py-10"
+			class="relative col-span-8 flex min-h-[380px] cursor-pointer flex-col justify-between overflow-hidden rounded-section bg-primary-dark p-6 sm:p-8 lg:h-[596px] lg:px-12 lg:py-10"
 		>
 			<p class="max-w-[440px] font-display text-[clamp(2rem,1.6rem+1.6vw,3rem)] leading-[1.02] font-bold">
 				Every big business started small.
