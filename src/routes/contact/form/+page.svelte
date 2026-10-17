@@ -169,7 +169,7 @@
 			class="pointer-events-none absolute -right-[55%] bottom-0 w-[110%] max-w-none select-none sm:-right-[35%] sm:w-[80%] lg:inset-y-0 lg:right-0 lg:h-full lg:w-auto lg:translate-x-1/2"
 		/>
 		<div class="relative col-span-8 flex flex-col items-start xl:col-span-4">
-			<h1 class="font-sans text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] leading-[0.95] font-bold text-primary-dark">
+			<h1 class="font-display text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] leading-[0.95] font-bold text-primary-dark">
 				Thank you for reaching us!
 			</h1>
 			<p class="mt-6 max-w-[420px] font-sans text-base text-dark lg:text-xl">
@@ -213,7 +213,7 @@
 						<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
 						<span class="relative font-display text-xl font-bold text-background">{step}.</span>
 					</span>
-					<h1 class="font-sans text-2xl leading-tight font-bold text-primary-dark lg:text-[32px]">
+					<h1 class="font-display text-2xl leading-tight font-bold text-primary-dark lg:text-[32px]">
 						<span class="sr-only">Step {step} of {TOTAL}: </span>{TITLES[step - 1]}
 					</h1>
 				</div>
