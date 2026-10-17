@@ -10,6 +10,7 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import favicon from '#lib/assets/favicon.svg';
 	import Footer from '#lib/components/Footer.svelte';
+	import Nav from '#lib/components/Nav.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -35,6 +36,8 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
+
+<Nav />
 
 {@render children()}
 
