@@ -37,7 +37,10 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Nav />
+<!-- Pas de nav dans le formulaire : on reste concentré sur les questions -->
+{#if !page.url.pathname.includes('/contact/form')}
+	<Nav />
+{/if}
 
 {@render children()}
 
