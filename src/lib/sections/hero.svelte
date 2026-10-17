@@ -1,7 +1,7 @@
 <script lang="ts">
 	let {
 		title = 'Plant your idea. Watch your business grow.',
-		subtitle = 'We are a small, friendly studio in Brussels. We make websites, apps and Google work for you. Clear prices, no tech talk, no stress.'
+		subtitle = 'We are a small, friendly studio in" Brussels". We make websites, apps and Google work for you. Clear prices, no tech talk, no stress.'
 	}: { title?: string; subtitle?: string } = $props();
 
 </script>
