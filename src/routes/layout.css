@@ -37,6 +37,13 @@
 	font-weight: 700;
 	font-display: swap;
 }
+@font-face {
+	font-family: 'Haskoy';
+	src: url('/fonts/Haskoy-SemiBoldItalic.woff2') format('woff2');
+	font-weight: 600;
+	font-style: italic;
+	font-display: swap;
+}
 
 /* ============ TOKENS (from Figma variables) ============ */
 @theme {
