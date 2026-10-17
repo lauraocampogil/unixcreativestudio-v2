@@ -15,7 +15,7 @@
 				{#each row as text, i (`${copy}-${i}`)}
 					<li class="flex items-center gap-4 pr-10">
 						<img src="/assets/flower-marquee.svg" alt="" class="w-10 shrink-0" />
-						<span class="font-display text-2xl leading-none font-bold whitespace-nowrap text-background uppercase">
+						<span class="font-display text-2xl leading-none font-black whitespace-nowrap text-background uppercase">
 							{text}
 						</span>
 					</li>
