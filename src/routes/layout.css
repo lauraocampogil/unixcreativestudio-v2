@@ -70,7 +70,8 @@
    Figma desktop : 8 colonnes, gouttière 20px, marges 80px (contenu 1280px).
    Mobile : padding 20px (px-5). */
 .grid-section {
-	@apply xl:grid xl:grid-cols-8 xl:gap-x-5 xl:px-20;
+	/* Grille du site : 20px de marge en mobile, 8 colonnes + 80px de marge en desktop */
+	@apply px-5 xl:grid xl:grid-cols-8 xl:gap-x-5 xl:px-20;
 }
 .sm-grid-section {
 	@apply sm:grid sm:grid-cols-8 sm:gap-x-5;
