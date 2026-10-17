@@ -9,6 +9,7 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import favicon from '#lib/assets/favicon.svg';
+	import Footer from '#lib/components/Footer.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -18,7 +19,7 @@
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		gsap.registerPlugin(ScrollTrigger);
 
-		const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+		const lenis = new Lenis({ lerp: 0.07, smoothWheel: true, wheelMultiplier: 0.9 });
 		lenis.on('scroll', ScrollTrigger.update);
 		const raf = (time: number) => lenis.raf(time * 1000);
 		gsap.ticker.add(raf);
@@ -36,6 +37,8 @@
 </svelte:head>
 
 {@render children()}
+
+<Footer />
 
 <div style="display:none">
 	{#each locales as locale (locale)}
