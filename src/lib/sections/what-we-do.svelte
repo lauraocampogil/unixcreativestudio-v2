@@ -11,6 +11,7 @@
 </script>
 
 <section
+	id="what-we-do"
 	class="grid-section sm-grid-section flex flex-col gap-y-12 bg-background px-5 pt-12 pb-[92px] sm:px-8 md:px-10 lg:px-12 xl:gap-y-0 xl:pt-[100px] xl:pb-[172px] 3xl:container 3xl:mx-auto"
 >
 	<Tag label={tag} class="col-span-8" />
