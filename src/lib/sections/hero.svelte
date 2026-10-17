@@ -14,12 +14,14 @@
 		<!-- Blob haut : mobile / desktop -->
 		<img
 			src="/assets/blob-top-mobile.svg"
+			data-hero-blob="top"
 			alt=""
 			aria-hidden="true"
 			class="pointer-events-none absolute top-0 left-0 w-full max-w-none select-none lg:hidden"
 		/>
 		<img
 			src="/assets/blob-top.svg"
+			data-hero-blob="top"
 			alt=""
 			aria-hidden="true"
 			class="pointer-events-none absolute top-0 left-0 hidden w-[67.5%] max-w-none select-none lg:block"
@@ -27,19 +29,21 @@
 
 		<div class="relative col-span-8 mx-auto flex max-w-[925px] flex-col items-center gap-4 text-center text-background">
 			<h1 class="text-h1">{title}</h1>
-			<p class="max-w-[453px] text-xl leading-[1.15]">{subtitle}</p>
+			<p class="max-w-[453px] text-body-hero">{subtitle}</p>
 		</div>
 	</section>
 
 	<!-- Blob bas (statique) -->
 	<img
 		src="/assets/blob-bottom-mobile.svg"
+			data-hero-blob="bottom"
 		alt=""
 		aria-hidden="true"
 		class="pointer-events-none absolute bottom-0 left-0 w-full max-w-none select-none lg:hidden"
 	/>
 	<img
 		src="/assets/blob-bottom.svg"
+			data-hero-blob="bottom"
 		alt=""
 		aria-hidden="true"
 		class="pointer-events-none absolute right-0 bottom-0 hidden w-[65.5%] max-w-none select-none lg:block"

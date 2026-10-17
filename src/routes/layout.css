@@ -84,55 +84,222 @@
 	@apply sm:grid sm:grid-cols-8 sm:gap-x-5;
 }
 
-/* ============ TYPOGRAPHY ============
-   Fluid sizes: exact Figma mobile size at 393px,
-   exact Figma desktop size at 1440px, smooth in between. */
+/* ============ TYPOGRAPHY (design system) ============
+   Tailles fluides : taille mobile Figma à 393px → taille desktop Figma à 1440px.
+   Apfel Grotezk : Fett = 700, Satt = 900.  Haskoy : 400 / 500 / 600 / 700.
+   Une seule classe par style de texte : couleur et graisse peuvent s'ajouter à côté (ex. « text-body font-medium »). */
 
+/* ---- Apfel Grotezk (titres) ---- */
+
+/* Très grand titre de section — Our work (44 → 128, Satt) */
+@utility text-display-xl {
+	font-family: var(--font-display);
+	font-weight: 900;
+	text-transform: uppercase;
+	line-height: 0.9;
+	font-size: clamp(2.75rem, 0.7794rem + 8.0229vw, 8rem);
+}
+
+/* Titre de section — Services, How we work, page service (40 → 96, Satt) */
+@utility text-display {
+	font-family: var(--font-display);
+	font-weight: 900;
+	text-transform: uppercase;
+	line-height: 0.95;
+	font-size: clamp(2.5rem, 1.1862rem + 5.3486vw, 6rem);
+}
+
+/* Titre de page — Contact, Thank you (40 → 96, Fett) */
+@utility text-title {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 0.95;
+	font-size: clamp(2.5rem, 1.1862rem + 5.3486vw, 6rem);
+}
+
+/* H1 — hero, title line, FAQ (40 → 64, Satt) */
 @utility text-h1 {
 	font-family: var(--font-display);
 	font-weight: 900;
 	text-transform: uppercase;
 	line-height: 0.95;
-	font-size: clamp(2.5rem, 1.937rem + 2.2923vw, 4rem); /* 40 → 64 */
+	font-size: clamp(2.5rem, 1.937rem + 2.2923vw, 4rem);
 }
 
+/* CTA du footer (32 → 48, Fett) */
+@utility text-cta {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.02;
+	font-size: clamp(2rem, 1.6246rem + 1.5282vw, 3rem);
+}
+
+/* Titre de card — Services, Quiz (24 → 36, Fett) */
+@utility text-h2 {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.05;
+	font-size: clamp(1.5rem, 1.2185rem + 1.1461vw, 2.25rem);
+}
+
+/* Titre d'étape du formulaire (24 → 32, Fett) */
+@utility text-step {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.15;
+	font-size: clamp(1.5rem, 1.3123rem + 0.7641vw, 2rem);
+}
+
+/* Citation des reviews (22 → 28, Fett) */
+@utility text-quote {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.05;
+	font-size: clamp(1.375rem, 1.2342rem + 0.5731vw, 1.75rem);
+}
+
+/* Liens du footer (20 → 24, Fett) */
+@utility text-link {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.2;
+	font-size: clamp(1.25rem, 1.1562rem + 0.382vw, 1.5rem);
+}
+
+/* Email du footer (20 → 26, Fett) */
+@utility text-link-lg {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.2;
+	font-size: clamp(1.25rem, 1.1092rem + 0.5731vw, 1.625rem);
+}
+
+/* Tag (fleur + mot) (15 → 20, Fett) */
+@utility text-tag {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.05;
+	font-size: clamp(0.9375rem, 0.8202rem + 0.4776vw, 1.25rem);
+}
+
+/* Numéro dans la fleur rose (20, Fett) */
+@utility text-number {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1;
+	font-size: 1.25rem;
+}
+
+/* Liens du menu (28 mobile / 26 desktop, Fett, majuscules) */
+@utility text-menu {
+	font-family: var(--font-display);
+	font-weight: 700;
+	text-transform: uppercase;
+	line-height: 1;
+	font-size: 1.75rem;
+
+	@media (width >= 64rem) {
+		font-size: 1.625rem;
+	}
+}
+
+/* Boutons (20, Fett) et boutons de la nav (24, Fett) */
+@utility text-button {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1;
+	font-size: 1.25rem;
+}
+@utility text-button-lg {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1;
+	font-size: 1.5rem;
+}
+
+/* ---- Haskoy (textes) ---- */
+
+/* Grand texte d'intro — What we do, Quiz (20 → 32, SemiBold) */
 @utility text-lead {
 	font-family: var(--font-sans);
 	font-weight: 600;
 	line-height: 1.05;
-	font-size: clamp(1.25rem, 0.9685rem + 1.1461vw, 2rem); /* 20 → 32 */
+	font-size: clamp(1.25rem, 0.9685rem + 1.1461vw, 2rem);
 }
 
+/* Titre de card How we work (24 → 36, Bold) */
+@utility text-h2-sans {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	line-height: 1.15;
+	font-size: clamp(1.5rem, 1.2185rem + 1.1461vw, 2.25rem);
+}
+
+/* H3 — titres des étapes What we do, Quiz (20 → 28) */
 @utility text-h3 {
 	font-family: var(--font-sans);
 	font-weight: 700; /* Bold on mobile */
 	line-height: 1.2;
-	font-size: clamp(1.25rem, 1.0623rem + 0.7641vw, 1.75rem); /* 20 → 28 */
+	font-size: clamp(1.25rem, 1.0623rem + 0.7641vw, 1.75rem);
 
 	@media (width >= 64rem) {
 		font-weight: 600; /* SemiBold on desktop */
 	}
 }
 
+/* Sous-titre — description d'un service (20 → 24, SemiBold) */
+@utility text-subtitle {
+	font-family: var(--font-sans);
+	font-weight: 600;
+	line-height: 1.25;
+	font-size: clamp(1.25rem, 1.1562rem + 0.382vw, 1.5rem);
+}
+
+/* Grand texte — questions FAQ (20 → 24, Regular) */
+@utility text-large {
+	font-family: var(--font-sans);
+	font-weight: 400;
+	line-height: 1.15;
+	font-size: clamp(1.25rem, 1.1562rem + 0.382vw, 1.5rem);
+}
+
+/* Label de formulaire (20, Medium) */
+@utility text-label {
+	font-family: var(--font-sans);
+	font-weight: 500;
+	line-height: 1.2;
+	font-size: 1.25rem;
+}
+
+/* Texte courant (16 → 20, Regular) — ajouter font-medium / font-semibold / italic si besoin */
 @utility text-body {
 	font-family: var(--font-sans);
 	font-weight: 400;
 	line-height: 1.25;
-	font-size: clamp(1rem, 0.9062rem + 0.382vw, 1.25rem); /* 16 → 20 */
+	font-size: clamp(1rem, 0.9062rem + 0.382vw, 1.25rem);
 }
 
 @utility text-body-hero {
 	font-family: var(--font-sans);
 	font-weight: 400;
 	line-height: 1.15;
-	font-size: clamp(1rem, 0.9062rem + 0.382vw, 1.25rem); /* 16 → 20 */
+	font-size: clamp(1rem, 0.9062rem + 0.382vw, 1.25rem);
 }
 
-@utility text-tag {
-	font-family: var(--font-display);
-	font-weight: 700;
-	line-height: 1.05;
-	font-size: clamp(0.9375rem, 0.8202rem + 0.4776vw, 1.25rem); /* 15 → 20 */
+/* Petit texte — légendes, champs de formulaire (16, Regular) */
+@utility text-small {
+	font-family: var(--font-sans);
+	font-weight: 400;
+	line-height: 1.25;
+	font-size: 1rem;
+}
+
+/* Légende — Our work, reviews (14 → 16, Regular) */
+@utility text-caption {
+	font-family: var(--font-sans);
+	font-weight: 400;
+	line-height: 1.3;
+	font-size: clamp(0.875rem, 0.8281rem + 0.191vw, 1rem);
 }
 
 /* ============ BASE ============ */

@@ -9,6 +9,7 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { afterNavigate } from '$app/navigation';
+	import { smooth } from '#lib/smooth';
 	import favicon from '#lib/assets/favicon.svg';
 	import Footer from '#lib/components/Footer.svelte';
 	import Nav from '#lib/components/Nav.svelte';
@@ -39,6 +40,7 @@
 
 		const l = new Lenis({ lerp: 0.07, smoothWheel: true, wheelMultiplier: 0.9 });
 		lenis = l;
+		smooth.lenis = l;
 		l.on('scroll', ScrollTrigger.update);
 		const raf = (time: number) => l.raf(time * 1000);
 		gsap.ticker.add(raf);
@@ -48,6 +50,7 @@
 			gsap.ticker.remove(raf);
 			l.destroy();
 			lenis = undefined;
+			smooth.lenis = undefined;
 		};
 	});
 </script>

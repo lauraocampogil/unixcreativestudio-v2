@@ -112,7 +112,7 @@
 		<div bind:this={headerInner} class="flex flex-col items-center gap-4 will-change-transform">
 		<Tag label={tag} />
 		<h2
-			class="max-w-[1100px] font-display text-[clamp(2.75rem,0.9rem+7.5vw,8rem)] leading-[0.9] font-black text-primary-dark uppercase"
+			class="max-w-[1100px] text-display-xl text-primary-dark"
 		>
 			{title}
 		</h2>
@@ -144,7 +144,7 @@
 							class="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
 						/>
 					</div>
-					<p class="mt-3 text-sm text-dark xl:text-base">
+					<p class="mt-3 text-caption text-dark">
 						<strong class="font-bold uppercase">{item.name}</strong> | {item.category} · {item.type}
 						<span class="hidden xl:inline"> | {item.tagline}</span>
 					</p>

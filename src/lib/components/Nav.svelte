@@ -168,7 +168,7 @@
 		<!-- Gauche (desktop) : Contact us -->
 		<a
 			href="/contact"
-			class="pointer-events-auto hidden h-14 items-center rounded-pill px-[26px] font-display text-2xl font-bold transition-colors duration-500 lg:flex {pill}"
+			class="pointer-events-auto hidden h-14 items-center rounded-pill px-[26px] text-button-lg transition-colors duration-500 lg:flex {pill}"
 		>
 			Contact us
 		</a>
@@ -198,7 +198,7 @@
 				aria-expanded={open}
 				aria-controls="site-menu"
 				onclick={() => (open = !open)}
-				class="relative z-10 flex h-14 cursor-pointer items-center rounded-pill font-display text-2xl font-bold transition-[background-color,color,padding] duration-500 ease-in-out {open
+				class="relative z-10 flex h-14 cursor-pointer items-center rounded-pill text-button-lg transition-[background-color,color,padding] duration-500 ease-in-out {open
 					? `pr-[26px] pl-[66px] ${closePill}`
 					: `pr-[66px] pl-[26px] ${pill}`}"
 			>
@@ -225,7 +225,7 @@
 								<a
 									href={link.href}
 									onclick={close}
-									class="font-display text-[28px] leading-none font-bold uppercase transition-opacity hover:opacity-60 lg:text-[26px] {ink}"
+									class="text-menu transition-opacity hover:opacity-60 {ink}"
 								>
 									{link.label}
 								</a>
@@ -236,7 +236,7 @@
 							<a
 								href="/contact"
 								onclick={close}
-								class="font-display text-[28px] leading-none font-bold uppercase {ink}"
+								class="text-menu {ink}"
 							>
 								Contact
 							</a>

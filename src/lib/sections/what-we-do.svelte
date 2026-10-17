@@ -30,7 +30,7 @@
 				<div class="flex w-[50px] shrink-0 flex-col items-center">
 					<span class="relative grid size-[50px] place-items-center">
 						<img src="/assets/flower-step.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
-						<span class="relative font-display text-xl font-bold text-background">{i + 1}.</span>
+						<span class="relative text-number text-background">{i + 1}.</span>
 					</span>
 					{#if !last}
 						<span class="my-2.5 w-px flex-1 bg-primary" aria-hidden="true"></span>

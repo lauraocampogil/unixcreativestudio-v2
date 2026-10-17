@@ -91,10 +91,10 @@
 			href="/contact"
 			class="relative col-span-8 flex min-h-[380px] cursor-pointer flex-col justify-between overflow-hidden rounded-section bg-primary-dark p-6 sm:p-8 lg:h-[596px] lg:px-12 lg:py-10"
 		>
-			<p class="max-w-[440px] font-display text-[clamp(2rem,1.6rem+1.6vw,3rem)] leading-[1.02] font-bold">
+			<p class="max-w-[440px] text-cta">
 				Every big business started small.
 			</p>
-			<p class="self-end text-right font-display text-[clamp(2rem,1.6rem+1.6vw,3rem)] leading-[1.02] font-bold">
+			<p class="self-end text-right text-cta">
 				Let’s grow yours.
 			</p>
 
@@ -114,7 +114,7 @@
 		<!-- Infos -->
 		<a
 				href="mailto:{email}"
-				class="col-span-8 mt-14 block self-start font-display text-xl font-bold break-all hover:underline lg:text-[26px] xl:col-span-4 xl:mt-[140px]"
+				class="col-span-8 mt-14 block self-start text-link-lg break-all hover:underline xl:col-span-4 xl:mt-[140px]"
 			>
 				{email}
 			</a>
@@ -128,7 +128,7 @@
 									href={link.href}
 									target={'external' in link ? '_blank' : undefined}
 									rel={'external' in link ? 'noopener' : undefined}
-									class="font-display text-xl leading-tight font-bold hover:underline lg:text-2xl"
+									class="text-link hover:underline"
 								>
 									{link.label}
 								</a>

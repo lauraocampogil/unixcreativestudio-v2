@@ -35,7 +35,7 @@
 
 	<div class="relative col-span-8 max-w-[640px] xl:col-span-4 xl:max-w-none">
 		<h1
-			class="font-display text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] leading-[0.95] font-bold text-primary-dark lg:max-w-[560px]"
+			class="text-title text-primary-dark lg:max-w-[560px]"
 		>
 			Ready to grow your business?
 		</h1>
@@ -52,7 +52,7 @@
 						class="group flex items-center gap-3 px-1.5"
 					>
 						<!-- Texte sur 2 lignes fixes : le bouton reste collé au texte -->
-						<span class="font-sans text-base leading-[1.2] font-semibold whitespace-nowrap text-dark lg:text-xl">
+						<span class="text-body font-semibold whitespace-nowrap text-dark">
 							{action.lines[0]}<br />{action.lines[1]}
 						</span>
 						<!-- Bouton fleur 50px, comme sur les reviews -->

@@ -67,7 +67,7 @@
 			class="grid-section sticky top-0 flex h-svh flex-col items-center justify-start overflow-hidden rounded-section bg-primary-dark pt-24 pb-6 lg:justify-center lg:pt-32 lg:pb-16 motion-reduce:static motion-reduce:h-auto xl:content-center"
 		>
 			<h2
-				class="col-span-8 text-center font-display text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] leading-[0.95] font-black text-background uppercase"
+				class="col-span-8 text-center text-display text-background"
 			>
 				{title}
 			</h2>
@@ -84,13 +84,13 @@
 							class="absolute top-4 left-4 grid size-[44px] place-items-center lg:top-6 lg:left-6 lg:size-[60px]"
 						>
 							<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
-							<span class="relative font-display text-xl font-bold text-background">{i + 1}.</span>
+							<span class="relative text-number text-background">{i + 1}.</span>
 						</span>
 
-						<h3 class="pl-[58px] font-sans text-2xl leading-tight font-bold text-background lg:pl-0 lg:text-[36px]">
+						<h3 class="pl-[58px] text-h2-sans text-background lg:pl-0">
 							{item.title}
 						</h3>
-						<p class="pl-[58px] font-sans text-base leading-[1.2] font-medium text-background lg:pl-0 lg:text-xl">
+						<p class="pl-[58px] text-body font-medium text-background lg:pl-0">
 							{item.text}
 						</p>
 					</li>

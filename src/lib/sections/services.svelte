@@ -67,7 +67,7 @@
 			data-nav="blue"
 			class="grid-section sticky top-0 flex h-svh flex-col items-center overflow-hidden rounded-section bg-primary-accent pt-[96px] pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-[125px] xl:grid-rows-[auto_1fr]"
 		>
-			<h2 class="col-span-8 text-center text-h1 text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] text-background">{title}</h2>
+			<h2 class="col-span-8 text-center text-display text-background">{title}</h2>
 
 			<!-- Toutes les cards dans la même cellule de grille = empilées -->
 			<div
@@ -89,11 +89,11 @@
 						<div class="relative flex max-w-[560px] flex-col items-start">
 							<span class="relative grid size-[50px] place-items-center">
 								<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
-								<span class="relative font-display text-xl font-bold text-background">{i + 1}.</span>
+								<span class="relative text-number text-background">{i + 1}.</span>
 							</span>
 
 							<h3
-								class="mt-8 font-display text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)] leading-none font-bold text-background lg:mt-12"
+								class="mt-8 text-h2 text-background lg:mt-12"
 							>
 								{item.title}
 							</h3>

@@ -28,15 +28,15 @@
 	// $derived : la classe se met à jour quand `selected` change (sinon elle restait figée)
 	const variants: Record<Variant, string> = $derived({
 		// Fond crème, texte bleu — sur fonds bleus (« More information », « Let's do it »)
-		light: 'bg-background text-primary font-display font-bold text-xl hover:text-primary-dark',
+		light: 'bg-background text-primary text-button hover:text-primary-dark',
 		// Fond bleu, texte crème — sur fonds clairs (« Ok »)
-		solid: 'bg-primary text-background font-display font-bold text-xl hover:bg-primary-dark',
+		solid: 'bg-primary text-background text-button hover:bg-primary-dark',
 		// Contour bleu — choix du quiz (« Not yet »)
 		outline: selected
-			? 'border border-primary-accent bg-primary-accent text-background font-sans font-semibold text-base'
-			: 'border border-primary-accent bg-background text-primary-accent font-sans font-semibold text-base hover:bg-primary-accent/10',
+			? 'border border-primary-accent bg-primary-accent text-background text-small font-semibold'
+			: 'border border-primary-accent bg-background text-primary-accent text-small font-semibold hover:bg-primary-accent/10',
 		// Bouton du menu mobile (« Menu » + fleur)
-		menu: 'bg-background text-primary font-display font-bold text-2xl hover:text-primary-dark'
+		menu: 'bg-background text-primary text-button-lg hover:text-primary-dark'
 	});
 
 	const classes = $derived(`${base} ${variants[variant]} ${className}`);

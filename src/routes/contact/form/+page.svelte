@@ -134,7 +134,7 @@
 
 {#snippet field(label: string, name: string, placeholder: string, value: string, set: (v: string) => void, type = 'text', autocomplete = 'off', required = true)}
 	<label class="flex flex-col gap-3">
-		<span class="font-sans text-xl font-medium text-primary-dark">{label}</span>
+		<span class="text-label text-primary-dark">{label}</span>
 		<input
 			{name}
 			{type}
@@ -146,12 +146,12 @@
 				set(e.currentTarget.value);
 				if (showMissing) error = message(step);
 			}}
-			class="w-full border-b bg-transparent pb-2 font-sans text-base text-dark outline-none placeholder:text-dark-light focus:border-primary-dark {isMissing(value, required)
+			class="w-full border-b bg-transparent pb-2 text-small text-dark outline-none placeholder:text-dark-light focus:border-primary-dark {isMissing(value, required)
 				? 'border-[#d64545]'
 				: 'border-primary'}"
 		/>
 		{#if isMissing(value, required)}
-			<span class="-mt-1 font-sans text-sm text-[#d64545]">Please fill this in</span>
+			<span class="-mt-1 text-caption text-[#d64545]">Please fill this in</span>
 		{/if}
 	</label>
 {/snippet}
@@ -169,10 +169,10 @@
 			class="pointer-events-none absolute -right-[55%] bottom-0 w-[110%] max-w-none select-none sm:-right-[35%] sm:w-[80%] lg:inset-y-0 lg:right-0 lg:h-full lg:w-auto lg:translate-x-1/2"
 		/>
 		<div class="relative col-span-8 flex flex-col items-start xl:col-span-4">
-			<h1 class="font-display text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] leading-[0.95] font-bold text-primary-dark">
+			<h1 class="text-title text-primary-dark">
 				Thank you for reaching us!
 			</h1>
-			<p class="mt-6 max-w-[420px] font-sans text-base text-dark lg:text-xl">
+			<p class="mt-6 max-w-[420px] text-body text-dark">
 				Your message is on its way. We’ll get back to you within 24-48 hours with a clear plan and a fixed
 				price.
 			</p>
@@ -211,9 +211,9 @@
 				<div class="flex items-center gap-4" aria-live="polite">
 					<span class="relative grid size-[50px] shrink-0 place-items-center">
 						<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
-						<span class="relative font-display text-xl font-bold text-background">{step}.</span>
+						<span class="relative text-number text-background">{step}.</span>
 					</span>
-					<h1 class="font-display text-2xl leading-tight font-bold text-primary-dark lg:text-[32px]">
+					<h1 class="text-step text-primary-dark">
 						<span class="sr-only">Step {step} of {TOTAL}: </span>{TITLES[step - 1]}
 					</h1>
 				</div>
@@ -249,7 +249,7 @@
 							{@render field('Business name', '', 'Martin’s studio', business, (v) => (business = v), 'text', 'organization')}
 						{:else if step === 2}
 							<fieldset>
-								<legend class="font-sans text-base text-dark-light">Pick one or more</legend>
+								<legend class="text-small text-dark-light">Pick one or more</legend>
 								<div class="mt-4 flex flex-wrap gap-2.5">
 									{#each SERVICE_OPTIONS as [value, label] (value)}
 										<Button variant="outline" selected={services.includes(value)} onclick={() => toggleService(value)}>
@@ -277,14 +277,14 @@
 							{@render field('Phone (optional)', 'phone', '+32', phone, (v) => (phone = v), 'tel', 'tel', false)}
 							<!-- Liste déroulante native (comme AKIS) : s'ouvre avec le menu du système -->
 							<label class="flex flex-col gap-3">
-								<span class="font-sans text-xl font-medium text-primary-dark">How did you hear about us?</span>
+								<span class="text-label text-primary-dark">How did you hear about us?</span>
 								<span class="relative">
 									<select
 										name="source"
 										bind:value={source}
 										onchange={() => showMissing && (error = message(step))}
 										aria-invalid={isMissing(source) || undefined}
-										class="w-full cursor-pointer appearance-none border-b bg-transparent pr-8 pb-2 font-sans text-base outline-none focus:border-primary-dark {source
+										class="w-full cursor-pointer appearance-none border-b bg-transparent pr-8 pb-2 text-small outline-none focus:border-primary-dark {source
 											? 'text-dark'
 											: 'text-dark-light'} {isMissing(source) ? 'border-[#d64545]' : 'border-primary'}"
 									>
@@ -300,13 +300,13 @@
 									></span>
 								</span>
 								{#if isMissing(source)}
-									<span class="-mt-1 font-sans text-sm text-[#d64545]">Please pick one</span>
+									<span class="-mt-1 text-caption text-[#d64545]">Please pick one</span>
 								{/if}
 							</label>
 						{/if}
 
 						{#if error}
-							<p class="-mt-3 font-sans text-sm text-[#d64545]" role="alert">{error}</p>
+							<p class="-mt-3 text-caption text-[#d64545]" role="alert">{error}</p>
 						{/if}
 
 						<div>

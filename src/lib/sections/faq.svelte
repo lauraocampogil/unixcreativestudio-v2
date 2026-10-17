@@ -60,7 +60,7 @@
 						aria-expanded={isOpen}
 						aria-controls="faq-a-{i}"
 						onclick={() => toggle(i)}
-						class="group flex w-full cursor-pointer items-center transition-opacity duration-300 group-hover/list:opacity-35 group-hover/item:opacity-100! group-focus-within/item:opacity-100! justify-between gap-6 px-5 py-6 text-left text-[clamp(1.25rem,1.1rem+0.5vw,1.5rem)] leading-[1.15] text-primary-dark lg:px-2.5 lg:py-7"
+						class="group flex w-full cursor-pointer items-center transition-opacity duration-300 group-hover/list:opacity-35 group-hover/item:opacity-100! group-focus-within/item:opacity-100! justify-between gap-6 px-5 py-6 text-left text-large text-primary-dark lg:px-2.5 lg:py-7"
 					>
 						<span class="max-w-[260px] sm:max-w-none">{item.question}</span>
 

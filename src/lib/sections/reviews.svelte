@@ -111,15 +111,15 @@
 						class="flex flex-col [grid-area:1/1]"
 					>
 						<blockquote
-							class="max-w-[450px] font-display text-[clamp(1.375rem,1.1rem+0.9vw,1.75rem)] leading-[1.05] font-bold text-primary-dark"
+							class="max-w-[450px] text-quote text-primary-dark"
 						>
 							{current?.quote}
 						</blockquote>
 						<figcaption class="mt-10 flex items-center gap-3 lg:mt-[90px]">
 							<img src={current?.logo} alt="" class="size-12 shrink-0 rounded-full object-contain lg:size-14" />
 							<span class="flex flex-col leading-tight">
-								<span class="text-base font-medium text-dark lg:text-lg">{current?.name}</span>
-								<span class="text-sm text-dark-light">{current?.role}</span>
+								<span class="text-body font-medium text-dark">{current?.name}</span>
+								<span class="text-caption text-dark-light">{current?.role}</span>
 							</span>
 						</figcaption>
 					</figure>

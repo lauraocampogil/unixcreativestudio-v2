@@ -101,7 +101,7 @@
 			{#each QUESTIONS as q, i (q.key)}
 				<li>
 					<fieldset>
-						<legend class="px-1.5 font-sans text-base font-semibold text-primary-dark xl:text-lg">
+						<legend class="px-1.5 text-body font-semibold text-primary-dark">
 							{i + 1}. {q.label}
 						</legend>
 						<div class="mt-4 flex flex-wrap gap-2.5">
@@ -153,7 +153,7 @@
 					<h3
 						in:fly={{ y: 24, duration: 450, easing: cubicOut, delay: 120 }}
 						out:fly={{ y: -24, duration: 250 }}
-						class="max-w-[260px] font-display text-[clamp(1.75rem,1.5rem+0.8vw,2.25rem)] leading-[1.05] font-bold text-background [grid-area:1/1]"
+						class="max-w-[260px] text-h2 text-background [grid-area:1/1]"
 					>
 						{recommendation.name}
 					</h3>
