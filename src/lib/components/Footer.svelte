@@ -83,7 +83,7 @@
 	});
 </script>
 
-<footer class="overflow-hidden bg-primary text-background 3xl:container 3xl:mx-auto">
+<footer data-nav="blue" class="overflow-hidden bg-primary text-background 3xl:container 3xl:mx-auto">
 	<div class="px-3 pt-10 sm:px-8 lg:px-12 xl:px-20 xl:pt-[70px]">
 		<!-- CTA -->
 		<a

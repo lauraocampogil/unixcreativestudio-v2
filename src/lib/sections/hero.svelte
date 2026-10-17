@@ -8,6 +8,7 @@
 
 <div class="relative z-10 3xl:container 3xl:mx-auto">
 	<section
+		data-nav="blue"
 		class="relative flex min-h-[640px] items-center justify-center overflow-clip rounded-t-section bg-primary px-6 lg:h-[964px]"
 	>
 		<!-- Blob haut : mobile / desktop -->

@@ -64,7 +64,8 @@
 		style="--n: {items.length}"
 	>
 		<div
-			class="sticky top-0 flex h-svh flex-col items-center overflow-hidden rounded-section bg-primary-accent px-5 pt-16 pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-20"
+			data-nav="blue"
+			class="sticky top-0 flex h-svh flex-col items-center overflow-hidden rounded-section bg-primary-accent px-5 pt-[96px] pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-[125px]"
 		>
 			<h2 class="text-center text-h1 text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] text-background">{title}</h2>
 

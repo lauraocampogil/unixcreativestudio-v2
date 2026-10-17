@@ -89,7 +89,7 @@
 
 <!-- La "piste" donne la durée du scroll ; la partie sticky reste à l'écran pendant l'animation -->
 <section bind:this={section} class="relative -mt-3 3xl:container 3xl:mx-auto">
-	<div bind:this={track} class="relative h-[260svh]">
+	<div bind:this={track} data-nav="blue" class="relative h-[260svh]">
 		<div bind:this={stage} class="sticky top-0 h-svh overflow-hidden bg-background">
 			<!-- Uniquement le blob, étiré verticalement depuis le hero -->
 			<img

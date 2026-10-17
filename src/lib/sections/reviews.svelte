@@ -54,6 +54,7 @@
 </script>
 
 <section
+	data-nav="blue"
 	id="reviews"
 	bind:this={section}
 	class="relative overflow-hidden bg-primary-dark px-5 py-[120px] sm:px-8 lg:py-[270px] 3xl:container 3xl:mx-auto"
