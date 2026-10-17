@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
 	import { page } from '$app/state';
+	import { afterNavigate } from '$app/navigation';
 	import { locales, getLocale, localizeHref } from '#lib/paraglide/runtime.js';
 
 	// Logo « Unix Studio » : si le SVG existe, on l'insère et sa couleur suit la nav
@@ -36,6 +37,13 @@
 	let panel = $state<HTMLElement>();
 	let menuButton = $state<HTMLButtonElement>();
 
+	let recheck = () => {};
+	// Changement de page (home ↔ contact…) : le scroll ne bouge pas forcément, on revérifie
+	afterNavigate(() => {
+		open = false;
+		recheck();
+	});
+
 	// --- Couleur de la nav selon la section qui passe dessous (comme BSA) ---
 	$effect(() => {
 		if (!nav) return;
@@ -53,6 +61,10 @@
 			if (!frame) frame = requestAnimationFrame(check);
 		};
 		check();
+		recheck = () => {
+			// on attend que la nouvelle page soit affichée avant de regarder ce qu'il y a sous la nav
+			setTimeout(check, 60);
+		};
 		window.addEventListener('scroll', onScroll, { passive: true });
 		window.addEventListener('resize', onScroll);
 		return () => {
@@ -150,7 +162,7 @@
 
 <header
 	bind:this={nav}
-	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-5 pt-5 lg:px-[70px] lg:pt-[30px] 3xl:container 3xl:mx-auto"
+	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-5 pt-5 xl:px-20 lg:pt-[30px] 3xl:container 3xl:mx-auto"
 >
 	<div class="relative flex items-center justify-between">
 		<!-- Gauche (desktop) : Contact us -->

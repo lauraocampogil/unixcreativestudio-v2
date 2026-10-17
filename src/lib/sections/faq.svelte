@@ -28,7 +28,7 @@
 
 <section
 	id="faq"
-	class="grid-section sm-grid-section flex flex-col gap-y-12 bg-background px-5 pt-16 pb-[92px] sm:px-8 md:px-10 lg:px-12 xl:pt-[100px] xl:pb-[160px] 3xl:container 3xl:mx-auto"
+	class="grid-section sm-grid-section flex flex-col gap-y-12 bg-background pt-16 pb-[92px] xl:pt-[100px] xl:pb-[160px] 3xl:container 3xl:mx-auto"
 >
 	<!-- Gauche : reste collé en haut de l'écran et descend avec le scroll (desktop) -->
 	<div class="col-span-8 xl:col-span-3">

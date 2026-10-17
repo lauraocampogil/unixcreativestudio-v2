@@ -9,7 +9,7 @@
 <div class="relative z-10 3xl:container 3xl:mx-auto">
 	<section
 		data-nav="blue"
-		class="relative flex min-h-[640px] items-center justify-center overflow-clip rounded-t-section bg-primary px-6 lg:h-[964px]"
+		class="grid-section relative flex min-h-[640px] items-center justify-center overflow-clip rounded-t-section bg-primary lg:h-[964px] xl:content-center"
 	>
 		<!-- Blob haut : mobile / desktop -->
 		<img
@@ -25,7 +25,7 @@
 			class="pointer-events-none absolute top-0 left-0 hidden w-[67.5%] max-w-none select-none lg:block"
 		/>
 
-		<div class="relative flex max-w-[925px] flex-col items-center gap-4 text-center text-background">
+		<div class="relative col-span-8 mx-auto flex max-w-[925px] flex-col items-center gap-4 text-center text-background">
 			<h1 class="text-h1">{title}</h1>
 			<p class="max-w-[453px] text-xl leading-[1.15]">{subtitle}</p>
 		</div>

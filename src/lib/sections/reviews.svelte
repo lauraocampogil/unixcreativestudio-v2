@@ -57,16 +57,15 @@
 	data-nav="blue"
 	id="reviews"
 	bind:this={section}
-	class="relative overflow-hidden bg-primary-dark px-5 py-[120px] sm:px-8 lg:py-[270px] 3xl:container 3xl:mx-auto"
+	class="grid-section relative overflow-hidden bg-primary-dark py-[120px] lg:py-[270px] 3xl:container 3xl:mx-auto"
 	aria-roledescription="carousel"
 	aria-label="Client reviews"
 >
 	<!-- Rangée de mascottes (300px) qui glisse avec le scroll -->
-	<div
-		bind:this={row}
-		class="pointer-events-none absolute top-1/2 left-0 flex -translate-y-1/2 will-change-transform"
-		aria-hidden="true"
-	>
+	<!-- Le centrage vertical est sur un conteneur à part : GSAP n'anime que la rangée (x),
+	     sinon il reprend le « translate » CSS et la rangée descend en revenant sur la page -->
+	<div class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2" aria-hidden="true">
+	<div bind:this={row} class="flex w-max will-change-transform">
 		{#each MASCOTS as rotate, i (i)}
 			<img
 				src="/assets/flower-review.svg"
@@ -76,10 +75,11 @@
 			/>
 		{/each}
 	</div>
+	</div>
 
 	<!-- Card -->
 	<div
-		class="relative mx-auto grid max-w-[927px] rounded-section bg-background p-7 sm:p-10 lg:grid-cols-[1fr_2fr] lg:gap-x-10 lg:px-[92px] lg:py-[60px]"
+		class="relative col-span-8 mx-auto grid w-full max-w-[927px] rounded-section bg-background p-7 sm:p-10 lg:grid-cols-[1fr_2fr] lg:gap-x-10 lg:px-[92px] lg:py-[60px]"
 	>
 		<!-- Flèches : en haut à gauche sur desktop, en bas sur mobile -->
 		<div class="order-last mt-8 flex gap-3 lg:order-none lg:mt-0 lg:items-start">

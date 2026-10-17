@@ -82,7 +82,7 @@
 </script>
 
 <section
-	class="grid-section sm-grid-section flex flex-col bg-background px-5 pt-12 pb-[92px] sm:px-8 md:px-10 lg:px-12 xl:pt-[60px] xl:pb-[140px] 3xl:container 3xl:mx-auto"
+	class="grid-section sm-grid-section flex flex-col bg-background pt-12 pb-[92px] xl:pt-[60px] xl:pb-[140px] 3xl:container 3xl:mx-auto"
 >
 	<Tag label={tag} class="col-span-8" />
 

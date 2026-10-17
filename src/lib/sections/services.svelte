@@ -65,13 +65,13 @@
 	>
 		<div
 			data-nav="blue"
-			class="sticky top-0 flex h-svh flex-col items-center overflow-hidden rounded-section bg-primary-accent px-5 pt-[96px] pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-[125px]"
+			class="grid-section sticky top-0 flex h-svh flex-col items-center overflow-hidden rounded-section bg-primary-accent pt-[96px] pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-[125px] xl:grid-rows-[auto_1fr]"
 		>
-			<h2 class="text-center text-h1 text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] text-background">{title}</h2>
+			<h2 class="col-span-8 text-center text-h1 text-[clamp(2.5rem,1.1862rem+5.3486vw,6rem)] text-background">{title}</h2>
 
 			<!-- Toutes les cards dans la même cellule de grille = empilées -->
 			<div
-				class="grid w-full flex-1 place-items-center motion-reduce:mt-12 motion-reduce:flex motion-reduce:flex-col motion-reduce:gap-6"
+				class="col-span-8 grid w-full flex-1 place-items-center motion-reduce:mt-12 motion-reduce:flex motion-reduce:flex-col motion-reduce:gap-6"
 			>
 				{#each items as item, i (item.title)}
 					<article

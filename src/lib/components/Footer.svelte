@@ -84,12 +84,12 @@
 </script>
 
 <footer data-nav="blue" class="overflow-hidden bg-primary text-background 3xl:container 3xl:mx-auto">
-	<div class="px-3 pt-10 sm:px-8 lg:px-12 xl:px-20 xl:pt-[70px]">
+	<div class="grid-section pt-10 xl:pt-[70px]">
 		<!-- CTA -->
 		<a
 			bind:this={cta}
 			href="/contact"
-			class="relative flex min-h-[380px] cursor-pointer flex-col justify-between overflow-hidden rounded-section bg-primary-dark p-3 sm:p-8 lg:h-[596px] lg:px-12 lg:py-10"
+			class="relative col-span-8 flex min-h-[380px] cursor-pointer flex-col justify-between overflow-hidden rounded-section bg-primary-dark p-3 sm:p-8 lg:h-[596px] lg:px-12 lg:py-10"
 		>
 			<p class="max-w-[440px] font-display text-[clamp(2rem,1.6rem+1.6vw,3rem)] leading-[1.02] font-bold">
 				Every big business started small.
@@ -112,15 +112,14 @@
 		</a>
 
 		<!-- Infos -->
-		<div class="mt-14 flex flex-col gap-10 lg:mt-[140px] lg:flex-row lg:justify-between">
-			<a
+		<a
 				href="mailto:{email}"
-				class="font-display text-xl font-bold break-all hover:underline lg:text-[26px]"
+				class="col-span-8 mt-14 block self-start font-display text-xl font-bold break-all hover:underline lg:text-[26px] xl:col-span-4 xl:mt-[140px]"
 			>
 				{email}
 			</a>
 
-			<nav aria-label="Footer" class="flex flex-col gap-8 lg:flex-row lg:gap-12">
+			<nav aria-label="Footer" class="col-span-8 mt-10 flex flex-col gap-8 lg:flex-row lg:gap-12 xl:col-span-4 xl:col-start-5 xl:mt-[140px] xl:justify-between">
 				{#each columns as links, c (c)}
 					<ul class="flex flex-col gap-3 lg:max-w-[260px]">
 						{#each links as link (link.label)}
@@ -138,7 +137,6 @@
 					</ul>
 				{/each}
 			</nav>
-		</div>
 	</div>
 
 	<!-- Logo Unix : on n'en voit que la moitié du haut -->

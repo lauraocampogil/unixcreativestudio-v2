@@ -107,10 +107,10 @@
 				class="pointer-events-none absolute -top-3 left-0 hidden h-svh w-full max-w-none origin-top will-change-transform select-none lg:block"
 			/>
 
-			<div class="absolute inset-0 flex items-center justify-center">
+			<div class="grid-section absolute inset-0 flex items-center justify-center xl:content-center">
 				<h2
 					bind:this={heading}
-					class="max-w-[351px] px-5 text-center text-h1 text-background lg:max-w-[600px]"
+					class="col-span-8 mx-auto max-w-[351px] text-center text-h1 text-background lg:max-w-[600px]"
 				>
 					{title}
 				</h2>

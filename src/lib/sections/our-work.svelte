@@ -20,7 +20,14 @@
 	}: { tag?: string; title?: string; items?: Project[] } = $props();
 
 	// Escalier : chaque projet sur sa propre ligne, décalé (comme la maquette)
-	const STAIRS = ['mr-auto', 'ml-auto', 'ml-[12%] xl:ml-[20%]', 'mr-auto', 'ml-auto'];
+	// Mobile : décalage gauche / droite. Desktop : 4 colonnes de la grille, une ligne par projet
+	const STAIRS = [
+		'mr-auto xl:col-span-4 xl:col-start-1 xl:row-start-1',
+		'ml-auto xl:col-span-4 xl:col-start-5 xl:row-start-2',
+		'ml-[12%] xl:col-span-4 xl:col-start-3 xl:row-start-3',
+		'mr-auto xl:col-span-4 xl:col-start-1 xl:row-start-4',
+		'ml-auto xl:col-span-4 xl:col-start-5 xl:row-start-5'
+	];
 	// De combien le titre descend avant de rester fixe (0.12 = 12% de l'écran)
 	const DROP = 0.12;
 	// Vitesse de parallaxe de chaque image (px) : donne de la profondeur
@@ -101,7 +108,7 @@
 <section
 	id="work" bind:this={section} class="relative bg-background 3xl:container 3xl:mx-auto">
 	<!-- Tag + grand titre : restent fixes pendant tout le scroll de la section -->
-	<div bind:this={header} class="sticky top-0 h-svh px-5 pt-16 text-center xl:pt-[100px]">
+	<div bind:this={header} class="sticky top-0 h-svh px-5 pt-16 text-center xl:px-20 xl:pt-[100px]">
 		<div bind:this={headerInner} class="flex flex-col items-center gap-4 will-change-transform">
 		<Tag label={tag} />
 		<h2
@@ -114,12 +121,12 @@
 
 	<!-- Les projets remontent par-dessus le titre -->
 	<ul
-		class="relative z-10 -mt-[100svh] flex flex-col gap-y-20 px-5 pt-[90svh] pb-[30svh] sm:px-8 lg:px-12 xl:gap-y-28 xl:px-20"
+		class="grid-section relative z-10 -mt-[100svh] flex flex-col gap-y-20 pt-[90svh] pb-[30svh] xl:gap-y-28"
 	>
 		{#each items as item, i (item.name)}
 			<li
 				bind:this={projects[i]}
-				class="w-[85%] sm:w-[70%] lg:w-[48%] {STAIRS[i % STAIRS.length]}"
+				class="max-xl:w-[85%] sm:max-xl:w-[70%] lg:max-xl:w-[48%] xl:mx-0 {STAIRS[i % STAIRS.length]}"
 			>
 				<a
 					href={item.href}
