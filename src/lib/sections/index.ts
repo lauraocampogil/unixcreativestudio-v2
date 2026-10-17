@@ -1,3 +1,9 @@
 export { default as HeroBlock } from './hero.svelte';
 export { default as WhatWeDoBlock } from './what-we-do.svelte';
 export { default as TitleLineBlock } from './title-line.svelte';
+export { default as ServicesBlock } from './services.svelte';
+export { default as OurWorkBlock } from './our-work.svelte';
+export { default as QuizBlock } from './quiz.svelte';
+export { default as ReviewsBlock } from './reviews.svelte';
+export { default as FaqBlock } from './faq.svelte';
+export { default as MarqueeBlock } from './marquee.svelte';
