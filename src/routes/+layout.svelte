@@ -8,6 +8,7 @@
 	import Lenis from 'lenis';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { afterNavigate } from '$app/navigation';
 	import favicon from '#lib/assets/favicon.svg';
 	import Footer from '#lib/components/Footer.svelte';
 	import Nav from '#lib/components/Nav.svelte';
@@ -15,20 +16,38 @@
 
 	let { children }: LayoutProps = $props();
 
+	// Changement de page : la hauteur de la page change (home ↔ contact).
+	// Les animations au scroll qui restent (ex. logo du footer) doivent recalculer leurs positions.
+	// Lenis garde sa propre position de scroll : sans ça, on arrive en bas de la nouvelle page
+	let lenis: Lenis | undefined;
+
+	afterNavigate(({ to, type }) => {
+		// Nouvelle page sans ancre (#services…) → on repart tout en haut, sans animation
+		if (type !== 'popstate' && !to?.url.hash) {
+			lenis?.scrollTo(0, { immediate: true, force: true });
+			window.scrollTo(0, 0);
+		}
+		setTimeout(() => {
+			ScrollTrigger.refresh();
+		}, 100);
+	});
+
 	// Scroll fluide (Lenis) synchronisé avec GSAP ScrollTrigger
 	$effect(() => {
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		gsap.registerPlugin(ScrollTrigger);
 
-		const lenis = new Lenis({ lerp: 0.07, smoothWheel: true, wheelMultiplier: 0.9 });
-		lenis.on('scroll', ScrollTrigger.update);
-		const raf = (time: number) => lenis.raf(time * 1000);
+		const l = new Lenis({ lerp: 0.07, smoothWheel: true, wheelMultiplier: 0.9 });
+		lenis = l;
+		l.on('scroll', ScrollTrigger.update);
+		const raf = (time: number) => l.raf(time * 1000);
 		gsap.ticker.add(raf);
 		gsap.ticker.lagSmoothing(0);
 
 		return () => {
 			gsap.ticker.remove(raf);
-			lenis.destroy();
+			l.destroy();
+			lenis = undefined;
 		};
 	});
 </script>
