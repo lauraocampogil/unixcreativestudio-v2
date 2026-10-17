@@ -25,7 +25,8 @@
 	const base =
 		'inline-flex items-center justify-center gap-1.5 rounded-pill px-[26px] py-3 text-center whitespace-nowrap transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark';
 
-	const variants: Record<Variant, string> = {
+	// $derived : la classe se met à jour quand `selected` change (sinon elle restait figée)
+	const variants: Record<Variant, string> = $derived({
 		// Fond crème, texte bleu — sur fonds bleus (« More information », « Let's do it »)
 		light: 'bg-background text-primary font-display font-bold text-xl hover:text-primary-dark',
 		// Fond bleu, texte crème — sur fonds clairs (« Ok »)
@@ -36,7 +37,7 @@
 			: 'border border-primary-accent bg-background text-primary-accent font-sans font-semibold text-base hover:bg-primary-accent/10',
 		// Bouton du menu mobile (« Menu » + fleur)
 		menu: 'bg-background text-primary font-display font-bold text-2xl hover:text-primary-dark'
-	};
+	});
 
 	const classes = $derived(`${base} ${variants[variant]} ${className}`);
 </script>
