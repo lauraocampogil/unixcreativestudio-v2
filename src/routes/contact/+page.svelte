@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import { m } from '#lib/paraglide/messages.js';
 	import { l } from '#lib/i18n.ts';
+	import Seo from '#lib/components/Seo.svelte';
 
 	// Lien Google Agenda « prise de rendez-vous » (Google Meet, avec tes horaires dispo)
 	// → Google Agenda > Créer > Planning de rendez-vous > Partager > copier le lien
@@ -17,10 +18,7 @@
 	]);
 </script>
 
-<svelte:head>
-	<title>{m.contact_meta_title()}</title>
-	<meta name="description" content={m.contact_meta_description()} />
-</svelte:head>
+<Seo title={m.contact_meta_title()} description={m.contact_meta_description()} />
 
 <main
 	class="grid-section relative min-h-svh overflow-hidden bg-background pt-37.5 pb-30 xl:content-start xl:pt-67.5 3xl:container 3xl:mx-auto"

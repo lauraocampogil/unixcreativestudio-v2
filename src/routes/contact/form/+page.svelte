@@ -7,6 +7,7 @@
 	import { tick } from 'svelte';
 	import Button from '#lib/components/Button.svelte';
 	import { m } from '#lib/paraglide/messages.js';
+	import Seo from '#lib/components/Seo.svelte';
 
 	let { form } = $props();
 
@@ -138,10 +139,7 @@
 	const done = $derived(form?.success === true);
 </script>
 
-<svelte:head>
-	<title>{m.form_meta_title()}</title>
-	<meta name="robots" content="noindex" />
-</svelte:head>
+<Seo title={m.form_meta_title()} description={m.contact_meta_description()} noindex />
 
 {#snippet field(label: string, name: string, placeholder: string, value: string, set: (v: string) => void, type = 'text', autocomplete: HTMLInputAttributes['autocomplete'] = 'off', required = true)}
 	<label class="flex flex-col gap-3">

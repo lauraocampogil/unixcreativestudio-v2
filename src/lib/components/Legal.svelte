@@ -2,6 +2,7 @@
 	import { reveal } from '#lib/actions/reveal.ts';
 	import { m } from '#lib/paraglide/messages.js';
 	import { l } from '#lib/i18n.ts';
+	import Seo from '#lib/components/Seo.svelte';
 	import type { LegalPage } from '#lib/content/legal/types.ts';
 
 	// Structure commune des pages légales (cookies, mentions, confidentialité)
@@ -12,11 +13,7 @@
 		text.replace(/href="(\/[^"]*)"/g, (_, href) => `href="${l(href)}"`);
 </script>
 
-<svelte:head>
-	<title>{content.title} — Unix Creative Studio</title>
-	<meta name="description" content={content.description} />
-	<meta name="robots" content="noindex" />
-</svelte:head>
+<Seo title="{content.title} — Unix Creative Studio" description={content.description} noindex />
 
 <main
 	class="grid-section min-h-svh bg-background pt-37.5 pb-24 xl:pt-50 xl:pb-40 3xl:container 3xl:mx-auto"

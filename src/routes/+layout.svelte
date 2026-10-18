@@ -11,7 +11,9 @@
 	import { afterNavigate, goto } from '$app/navigation';
 	import { visit } from '#lib/visit.ts';
 	import { smooth } from '#lib/smooth.ts';
-	import favicon from '#lib/assets/favicon.svg';
+	import { getLocale } from '#lib/i18n.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { SITE_URL, SITE_NAME, organization, jsonLd } from '#lib/seo.ts';
 	import Footer from '#lib/components/Footer.svelte';
 	import Nav from '#lib/components/Nav.svelte';
 	import PageTransition from '#lib/components/PageTransition.svelte';
@@ -97,7 +99,27 @@
 <svelte:head>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html `<script>document.documentElement.classList.add('js')</script>`}
-	<link rel="icon" href={favicon} />
+	<!-- Favicons (fleur Unix) -->
+	<link rel="icon" href="/favicon.ico" sizes="48x48" />
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	<link rel="manifest" href="/site.webmanifest" />
+	<meta name="theme-color" content="#94ADFF" />
+	<!-- schema.org : l'entreprise + le site (toutes les pages) -->
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- JSON-LD généré par le site -->
+	{@html jsonLd({
+		'@graph': [
+			organization(m.home_meta_description()),
+			{
+				'@type': 'WebSite',
+				'@id': `${SITE_URL}/#website`,
+				url: SITE_URL,
+				name: SITE_NAME,
+				inLanguage: getLocale(),
+				publisher: { '@id': `${SITE_URL}/#organization` }
+			}
+		]
+	})}
 	<!-- Google : la même page dans les autres langues -->
 	{#each locales as locale (locale)}
 		<link rel="alternate" hreflang={locale} href={new URL(localizeHref(page.url.pathname, { locale }), page.url.origin).href} />
