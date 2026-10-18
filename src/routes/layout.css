@@ -302,6 +302,90 @@
 	font-size: clamp(0.875rem, 0.8281rem + 0.191vw, 1rem);
 }
 
+/* ============ ANIMATION DE TEXTE ============
+   Les textes « data-reveal » sont cachés jusqu'à leur animation (seulement quand le JS est actif). */
+html.js [data-reveal] {
+	visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+	html.js [data-reveal] {
+		visibility: visible;
+	}
+}
+
+/* ============ HOVERS DES LIENS ET BOUTONS ============ */
+/* 1. Texte qui roule vers le haut en bloc (<Roll>) */
+.roll {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: top;
+}
+.roll-inner {
+	position: relative;
+	display: block;
+	transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* Dans les boutons : plus rapide et plus direct */
+.roll-fast .roll-inner {
+	transition: transform 0.35s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.roll-clone {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	display: block;
+	width: 100%;
+}
+@media (hover: hover) {
+	:is(a, button:not(:disabled)):hover .roll-inner {
+		transform: translateY(-100%);
+	}
+}
+:is(a, button):focus-visible .roll-inner {
+	transform: translateY(-100%);
+}
+
+/* 2. Ligne qui se dessine de gauche à droite (et repart vers la droite) */
+.link-line {
+	background: linear-gradient(currentColor, currentColor) no-repeat right bottom / 0 1px;
+	transition: background-size 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+	padding-bottom: 2px;
+}
+@media (hover: hover) {
+	.link-line:hover {
+		background-position: left bottom;
+		background-size: 100% 1px;
+	}
+}
+.link-line:focus-visible {
+	background-position: left bottom;
+	background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.roll-inner,
+	.link-line {
+		transition: none;
+	}
+}
+
+/* ============ TIMELINE QUI S'ALLUME (use:steps) ============ */
+[data-step] .step-flower,
+[data-step] .step-text {
+	transition:
+		filter 0.5s ease,
+		opacity 0.5s ease,
+		color 0.5s ease;
+}
+[data-step]:not(.is-active) .step-flower {
+	filter: grayscale(1);
+	opacity: 0.4;
+}
+[data-step]:not(.is-active) .step-text {
+	color: var(--color-dark-light);
+}
+
 /* ============ BASE ============ */
 @layer base {
 	html {
