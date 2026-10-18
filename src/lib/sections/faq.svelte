@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	import { slide, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 	import Tag from '#lib/components/Tag.svelte';
@@ -34,8 +35,8 @@
 	<div class="col-span-8 xl:col-span-3">
 		<div class="flex flex-col gap-6 xl:sticky xl:top-[100px]">
 			<Tag label={tag} />
-			<h2 class="max-w-[330px] text-h1 text-primary-accent">{title}</h2>
-			<p class="max-w-[340px] text-body text-dark-light">
+			<h2 data-reveal use:reveal class="max-w-[330px] text-h1 text-primary-accent">{title}</h2>
+			<p data-reveal use:reveal={{ delay: 0.15 }} class="max-w-[340px] text-body text-dark-light">
 				{text}
 				<a
 					href={linkHref}

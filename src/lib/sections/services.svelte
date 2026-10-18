@@ -1,19 +1,57 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import Button from '#lib/components/Button.svelte';
+	import { afterNavigate } from '$app/navigation';
+	import { visit } from '#lib/visit';
+	import { smooth } from '#lib/smooth';
 
 	type Service = { title: string; problem: string; what: string; href: string };
 
 	let { title = 'Services', items = [] }: { title?: string; items?: Service[] } = $props();
 
+	// Retour depuis une page service : les 4 cards côte à côte (comme How we work), sans la pile
+	const spread = visit.fromService;
+	// Inclinaisons en mode « côte à côte » (desktop / mobile)
+	const SPREAD_DESKTOP = [-6, 3, -3, 6];
+	const SPREAD_MOBILE = [-2, 2, -1.5, 2.5];
+
+	let section = $state<HTMLElement>();
 	let track = $state<HTMLElement>();
 	let cards = $state<HTMLElement[]>([]);
 
 	// Inclinaison finale de chaque card dans la pile (en degrés)
 	const ROTATIONS = [-3, 2.5, -1.5, 3];
 
+	// En arrivant en mode côte à côte : on se place directement sur la section Services
+	afterNavigate(() => {
+		if (!spread || !section || visit.goingToSection) return;
+		const el = section;
+		setTimeout(() => {
+			const y = el.getBoundingClientRect().top + window.scrollY;
+			smooth.lenis?.scrollTo(y, { immediate: true, force: true });
+			window.scrollTo(0, y);
+		}, 60);
+	});
+
+	// Mode côte à côte : inclinaison de chaque card + petite entrée en cascade
 	$effect(() => {
+		if (!spread || cards.length !== items.length || !cards.length) return;
+		const els = [...cards];
+		const mm = gsap.matchMedia();
+		mm.add({ desktop: '(min-width: 1024px)', mobile: '(max-width: 1023px)' }, (ctx) => {
+			const rot = ctx.conditions?.desktop ? SPREAD_DESKTOP : SPREAD_MOBILE;
+			gsap.set(els, { rotation: (i) => rot[i % rot.length] });
+			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				gsap.from(els, { y: 80, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08, delay: 0.5 });
+			}
+		});
+		return () => mm.revert();
+	});
+
+	$effect(() => {
+		if (spread) return; // pas de pile au scroll en mode côte à côte
 		if (!track || cards.length !== items.length || cards.length < 1) return;
 		const trackEl = track;
 		const els = [...cards];
@@ -57,26 +95,31 @@
 
 <!-- Piste : 100svh de scroll par card. Sans animation (reduced motion) : simple liste -->
 <section
+	bind:this={section}
 	id="services" class="relative bg-background 3xl:container 3xl:mx-auto">
 	<div
 		bind:this={track}
-		class="relative h-[calc(var(--n)*100svh)] motion-reduce:h-auto"
+		class="relative {spread ? '' : 'h-[calc(var(--n)*100svh)]'} motion-reduce:h-auto"
 		style="--n: {items.length}"
 	>
 		<div
 			data-nav="blue"
-			class="grid-section sticky top-0 flex h-svh flex-col items-center overflow-hidden rounded-section bg-primary-accent pt-[96px] pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-[125px] xl:grid-rows-[auto_1fr]"
+			class="grid-section {spread ? 'min-h-svh pb-20 lg:pb-24' : 'sticky top-0 h-svh'} flex flex-col items-center overflow-hidden rounded-section bg-primary-accent pt-[96px] pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-[125px] xl:grid-rows-[auto_1fr]"
 		>
-			<h2 class="col-span-8 text-center text-display text-background">{title}</h2>
+			<h2 data-reveal use:reveal class="col-span-8 text-center text-display text-background">{title}</h2>
 
 			<!-- Toutes les cards dans la même cellule de grille = empilées -->
 			<div
-				class="col-span-8 grid w-full flex-1 place-items-center motion-reduce:mt-12 motion-reduce:flex motion-reduce:flex-col motion-reduce:gap-6"
+				class="col-span-8 w-full flex-1 {spread
+					? 'mt-10 flex flex-col lg:mt-16 lg:flex-row lg:items-stretch lg:justify-center'
+					: 'grid place-items-center motion-reduce:mt-12 motion-reduce:flex motion-reduce:flex-col motion-reduce:gap-6'}"
 			>
 				{#each items as item, i (item.title)}
 					<article
 						bind:this={cards[i]}
-						class="relative w-full max-w-[920px] overflow-hidden rounded-card bg-primary p-6 lg:rounded-section shadow-[0_10px_40px_-20px_rgb(0_0_0/0.25)] will-change-transform [grid-area:1/1] lg:p-10"
+						class="relative w-full overflow-hidden rounded-card bg-primary p-6 shadow-[0_10px_40px_-20px_rgb(0_0_0/0.25)] will-change-transform lg:rounded-section {spread
+							? '-mt-3 first:mt-0 lg:-mx-2 lg:mt-0 lg:flex lg:w-[300px] lg:flex-col lg:p-7'
+							: 'max-w-[920px] [grid-area:1/1] lg:p-10'}"
 					>
 						<!-- Grande fleur décorative à droite -->
 						<img
@@ -86,24 +129,25 @@
 							class="pointer-events-none absolute inset-y-0 -right-[12%] h-full w-auto max-w-none select-none sm:-right-[5%]"
 						/>
 
-						<div class="relative flex max-w-[560px] flex-col items-start">
+						<div class="relative flex max-w-[560px] flex-col items-start {spread ? 'lg:flex-1' : ''}">
 							<span class="relative grid size-[50px] place-items-center">
 								<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
 								<span class="relative text-number text-background">{i + 1}.</span>
 							</span>
 
 							<h3
-								class="mt-8 text-h2 text-background lg:mt-12"
+								class="text-h2 text-background {spread ? 'mt-6' : 'mt-8 lg:mt-12'}"
 							>
 								{item.title}
 							</h3>
 
-							<div class="mt-4 flex flex-col gap-3 text-body text-background">
+							<div class="mt-4 flex flex-col gap-3 text-background {spread ? 'text-small lg:mb-8' : 'text-body'}">
 								<p>{item.problem}</p>
 								<p>{item.what}</p>
 							</div>
 
-							<Button href={item.href} variant="light" class="mt-6 lg:mt-8">More information</Button>
+							<!-- côte à côte : le bouton est poussé en bas, au même niveau sur les 4 cards -->
+							<Button href={item.href} variant="light" class="mt-6 {spread ? 'lg:mt-auto' : 'lg:mt-8'}">More information</Button>
 						</div>
 					</article>
 				{/each}

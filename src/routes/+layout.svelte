@@ -8,11 +8,13 @@
 	import Lenis from 'lenis';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, goto } from '$app/navigation';
+	import { visit } from '#lib/visit';
 	import { smooth } from '#lib/smooth';
 	import favicon from '#lib/assets/favicon.svg';
 	import Footer from '#lib/components/Footer.svelte';
 	import Nav from '#lib/components/Nav.svelte';
+	import PageTransition from '#lib/components/PageTransition.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -31,6 +33,40 @@
 		setTimeout(() => {
 			ScrollTrigger.refresh();
 		}, 100);
+	});
+
+	// Liens vers une section de l'accueil (/#services, /#faq…) : on arrive directement sur la section, sans défilement.
+	// Depuis une autre page : on revient à l'accueil (avec la transition), puis on se place sur la section.
+
+	const scrollToSection = (id: string) => {
+		const target = document.getElementById(id);
+		if (!target) return;
+		if (lenis) lenis.scrollTo(target, { immediate: true, force: true });
+		else target.scrollIntoView();
+	};
+
+	$effect(() => {
+		const onClick = async (e: MouseEvent) => {
+			if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+			const link = (e.target as Element).closest?.('a[href^="/#"]') as HTMLAnchorElement | null;
+			if (!link || link.target === '_blank') return;
+			const id = link.getAttribute('href')!.slice(2);
+			e.preventDefault();
+
+			// Déjà sur l'accueil : on saute directement à la section
+			if (document.getElementById(id)) {
+				scrollToSection(id);
+				return;
+			}
+			// Autre page : retour à l'accueil, puis on se place sur la section
+			visit.goingToSection = true;
+			await goto('/');
+			await new Promise((r) => setTimeout(r, 150)); // laisse ScrollTrigger recalculer la page
+			visit.goingToSection = false;
+			scrollToSection(id);
+		};
+		document.addEventListener('click', onClick);
+		return () => document.removeEventListener('click', onClick);
 	});
 
 	// Scroll fluide (Lenis) synchronisé avec GSAP ScrollTrigger
@@ -56,6 +92,8 @@
 </script>
 
 <svelte:head>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html `<script>document.documentElement.classList.add('js')</script>`}
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
@@ -67,6 +105,9 @@
 {@render children()}
 
 <Footer />
+
+<!-- Animation entre les pages (blobs + logo) -->
+<PageTransition />
 
 <div style="display:none">
 	{#each locales as locale (locale)}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	import { fly, scale } from 'svelte/transition';
 	import { backOut, cubicOut } from 'svelte/easing';
 	import Tag from '#lib/components/Tag.svelte';
@@ -86,16 +87,17 @@
 >
 	<Tag label={tag} class="col-span-8" />
 
+	<!-- L'animation est sur chaque paragraphe (sur le bloc entier, le « gap » s'appliquait entre chaque ligne) -->
 	<div
 		class="col-span-8 mt-8 ml-auto flex max-w-[300px] flex-col gap-6 text-right text-lead text-primary-dark sm:max-w-[600px] xl:col-span-4 xl:col-start-5 xl:mt-6 xl:max-w-none"
 	>
-		<p>{title}</p>
-		<p>{intro}</p>
+		<p data-reveal use:reveal>{title}</p>
+		<p data-reveal use:reveal={{ delay: 0.15 }}>{intro}</p>
 	</div>
 
 	<!-- Questions -->
 	<div class="col-span-8 mt-14 xl:col-span-4 xl:mt-[110px]">
-		<h2 class="text-h3 text-primary-dark">{questionsLabel}</h2>
+		<h2 data-reveal use:reveal class="text-h3 text-primary-dark">{questionsLabel}</h2>
 
 		<ol class="mt-5 flex flex-col gap-10">
 			{#each QUESTIONS as q, i (q.key)}
@@ -123,7 +125,7 @@
 
 	<!-- Recommandation -->
 	<div class="col-span-8 mt-14 xl:col-span-4 xl:col-start-5 xl:mt-[110px]">
-		<h2 class="text-h3 text-primary-dark">{recommendationLabel}</h2>
+		<h2 data-reveal use:reveal class="text-h3 text-primary-dark">{recommendationLabel}</h2>
 
 		<div class="relative mt-5 h-[356px] w-full sm:max-w-[400px] xl:max-w-[335px]">
 		{#if !done}

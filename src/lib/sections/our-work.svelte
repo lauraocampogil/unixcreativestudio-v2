@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import Tag from '#lib/components/Tag.svelte';
@@ -89,20 +90,45 @@
 		gsap.set(cursorEl, { xPercent: -50, yPercent: -50, scale: 0 });
 		const moveX = gsap.quickTo(cursorEl, 'x', { duration: 0.5, ease: 'power3.out' });
 		const moveY = gsap.quickTo(cursorEl, 'y', { duration: 0.5, ease: 'power3.out' });
+		// La fleur s'affiche seulement quand la souris est vraiment sur une image.
+		// On vérifie aussi au scroll : la souris ne bouge pas, mais l'image peut partir sous elle.
+		let px = -1;
+		let py = -1;
+		let visible = false;
+		const check = () => {
+			if (px < 0) return;
+			const over = !!document.elementFromPoint(px, py)?.closest('[data-work-link]');
+			if (over === visible) return;
+			visible = over;
+			gsap.to(cursorEl, over
+				? { scale: 1, duration: 0.4, ease: 'back.out(1.7)', overwrite: 'auto' }
+				: { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' });
+		};
 		const onMove = (e: PointerEvent) => {
-			moveX(e.clientX);
-			moveY(e.clientY);
+			px = e.clientX;
+			py = e.clientY;
+			moveX(px);
+			moveY(py);
+			check();
+		};
+		const onOut = (e: PointerEvent) => {
+			if (e.relatedTarget) return; // la souris quitte la fenêtre
+			px = -1;
+			gsap.to(cursorEl, { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' });
+			visible = false;
 		};
 		window.addEventListener('pointermove', onMove);
+		window.addEventListener('scroll', check, { passive: true });
+		document.addEventListener('pointerout', onOut);
 
 		return () => {
 			window.removeEventListener('pointermove', onMove);
+			window.removeEventListener('scroll', check);
+			document.removeEventListener('pointerout', onOut);
 			mm.revert();
 		};
 	});
 
-	const showCursor = () => cursor && gsap.to(cursor, { scale: 1, duration: 0.4, ease: 'back.out(1.7)' });
-	const hideCursor = () => cursor && gsap.to(cursor, { scale: 0, duration: 0.3, ease: 'power2.in' });
 </script>
 
 <section
@@ -111,7 +137,7 @@
 	<div bind:this={header} class="sticky top-0 h-svh px-5 pt-16 text-center xl:px-20 xl:pt-[100px]">
 		<div bind:this={headerInner} class="flex flex-col items-center gap-4 will-change-transform">
 		<Tag label={tag} />
-		<h2
+		<h2 data-reveal use:reveal
 			class="max-w-[1100px] text-display-xl text-primary-dark"
 		>
 			{title}
@@ -133,8 +159,7 @@
 					target="_blank"
 					rel="noopener"
 					class="group block {finePointer ? 'cursor-none' : ''}"
-					onpointerenter={showCursor}
-					onpointerleave={hideCursor}
+					data-work-link
 				>
 					<div class="overflow-hidden rounded-card lg:rounded-section">
 						<img

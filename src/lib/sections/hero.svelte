@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	let {
 		title = 'Plant your idea. Watch your business grow.',
-		subtitle = 'We are a small, friendly studio in" Brussels". We make websites, apps and Google work for you. Clear prices, no tech talk, no stress.'
+		subtitle = 'We are a small, friendly studio in Brussels. We make websites, apps and Google work for you. Clear prices, no tech talk, no stress.'
 	}: { title?: string; subtitle?: string } = $props();
 
 </script>
@@ -28,8 +29,8 @@
 		/>
 
 		<div class="relative col-span-8 mx-auto flex max-w-[925px] flex-col items-center gap-4 text-center text-background">
-			<h1 class="text-h1">{title}</h1>
-			<p class="max-w-[453px] text-body-hero">{subtitle}</p>
+			<h1 data-reveal use:reveal class="text-h1">{title}</h1>
+			<p data-reveal use:reveal={{ delay: 0.2 }} class="max-w-[453px] text-body-hero">{subtitle}</p>
 		</div>
 	</section>
 

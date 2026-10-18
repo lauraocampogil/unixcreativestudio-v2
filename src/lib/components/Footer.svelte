@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -91,10 +92,10 @@
 			href="/contact"
 			class="relative col-span-8 flex min-h-[380px] cursor-pointer flex-col justify-between overflow-hidden rounded-section bg-primary-dark p-6 sm:p-8 lg:h-[596px] lg:px-12 lg:py-10"
 		>
-			<p class="max-w-[440px] text-cta">
+			<p data-reveal use:reveal class="max-w-[440px] text-cta">
 				Every big business started small.
 			</p>
-			<p class="self-end text-right text-cta">
+			<p data-reveal use:reveal={{ delay: 0.15 }} class="self-end text-right text-cta">
 				Let’s grow yours.
 			</p>
 
@@ -114,9 +115,9 @@
 		<!-- Infos -->
 		<a
 				href="mailto:{email}"
-				class="col-span-8 mt-14 block self-start text-link-lg break-all hover:underline xl:col-span-4 xl:mt-[140px]"
+				class="col-span-8 mt-14 block self-start text-link-lg break-all xl:col-span-4 xl:mt-[140px]"
 			>
-				{email}
+				<span class="link-line">{email}</span>
 			</a>
 
 			<nav aria-label="Footer" class="col-span-8 mt-10 flex flex-col gap-8 lg:flex-row lg:gap-12 xl:col-span-4 xl:col-start-5 xl:mt-[140px] xl:justify-between">
@@ -128,7 +129,7 @@
 									href={link.href}
 									target={'external' in link ? '_blank' : undefined}
 									rel={'external' in link ? 'noopener' : undefined}
-									class="text-link hover:underline"
+									class="link-line text-link"
 								>
 									{link.label}
 								</a>

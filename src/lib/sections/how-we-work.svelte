@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -66,7 +67,7 @@
 		<div
 			class="grid-section sticky top-0 flex h-svh flex-col items-center justify-start overflow-hidden rounded-section bg-primary-dark pt-24 pb-6 lg:justify-center lg:pt-32 lg:pb-16 motion-reduce:static motion-reduce:h-auto xl:content-center"
 		>
-			<h2
+			<h2 data-reveal use:reveal
 				class="col-span-8 text-center text-display text-background"
 			>
 				{title}

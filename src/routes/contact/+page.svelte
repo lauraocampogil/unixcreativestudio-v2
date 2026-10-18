@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '#lib/actions/reveal';
 	import { page } from '$app/state';
 
 	// Lien Google Agenda « prise de rendez-vous » (Google Meet, avec tes horaires dispo)
@@ -34,7 +35,7 @@
 	/>
 
 	<div class="relative col-span-8 max-w-[640px] xl:col-span-4 xl:max-w-none">
-		<h1
+		<h1 data-reveal use:reveal
 			class="text-title text-primary-dark lg:max-w-[560px]"
 		>
 			Ready to grow your business?

@@ -1,36 +1,37 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	import { fly, fade } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
+	import { SplitText } from 'gsap/SplitText';
+	import { screenReady } from '#lib/screen';
 
 	type Review = { quote: string; name: string; role: string; logo: string };
 
 	let { label = 'What our client says', items = [] }: { label?: string; items?: Review[] } = $props();
 
+	// Temps avant de passer automatiquement à l'avis suivant
+	const AUTOPLAY = 6000;
+
 	let section = $state<HTMLElement>();
 	let row = $state<HTMLElement>();
-	let index = $state(0);
-	let direction = $state(1); // 1 = suivant, -1 = précédent (sens de l'animation)
+	let stage = $state<HTMLElement>();
+	let card = $state<HTMLElement>();
+	const figures: HTMLElement[] = $state([]);
+	const counters: HTMLElement[] = $state([]);
 
-	const current = $derived(items[index]);
-
-	const go = (step: number) => {
-		direction = step;
-		index = (index + step + items.length) % items.length;
-	};
+	// Fonction branchée sur les flèches (définie quand le carrousel est prêt)
+	let go = $state<(step: number) => void>(() => {});
+	let current = $state(0); // avis affiché (pour les lecteurs d'écran)
 
 	// Mascottes derrière la card : inclinaison de chacune
 	const MASCOTS = [-8, 12, -20, 6, -14, 18, -6, 10];
 
+	// Mascottes : scroll vers le bas → à droite ; vers le haut → à gauche
 	$effect(() => {
 		if (!section || !row) return;
 		const rowEl = row;
 		const sectionEl = section;
 		gsap.registerPlugin(ScrollTrigger);
 		const mm = gsap.matchMedia();
-
-		// Scroll vers le bas → les mascottes vont à droite ; vers le haut → à gauche
 		mm.add('(prefers-reduced-motion: no-preference)', () => {
 			gsap.fromTo(
 				rowEl,
@@ -48,8 +49,169 @@
 				}
 			);
 		});
-
 		return () => mm.revert();
+	});
+
+	// Carrousel : les lignes sortent vers le haut, les nouvelles arrivent du bas
+	$effect(() => {
+		if (!section || !stage || !card || !figures.length) return;
+		gsap.registerPlugin(ScrollTrigger, SplitText);
+		const sectionEl = section;
+		const stageEl = stage;
+		const cardEl = card;
+		const n = items.length;
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		let killed = false;
+		let index = 0;
+		let entered = false; // la 1re entrée (au scroll) est faite
+		let visible = false;
+		let hovered = false;
+		let timer: ReturnType<typeof setTimeout> | undefined;
+		let tl: gsap.core.Timeline | undefined;
+		let intro: gsap.core.Tween | undefined;
+		const triggers: ScrollTrigger[] = [];
+		const splits: SplitText[] = [];
+		// Pour chaque avis : les lignes de chaque texte (compteur, citation, nom, rôle) + le logo
+		const parts = figures.map((fig, i) => ({
+			fig,
+			counter: counters[i],
+			lines: [] as Element[][],
+			logo: fig.querySelector<HTMLElement>('[data-logo]')
+		}));
+		const allLines = (i: number) => parts[i].lines.flat();
+
+
+		const schedule = () => {
+			clearTimeout(timer);
+			if (reduce || !entered || !visible || hovered || document.hidden || n < 2) return;
+			timer = setTimeout(() => goTo((index + 1) % n), AUTOPLAY);
+		};
+
+		const goTo = (next: number) => {
+			if (next === index || (!entered && !reduce)) return;
+			clearTimeout(timer);
+			tl?.progress(1); // si on clique pendant une animation, on la termine d'abord
+			const prev = index;
+			const from = parts[prev];
+			const to = parts[next];
+			index = next;
+			current = next;
+
+			if (reduce) {
+				gsap.set([from.fig, from.counter], { autoAlpha: 0 });
+				gsap.set([to.fig, to.counter], { autoAlpha: 1 });
+				return;
+			}
+
+			tl = gsap
+				.timeline({ onComplete: schedule })
+				// Sortie : tout monte et disparaît
+				.to(allLines(prev), { yPercent: -110, duration: 0.55, ease: 'power3.in', stagger: 0.03 })
+				.to(from.logo, { scale: 0, duration: 0.4, ease: 'power3.in' }, 0.1)
+				.set([from.fig, from.counter], { autoAlpha: 0 })
+				.set(allLines(prev), { yPercent: 110 }) // prêt à revenir par le bas
+				// Entrée : les nouvelles lignes arrivent du bas
+				.set([to.fig, to.counter], { autoAlpha: 1 })
+				.fromTo(
+					allLines(next),
+					{ yPercent: 110 },
+					{ yPercent: 0, duration: 0.9, ease: 'power4.out', stagger: 0.05 }
+				)
+				.fromTo(to.logo, { scale: 0 }, { scale: 1, duration: 0.7, ease: 'back.out(1.7)' }, '<0.15');
+		};
+
+		go = (step: number) => goTo((index + step + n) % n);
+
+		(async () => {
+			await document.fonts.ready;
+			await screenReady();
+			if (killed) return;
+
+			parts.forEach((p, i) => {
+				const targets = [p.counter, ...p.fig.querySelectorAll<HTMLElement>('[data-split]')];
+				targets.forEach((t, k) => {
+					splits.push(
+						SplitText.create(t, {
+							type: 'lines',
+							mask: 'lines',
+							autoSplit: true,
+							// Re-découpe au resize : on remet les lignes dans le bon état
+							onSplit(self) {
+								p.lines[k] = self.lines;
+								gsap.set(self.lines, { yPercent: i === index && (entered || reduce) ? 0 : 110 });
+							}
+						})
+					);
+				});
+				gsap.set([p.fig, p.counter], { autoAlpha: i === 0 ? 1 : 0 });
+				if (i !== 0) gsap.set(p.logo, { scale: 0 });
+			});
+			stageEl.style.visibility = 'visible';
+
+			if (reduce) {
+				entered = true;
+				return;
+			}
+
+			// Apparition de bas en haut quand on arrive, puis le texte reste.
+			// Il se cache seulement quand on remonte au-dessus de la section, pour rejouer ensuite.
+			const play = () => {
+				if (entered) return;
+				entered = true;
+				gsap.killTweensOf(allLines(index));
+				intro = gsap.to(allLines(index), {
+					yPercent: 0,
+					duration: 1,
+					ease: 'power4.out',
+					stagger: 0.06,
+					onComplete: schedule
+				});
+			};
+			const hide = () => {
+				tl?.progress(1);
+				intro?.kill();
+				clearTimeout(timer);
+				entered = false;
+				gsap.set(allLines(index), { yPercent: 110 });
+			};
+			triggers.push(
+				ScrollTrigger.create({ trigger: stageEl, start: 'top 88%', onEnter: play }),
+				ScrollTrigger.create({ trigger: stageEl, start: 'top bottom', onLeaveBack: hide })
+			);
+		})();
+
+		// Pause quand la section n'est pas à l'écran, au survol de la card, ou onglet caché
+		const io = new IntersectionObserver(([e]) => {
+			visible = e.isIntersecting;
+			if (visible) schedule();
+			else clearTimeout(timer);
+		});
+		io.observe(sectionEl);
+		const enter = () => {
+			hovered = true;
+			clearTimeout(timer);
+		};
+		const leave = () => {
+			hovered = false;
+			schedule();
+		};
+		cardEl.addEventListener('pointerenter', enter);
+		cardEl.addEventListener('pointerleave', leave);
+		document.addEventListener('visibilitychange', schedule);
+
+		return () => {
+			killed = true;
+			clearTimeout(timer);
+			tl?.kill();
+			triggers.forEach((t) => t.kill());
+			intro?.kill();
+			splits.forEach((sp) => sp.revert());
+			io.disconnect();
+			cardEl.removeEventListener('pointerenter', enter);
+			cardEl.removeEventListener('pointerleave', leave);
+			document.removeEventListener('visibilitychange', schedule);
+		};
 	});
 </script>
 
@@ -79,6 +241,7 @@
 
 	<!-- Card -->
 	<div
+		bind:this={card}
 		class="relative col-span-8 mx-auto grid w-full max-w-[927px] rounded-section bg-background p-7 sm:p-10 lg:grid-cols-[1fr_2fr] lg:gap-x-10 lg:px-[92px] lg:py-[60px]"
 	>
 		<!-- Flèches : en haut à gauche sur desktop, en bas sur mobile -->
@@ -96,34 +259,36 @@
 			{/each}
 		</div>
 
-		<div class="flex flex-col">
-			<p class="flex gap-4 text-body text-primary-dark" aria-live="polite">
-				<span>{index + 1}/{items.length}</span>
+		<!-- Tous les avis sont empilés : la card garde la hauteur du plus long, pas de saut -->
+		<div bind:this={stage} data-reveal class="flex flex-col">
+			<p class="flex gap-4 text-body text-primary-dark">
+				<span class="grid">
+					{#each items as _, i (i)}
+						<span bind:this={counters[i]} class="[grid-area:1/1] {i === 0 ? '' : 'invisible'}">{i + 1}/{items.length}</span>
+					{/each}
+				</span>
 				<span>{label}</span>
 			</p>
 
-			<!-- Le contenu change avec une petite animation -->
 			<div class="mt-8 grid lg:mt-[70px]">
-				{#key index}
+				{#each items as review, i (i)}
 					<figure
-						in:fly={{ x: 40 * direction, duration: 500, easing: cubicOut, delay: 150 }}
-						out:fade={{ duration: 150 }}
-						class="flex flex-col [grid-area:1/1]"
+						bind:this={figures[i]}
+						class="flex flex-col [grid-area:1/1] {i === 0 ? '' : 'invisible'}"
+						aria-hidden={i === current ? undefined : 'true'}
 					>
-						<blockquote
-							class="max-w-[450px] text-quote text-primary-dark"
-						>
-							{current?.quote}
+						<blockquote data-split class="max-w-[450px] text-quote text-primary-dark">
+							{review.quote}
 						</blockquote>
-						<figcaption class="mt-10 flex items-center gap-3 lg:mt-[90px]">
-							<img src={current?.logo} alt="" class="size-12 shrink-0 rounded-full object-contain lg:size-14" />
+						<figcaption class="mt-auto flex items-center gap-3 pt-10 lg:pt-[90px]">
+							<img data-logo src={review.logo} alt="" class="size-12 shrink-0 rounded-full object-contain lg:size-14" />
 							<span class="flex flex-col leading-tight">
-								<span class="text-body font-medium text-dark">{current?.name}</span>
-								<span class="text-caption text-dark-light">{current?.role}</span>
+								<span data-split class="text-body font-medium text-dark">{review.name}</span>
+								<span data-split class="text-caption text-dark-light">{review.role}</span>
 							</span>
 						</figcaption>
 					</figure>
-				{/key}
+				{/each}
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import Roll from './Roll.svelte';
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
 	type Variant = 'light' | 'solid' | 'outline' | 'menu';
@@ -42,9 +43,18 @@
 	const classes = $derived(`${base} ${variants[variant]} ${className}`);
 </script>
 
+<!-- Le texte roule vers le haut au survol, sauf pour le bouton menu et les choix du quiz (outline) -->
+{#snippet label()}
+	{#if variant === 'menu' || variant === 'outline'}
+		{@render children()}
+	{:else}
+		<span class="roll-fast"><Roll>{@render children()}</Roll></span>
+	{/if}
+{/snippet}
+
 {#if href}
 	<a {href} class={classes} {...rest as HTMLAnchorAttributes}>
-		{@render children()}
+		{@render label()}
 	</a>
 {:else}
 	<button
@@ -53,6 +63,6 @@
 		aria-pressed={variant === 'outline' ? selected : undefined}
 		{...rest as HTMLButtonAttributes}
 	>
-		{@render children()}
+		{@render label()}
 	</button>
 {/if}

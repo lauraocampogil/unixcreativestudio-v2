@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Roll from './Roll.svelte';
 	import { gsap } from 'gsap';
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
@@ -170,12 +171,13 @@
 			href="/contact"
 			class="pointer-events-auto hidden h-14 items-center rounded-pill px-[26px] text-button-lg transition-colors duration-500 lg:flex {pill}"
 		>
-			Contact us
+			<span class="roll-fast"><Roll>Contact us</Roll></span>
 		</a>
 
 		<!-- Logo : à gauche en mobile, au centre en desktop -->
 		<a
 			href="/"
+			data-sveltekit-reload
 			aria-label="Unix Studio, home"
 			class="pointer-events-auto transition-colors duration-500 lg:absolute lg:left-1/2 lg:-translate-x-1/2 {onBlue
 				? 'text-background'
@@ -225,9 +227,9 @@
 								<a
 									href={link.href}
 									onclick={close}
-									class="text-menu transition-opacity hover:opacity-60 {ink}"
+									class="text-menu {ink}"
 								>
-									{link.label}
+									<Roll>{link.label}</Roll>
 								</a>
 							</li>
 						{/each}
@@ -238,7 +240,7 @@
 								onclick={close}
 								class="text-menu {ink}"
 							>
-								Contact
+								<Roll>Contact</Roll>
 							</a>
 						</li>
 					</ul>
@@ -252,7 +254,7 @@
 									href={s.href}
 									target="_blank"
 									rel="noopener"
-									class="text-lg font-medium uppercase hover:underline {ink}"
+									class="link-line text-lg font-medium uppercase {ink}"
 								>
 									{s.label}
 								</a>
