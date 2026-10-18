@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
 	import { onNavigate, afterNavigate } from '$app/navigation';
+	import { visit } from '#lib/visit.ts';
 	import { screen } from '#lib/screen.ts';
 
 	// Logo « U » avec la fleur (si le fichier existe, sinon un « U » en texte)
@@ -74,6 +75,7 @@
 	};
 
 	onNavigate((nav) => {
+		visit.navigated = true; // on arrive par la transition → pas de loader
 		const from = nav.from?.url;
 		const to = nav.to?.url;
 		// Pas d'animation : même page (ancre #services…), bouton retour, ou animations réduites

@@ -1,6 +1,6 @@
 <script lang="ts" module>
-	// Joué une seule fois par chargement complet de la page (Cmd+R le relance),
-	// mais pas quand on revient sur l'accueil depuis une autre page du site.
+	// Joué seulement quand on arrive directement sur l'accueil (ou Cmd+R dessus).
+	// Si on vient d'une autre page du site (contact → accueil), c'est la page transition qui joue.
 	let played = false;
 </script>
 
@@ -8,6 +8,7 @@
 	import { gsap } from 'gsap';
 	import { smooth } from '#lib/smooth.ts';
 	import { screen } from '#lib/screen.ts';
+	import { visit } from '#lib/visit.ts';
 
 	// Logos qui apparaissent l'un après l'autre (le « U » si le fichier existe, sinon un texte)
 	const monogram = import.meta.glob('/static/assets/logo-u.svg', { eager: true, query: '?url', import: 'default' });
@@ -17,7 +18,7 @@
 	let blobTop = $state<HTMLElement>();
 	let blobBottom = $state<HTMLElement>();
 	let logos = $state<HTMLElement[]>([]);
-	let done = $state(typeof window !== 'undefined' && played);
+	let done = $state(typeof window !== 'undefined' && (played || visit.navigated));
 
 	$effect(() => {
 		if (!loader || !blobTop || !blobBottom || logos.length < 3) return;
