@@ -97,14 +97,16 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<!-- Pas de nav dans le formulaire : on reste concentré sur les questions -->
-{#if !page.url.pathname.includes('/contact/form')}
+<!-- Pas de nav ni de footer sur le formulaire et la page d'erreur (404…) -->
+{#if !page.url.pathname.includes('/contact/form') && !page.error}
 	<Nav />
 {/if}
 
 {@render children()}
 
-<Footer />
+{#if !page.error}
+	<Footer />
+{/if}
 
 <!-- Animation entre les pages (blobs + logo) -->
 <PageTransition />
