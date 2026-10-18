@@ -1,3 +1,32 @@
-# allow crawling everything by default
+# Unix Creative Studio — tout le site peut être exploré
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /contact/form
+Disallow: /*/contact/form
+
+# Moteurs de réponse IA (GEO) : bienvenus, pour qu'ils puissent citer le studio
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://unixcreativestudio.com/sitemap.xml
