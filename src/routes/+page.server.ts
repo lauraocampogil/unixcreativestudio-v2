@@ -39,28 +39,24 @@ export const load: PageServerLoad = async () => {
 				title: 'Web Design & Development',
 				problem:
 					"Right now, someone is looking for what you do. Without a good website, they choose someone else. Let's make sure they choose you.",
-				what: "What it is: your business's home online. It shows who you are, what you offer and how to reach you, on phone and computer.",
 				href: '/services/web-design'
 			},
 			{
 				title: 'SEO',
 				problem:
 					"Every day, people search Google for your service. If you're not on the first page, your competitors get the call.",
-				what: 'What it is: we make your website easy for Google to understand and show, so you appear when people search.',
 				href: '/services/seo'
 			},
 			{
 				title: 'Ads',
 				problem:
 					"Your competitors are already on your clients' screens. Ads put you there too, from the first week.",
-				what: 'What it is: paid ads that show your business to the right people on Google and Social Media. You choose the budget, we do the rest.',
 				href: '/services/ads'
 			},
 			{
 				title: 'Mobile app',
 				problem:
 					'Your clients spend hours on their phone. An app keeps you one tap away, so they come back to you, not to someone else.',
-				what: 'What it is: an app your clients download on their phone. They can book, buy or hear from you in one tap.',
 				href: '/services/mobile-app'
 			}
 		]
@@ -164,11 +160,13 @@ export const load: PageServerLoad = async () => {
 			},
 			{
 				question: 'Do I have to call you?',
-				answer: "Not at all. Form, email or WhatsApp work just fine. We only call if you'd like us to."
+				answer:
+					"Not at all. Form, email or WhatsApp work just fine. We only call if you'd like us to."
 			},
 			{
 				question: 'Can I change the text myself later?',
-				answer: 'Yes. If you like, we add a simple editor so you can change text and photos yourself.'
+				answer:
+					'Yes. If you like, we add a simple editor so you can change text and photos yourself.'
 			},
 			{
 				question: 'Who owns the website?',
