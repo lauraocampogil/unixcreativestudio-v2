@@ -14,8 +14,15 @@ export const OG_LOCALE: Record<Locale, string> = {
 	nl: 'nl_BE'
 };
 
-// Réseaux sociaux : ajoute les vrais liens ici (ils partent dans schema.org « sameAs »)
-export const SOCIALS: string[] = [];
+// Réseaux sociaux : utilisés dans le menu, le footer et schema.org (« sameAs »)
+export const SOCIAL_LINKS = [
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/unix-studio-934090445/' },
+	{ label: 'Instagram', href: 'https://www.instagram.com/unix_studio_/' },
+	{ label: 'TikTok', href: 'https://www.tiktok.com/@unixcreativestudio' }
+];
+// Ajoute ici le lien de ta fiche Google Business Profile (bouton « Partager » sur ta fiche)
+const GOOGLE_BUSINESS = 'https://www.google.com/search?kgmid=/g/11zyj33hcq';
+export const SOCIALS: string[] = [...SOCIAL_LINKS.map((s) => s.href), ...(GOOGLE_BUSINESS ? [GOOGLE_BUSINESS] : [])];
 
 // Pages publiques, pour le sitemap (sans la langue : /fr, /es, /nl sont ajoutés automatiquement)
 export const PAGES = [

@@ -2,6 +2,7 @@
 	import { reveal } from '#lib/actions/reveal.ts';
 	import { m } from '#lib/paraglide/messages.js';
 	import { l } from '#lib/i18n.ts';
+	import { SOCIAL_LINKS } from '#lib/seo.ts';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -25,9 +26,7 @@
 			{ label: m.nav_faq(), href: l('/#faq') }
 		],
 		[
-			{ label: 'LinkedIn', href: '#', external: true },
-			{ label: 'Instagram', href: '#', external: true },
-			{ label: 'TikTok', href: '#', external: true }
+			...SOCIAL_LINKS.map((s) => ({ ...s, external: true }))
 		],
 		[
 			{ label: m.footer_cookies(), href: l('/cookies') },

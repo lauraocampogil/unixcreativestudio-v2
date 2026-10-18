@@ -6,6 +6,7 @@
 	import { locales, getLocale, localizeHref } from '#lib/paraglide/runtime.js';
 	import { m } from '#lib/paraglide/messages.js';
 	import { l } from '#lib/i18n.ts';
+	import { SOCIAL_LINKS } from '#lib/seo.ts';
 
 	// Logo « Unix Studio » : si le SVG existe, on l'insère et sa couleur suit la nav
 	const logos = import.meta.glob('/static/assets/unix-studio-logo.svg', {
@@ -25,11 +26,7 @@
 		{ label: m.nav_reviews(), href: l('/#reviews') },
 		{ label: m.nav_faq(), href: l('/#faq') }
 	];
-	const socials = [
-		{ label: 'LinkedIn', href: '#' },
-		{ label: 'Instagram', href: '#' },
-		{ label: 'TikTok', href: '#' }
-	];
+	const socials = SOCIAL_LINKS;
 
 	const ORDER = ['en', 'fr', 'es', 'nl'];
 
