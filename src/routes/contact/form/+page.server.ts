@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { PUBLIC_DIRECTUS_URL } from '$app/env/public';
 import { RESEND_API_KEY, DIRECTUS_SERVICE_TOKEN } from '$app/env/private';
+import { m } from '#lib/paraglide/messages.js';
 import type { Actions } from './$types';
 
 const TO = 'unixcreativestudio@gmail.com';
@@ -49,7 +50,7 @@ export const actions: Actions = {
 			!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) ||
 			!data.source
 		) {
-			return fail(400, { error: 'Some answers are missing. Please check the form.' });
+			return fail(400, { error: m.form_error_missing() });
 		}
 
 		const results = await Promise.allSettled([
@@ -96,7 +97,7 @@ export const actions: Actions = {
 		// Si ni l'email ni Directus n'ont marché, on prévient la personne
 		if (results.every((r) => r.status === 'rejected')) {
 			return fail(500, {
-				error: `Sorry, something went wrong. You can write to us directly at ${TO}.`
+				error: m.form_error_send({ email: TO })
 			});
 		}
 

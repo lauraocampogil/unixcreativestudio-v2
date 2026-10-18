@@ -4,6 +4,7 @@
 	import { backOut, cubicOut } from 'svelte/easing';
 	import Tag from '#lib/components/Tag.svelte';
 	import Button from '#lib/components/Button.svelte';
+	import { m } from '#lib/paraglide/messages.js';
 
 	let {
 		tag = 'Quiz',
@@ -26,38 +27,38 @@
 	const QUESTIONS: { key: Key; label: string; options: [string, string][] }[] = [
 		{
 			key: 'website',
-			label: 'Do you have a website?',
+			label: m.quiz_q_website(),
 			options: [
-				['no', 'Not yet'],
-				['dislike', 'Yes, but I don’t love it'],
-				['love', 'Yes, and I love it']
+				['no', m.quiz_website_no()],
+				['dislike', m.quiz_website_dislike()],
+				['love', m.quiz_website_love()]
 			]
 		},
 		{
 			key: 'goal',
-			label: 'What would help you most?',
+			label: m.quiz_q_goal(),
 			options: [
-				['google', 'Being found on Google'],
-				['clients', 'New clients'],
-				['app', 'An app for my clients']
+				['google', m.quiz_goal_google()],
+				['clients', m.quiz_goal_clients()],
+				['app', m.quiz_goal_app()]
 			]
 		},
 		{
 			key: 'when',
-			label: 'When would you like to start?',
+			label: m.quiz_q_when(),
 			options: [
-				['asap', 'As soon as possible'],
-				['soon', 'In 1–2 months'],
-				['norush', 'No rush']
+				['asap', m.when_asap()],
+				['soon', m.when_soon()],
+				['norush', m.when_norush()]
 			]
 		}
 	];
 
 	const SERVICES = {
-		web: { name: 'Web Design & Development', slug: 'web-design' },
-		seo: { name: 'SEO', slug: 'seo' },
-		ads: { name: 'Ads', slug: 'ads' },
-		app: { name: 'Mobile app', slug: 'mobile-app' }
+		web: { name: m.service_web(), slug: 'web-design' },
+		seo: { name: m.service_seo(), slug: 'seo' },
+		ads: { name: m.service_ads(), slug: 'ads' },
+		app: { name: m.service_app(), slug: 'mobile-app' }
 	};
 
 	let answers = $state<Record<Key, string | null>>({ website: null, goal: null, when: null });
@@ -133,7 +134,7 @@
 				out:fly={{ y: -10, duration: 200 }}
 				class="absolute top-0 left-0 max-w-75 text-body text-dark-light"
 			>
-				Answer the 3 questions and your recommendation will bloom here.
+				{m.quiz_waiting()}
 			</p>
 		{:else}
 		<article

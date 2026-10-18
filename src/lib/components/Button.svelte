@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import Roll from './Roll.svelte';
+	import { l } from '#lib/i18n.ts';
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
 	type Variant = 'light' | 'solid' | 'outline' | 'menu';
@@ -41,6 +42,9 @@
 	});
 
 	const classes = $derived(`${base} ${variants[variant]} ${className}`);
+
+	// Lien interne → dans la langue actuelle (« /contact » devient « /fr/contact »)
+	const target = $derived(href ? l(href) : href);
 </script>
 
 <!-- Le texte roule vers le haut au survol, sauf pour le bouton menu et les choix du quiz (outline) -->
@@ -53,7 +57,7 @@
 {/snippet}
 
 {#if href}
-	<a {href} class={classes} {...rest as HTMLAnchorAttributes}>
+	<a href={target} class={classes} {...rest as HTMLAnchorAttributes}>
 		{@render label()}
 	</a>
 {:else}

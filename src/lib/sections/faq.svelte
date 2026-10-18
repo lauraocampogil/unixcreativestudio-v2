@@ -3,6 +3,7 @@
 	import { slide, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 	import Tag from '#lib/components/Tag.svelte';
+	import { l } from '#lib/i18n.ts';
 
 	type Item = { question: string; answer: string };
 
@@ -39,7 +40,7 @@
 			<p data-reveal use:reveal={{ delay: 0.15 }} class="max-w-85 text-body text-dark-light">
 				{text}
 				<a
-					href={linkHref}
+					href={l(linkHref)}
 					class="underline underline-offset-2 transition-colors hover:text-primary-dark"
 				>
 					{linkLabel}

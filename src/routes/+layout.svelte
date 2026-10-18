@@ -2,7 +2,7 @@
 	import type { Path } from '$app/types';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import { locales, localizeHref } from '#lib/paraglide/runtime.js';
+	import { locales, localizeHref, deLocalizeUrl } from '#lib/paraglide/runtime.js';
 	import './layout.css';
 	import 'lenis/dist/lenis.css';
 	import Lenis from 'lenis';
@@ -48,9 +48,12 @@
 	$effect(() => {
 		const onClick = async (e: MouseEvent) => {
 			if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-			const link = (e.target as Element).closest?.('a[href^="/#"]') as HTMLAnchorElement | null;
+			const link = (e.target as Element).closest?.('a[href*="#"]') as HTMLAnchorElement | null;
 			if (!link || link.target === '_blank') return;
-			const id = link.getAttribute('href')!.slice(2);
+			// Seulement les ancres de l'accueil, dans n'importe quelle langue : /#faq, /fr/#faq…
+			const url = new URL(link.href);
+			if (url.origin !== location.origin || !url.hash || deLocalizeUrl(url).pathname !== '/') return;
+			const id = url.hash.slice(1);
 			e.preventDefault();
 
 			// Déjà sur l'accueil : on saute directement à la section
@@ -60,7 +63,7 @@
 			}
 			// Autre page : retour à l'accueil, puis on se place sur la section
 			visit.goingToSection = true;
-			await goto(resolve('/'));
+			await goto(resolve(localizeHref('/') as Path));
 			await new Promise((r) => setTimeout(r, 150)); // laisse ScrollTrigger recalculer la page
 			visit.goingToSection = false;
 			scrollToSection(id);
@@ -95,6 +98,11 @@
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html `<script>document.documentElement.classList.add('js')</script>`}
 	<link rel="icon" href={favicon} />
+	<!-- Google : la même page dans les autres langues -->
+	{#each locales as locale (locale)}
+		<link rel="alternate" hreflang={locale} href={new URL(localizeHref(page.url.pathname, { locale }), page.url.origin).href} />
+	{/each}
+	<link rel="alternate" hreflang="x-default" href={new URL(localizeHref(page.url.pathname, { locale: 'en' }), page.url.origin).href} />
 </svelte:head>
 
 <!-- Pas de nav ni de footer sur le formulaire et la page d'erreur (404…) -->

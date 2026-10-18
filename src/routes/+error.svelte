@@ -2,11 +2,12 @@
 	import { page } from '$app/state';
 	import { gsap } from 'gsap';
 	import Button from '#lib/components/Button.svelte';
-	import { httpErrors, errorTitle } from '#lib/http-errors.ts';
+	import { errorMessage, errorTitle } from '#lib/http-errors.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	const status = $derived(page.status);
 	const title = $derived(errorTitle(status));
-	const message = $derived(httpErrors[status] ?? page.error?.message ?? 'Something went wrong');
+	const message = $derived(errorMessage(status) ?? page.error?.message ?? m.error_title_generic());
 
 	// Les blobs du hero, en SVG inline pour pouvoir les animer
 	const svgs = import.meta.glob(
@@ -127,6 +128,6 @@
 		</p>
 		<h1 class="mt-4 text-h2-sans font-medium">{title}</h1>
 		<p class="mt-3 max-w-60 text-body-hero">{message}</p>
-		<Button href="/" variant="light" class="mt-6" data-sveltekit-reload>Go to home</Button>
+		<Button href="/" variant="light" class="mt-6" data-sveltekit-reload>{m.error_go_home()}</Button>
 	</div>
 </main>

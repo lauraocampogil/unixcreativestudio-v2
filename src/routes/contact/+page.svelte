@@ -1,26 +1,25 @@
 <script lang="ts">
 	import { reveal } from '#lib/actions/reveal.ts';
 	import { page } from '$app/state';
+	import { m } from '#lib/paraglide/messages.js';
+	import { l } from '#lib/i18n.ts';
 
 	// Lien Google Agenda « prise de rendez-vous » (Google Meet, avec tes horaires dispo)
 	// → Google Agenda > Créer > Planning de rendez-vous > Partager > copier le lien
 	const BOOKING_URL = 'https://calendar.app.google/JgfoukgBXh57z2n48';
 
 	// On garde le service recommandé par le quiz (?service=…&when=…) pour le formulaire
-	const formHref = $derived(`/contact/form${page.url.search}`);
+	const formHref = $derived(`${l('/contact/form')}${page.url.search}`);
 
 	const actions = $derived([
-		{ lines: ['Let’s have a', '30 min call'], href: BOOKING_URL, external: true },
-		{ lines: ['Don’t have time?', 'Text us'], href: formHref, external: false }
+		{ lines: [m.contact_call_1(), m.contact_call_2()], href: BOOKING_URL, external: true },
+		{ lines: [m.contact_text_1(), m.contact_text_2()], href: formHref, external: false }
 	]);
 </script>
 
 <svelte:head>
-	<title>Contact — Unix Creative Studio</title>
-	<meta
-		name="description"
-		content="Ready to grow your business? Book a free 30 min call or send us a message. We usually respond on the same day."
-	/>
+	<title>{m.contact_meta_title()}</title>
+	<meta name="description" content={m.contact_meta_description()} />
 </svelte:head>
 
 <main
@@ -38,7 +37,7 @@
 		<h1 data-reveal use:reveal
 			class="text-title text-primary-dark lg:max-w-140"
 		>
-			Ready to grow your business?
+			{m.contact_title()}
 		</h1>
 
 		<hr class="mt-10 border-primary lg:mt-14" />

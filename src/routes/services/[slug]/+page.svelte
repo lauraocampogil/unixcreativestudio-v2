@@ -3,6 +3,7 @@
 	import { reveal } from '#lib/actions/reveal.ts';
 	import HowWeWork from '#lib/sections/how-we-work.svelte';
 	import { visit } from '#lib/visit.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// Au retour sur l'accueil, Services s'affichera en cards côte à côte
 	$effect(() => {
@@ -35,7 +36,7 @@
 				{service.tagline}<br />{service.description}
 			</p>
 			<p data-reveal use:reveal={{ delay: 0.3 }} class="text-body font-semibold text-primary-dark italic">
-				Timeline: {service.timeline}
+				{m.service_timeline({ timeline: service.timeline })}
 			</p>
 		</div>
 
@@ -61,5 +62,5 @@
 		</ol>
 	</section>
 
-	<HowWeWork items={data.howWeWork} />
+	<HowWeWork title={m.how_we_work_title()} items={data.howWeWork} />
 </main>

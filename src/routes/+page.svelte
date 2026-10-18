@@ -1,16 +1,14 @@
 <script lang="ts">
 	import Builder from '#lib/sections/builder.svelte';
 	import Loader from '#lib/components/Loader.svelte';
+	import { m } from '#lib/paraglide/messages.js';
 
 	let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>Unix Creative Studio — Bloom your business</title>
-	<meta
-		name="description"
-		content="A small, friendly studio in Brussels. Websites, SEO, ads and mobile apps with clear prices and no tech talk."
-	/>
+	<title>{m.home_meta_title()}</title>
+	<meta name="description" content={m.home_meta_description()} />
 </svelte:head>
 
 <!-- Loader : seulement à la première visite de la session -->

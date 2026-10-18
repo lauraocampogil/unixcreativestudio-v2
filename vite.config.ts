@@ -19,7 +19,9 @@ export default defineConfig({
 		paraglideVitePlugin({
 			project: './project.inlang',
 			outdir: './src/lib/paraglide',
-			emitTsDeclarations: true
+			emitTsDeclarations: true,
+			// La langue vient de l'URL : / = anglais, /fr, /es, /nl (meilleur pour Google, aucun cookie)
+			strategy: ['url', 'baseLocale']
 		})
 	]
 });

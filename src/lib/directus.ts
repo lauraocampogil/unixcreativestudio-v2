@@ -21,17 +21,59 @@ export const assetUrl = (id: string | null | undefined, options: AssetOptions = 
 	return `${PUBLIC_DIRECTUS_URL}/assets/${id}?${params.toString()}`;
 };
 
-/** Lit un singleton sans faire planter la page si Directus est vide ou hors ligne. */
+// Champs techniques de Directus qu'on ne veut pas mélanger au contenu
+const META = new Set([
+	'id',
+	'languages_code',
+	'translations',
+	'user_created',
+	'user_updated',
+	'date_created',
+	'date_updated'
+]);
+
+/** Garde seulement les vrais champs remplis (une valeur vide dans Directus = on garde le texte par défaut). */
+const clean = (obj: Record<string, unknown> | null | undefined) =>
+	Object.fromEntries(
+		Object.entries(obj ?? {}).filter(
+			([key, value]) => !META.has(key) && !key.endsWith('_id') && value !== null && value !== ''
+		)
+	);
+
+/**
+ * Lit un singleton dans la langue demandée, sans faire planter la page si Directus est vide ou hors ligne.
+ * Ordre de priorité : traduction Directus (collection « <Nom>_translations ») → champs du singleton → texte par défaut du code.
+ */
 export async function safeSingleton<T extends Record<string, unknown>>(
 	name: string,
-	fallback: T
+	fallback: T,
+	locale = 'en'
 ): Promise<T> {
 	try {
-		const data = (await directus.request(readSingleton(name as never))) as Partial<T> | null;
-		return { ...fallback, ...(data ?? {}) };
-	} catch (e) {
-		console.warn(`[directus] ${name} indisponible, contenu par défaut utilisé`, e);
-		return fallback;
+		// 1. Avec les traductions (filtrées sur la langue)
+		const data = (await directus.request(
+			readSingleton(
+				name as never,
+				{
+					fields: ['*', { translations: ['*'] }],
+					deep: { translations: { _filter: { languages_code: { _eq: locale } } } }
+				} as never
+			)
+		)) as (Record<string, unknown> & { translations?: Record<string, unknown>[] }) | null;
+		const translation = Array.isArray(data?.translations) ? data.translations[0] : undefined;
+		return { ...fallback, ...clean(data), ...clean(translation) } as T;
+	} catch {
+		try {
+			// 2. Le singleton n'a pas (encore) de champ « translations »
+			const data = (await directus.request(readSingleton(name as never))) as Record<
+				string,
+				unknown
+			> | null;
+			return { ...fallback, ...clean(data) } as T;
+		} catch (e) {
+			console.warn(`[directus] ${name} indisponible, contenu par défaut utilisé`, e);
+			return fallback;
+		}
 	}
 }
 

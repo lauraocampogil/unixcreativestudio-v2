@@ -3,6 +3,7 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { SplitText } from 'gsap/SplitText';
 	import { screenReady } from '#lib/screen.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	type Review = { quote: string; name: string; role: string; logo: string };
 
@@ -221,7 +222,7 @@
 	bind:this={section}
 	class="grid-section relative overflow-hidden bg-primary-dark py-30 lg:py-67.5 3xl:container 3xl:mx-auto"
 	aria-roledescription="carousel"
-	aria-label="Client reviews"
+	aria-label={m.reviews_label()}
 >
 	<!-- Rangée de mascottes (300px) qui glisse avec le scroll -->
 	<!-- Le centrage vertical est sur un conteneur à part : GSAP n'anime que la rangée (x),
@@ -246,7 +247,7 @@
 	>
 		<!-- Flèches : en haut à gauche sur desktop, en bas sur mobile -->
 		<div class="order-last mt-8 flex gap-3 lg:order-0 lg:mt-0 lg:items-start">
-			{#each [{ step: -1, icon: 'arrow-left', label: 'Previous review' }, { step: 1, icon: 'arrow-right', label: 'Next review' }] as btn (btn.step)}
+			{#each [{ step: -1, icon: 'arrow-left', label: m.reviews_prev() }, { step: 1, icon: 'arrow-right', label: m.reviews_next() }] as btn (btn.step)}
 				<button
 					type="button"
 					onclick={() => go(btn.step)}

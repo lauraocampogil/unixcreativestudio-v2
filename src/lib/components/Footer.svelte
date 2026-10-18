@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { reveal } from '#lib/actions/reveal.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { l } from '#lib/i18n.ts';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -16,11 +18,11 @@
 
 	const columns = [
 		[
-			{ label: 'What we do', href: '/#what-we-do' },
-			{ label: 'Services', href: '/#services' },
-			{ label: 'Work', href: '/#work' },
-			{ label: 'Reviews', href: '/#reviews' },
-			{ label: 'FAQ', href: '/#faq' }
+			{ label: m.nav_what_we_do(), href: l('/#what-we-do') },
+			{ label: m.nav_services(), href: l('/#services') },
+			{ label: m.nav_work(), href: l('/#work') },
+			{ label: m.nav_reviews(), href: l('/#reviews') },
+			{ label: m.nav_faq(), href: l('/#faq') }
 		],
 		[
 			{ label: 'LinkedIn', href: '#', external: true },
@@ -28,9 +30,9 @@
 			{ label: 'TikTok', href: '#', external: true }
 		],
 		[
-			{ label: 'Cookies', href: '/cookies' },
-			{ label: 'Mentions légales', href: '/mentions-legales' },
-			{ label: 'Politique de confidentialité', href: '/politique-de-confidentialite' }
+			{ label: m.footer_cookies(), href: l('/cookies') },
+			{ label: m.footer_legal(), href: l('/mentions-legales') },
+			{ label: m.footer_privacy(), href: l('/politique-de-confidentialite') }
 		]
 	];
 
@@ -103,12 +105,12 @@
 		<!-- CTA -->
 		<a
 			bind:this={cta}
-			href="/contact"
+			href={l('/contact')}
 			class="relative col-span-8 flex min-h-95 cursor-pointer flex-col justify-between overflow-hidden rounded-section bg-primary-dark p-6 sm:p-8 lg:h-149 lg:px-12 lg:py-10"
 		>
-			<p data-reveal use:reveal class="max-w-110 text-cta">Every big business started small.</p>
+			<p data-reveal use:reveal class="max-w-110 text-cta">{m.footer_cta_1()}</p>
 			<p data-reveal use:reveal={{ delay: 0.15 }} class="self-end text-right text-cta">
-				Let’s grow yours.
+				{m.footer_cta_2()}
 			</p>
 
 			<!-- Fleur beige qui tourne + « Let's talk » -->
@@ -125,7 +127,8 @@
 				<span
 					class="relative text-center font-display text-[12px] leading-none font-bold text-primary-dark uppercase"
 				>
-					Let’s<br />talk
+					<!-- un mot par ligne dans la fleur -->
+					{#each m.footer_lets_talk().split(' ') as word, i (i)}{#if i}<br />{/if}{word}{/each}
 				</span>
 			</span>
 		</a>
@@ -139,7 +142,7 @@
 		</a>
 
 		<nav
-			aria-label="Footer"
+			aria-label={m.footer_nav_label()}
 			class="col-span-8 mt-10 flex flex-col gap-8 xl:col-span-4 xl:col-start-5 xl:mt-35 xl:justify-between lg:flex-row lg:gap-12"
 		>
 			{#each columns as links, c (c)}

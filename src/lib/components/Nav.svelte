@@ -4,6 +4,8 @@
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	import { locales, getLocale, localizeHref } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { l } from '#lib/i18n.ts';
 
 	// Logo « Unix Studio » : si le SVG existe, on l'insère et sa couleur suit la nav
 	const logos = import.meta.glob('/static/assets/unix-studio-logo.svg', {
@@ -17,11 +19,11 @@
 	);
 
 	const links = [
-		{ label: 'What we do', href: '/#what-we-do' },
-		{ label: 'Services', href: '/#services' },
-		{ label: 'Work', href: '/#work' },
-		{ label: 'Reviews', href: '/#reviews' },
-		{ label: 'FAQ', href: '/#faq' }
+		{ label: m.nav_what_we_do(), href: l('/#what-we-do') },
+		{ label: m.nav_services(), href: l('/#services') },
+		{ label: m.nav_work(), href: l('/#work') },
+		{ label: m.nav_reviews(), href: l('/#reviews') },
+		{ label: m.nav_faq(), href: l('/#faq') }
 	];
 	const socials = [
 		{ label: 'LinkedIn', href: '#' },
@@ -168,17 +170,17 @@
 	<div class="relative flex items-center justify-between">
 		<!-- Gauche (desktop) : Contact us -->
 		<a
-			href="/contact"
+			href={l('/contact')}
 			class="pointer-events-auto hidden h-14 items-center rounded-pill px-6.5 text-button-lg transition-colors duration-500 lg:flex {pill}"
 		>
-			<span class="roll-fast"><Roll>Contact us</Roll></span>
+			<span class="roll-fast"><Roll>{m.nav_contact_us()}</Roll></span>
 		</a>
 
 		<!-- Logo : à gauche en mobile, au centre en desktop -->
 		<a
-			href="/"
+			href={l('/')}
 			data-sveltekit-reload
-			aria-label="Unix Studio, home"
+			aria-label={m.nav_home_label()}
 			class="pointer-events-auto transition-colors duration-500 lg:absolute lg:left-1/2 lg:-translate-x-1/2 {onBlue
 				? 'text-background'
 				: 'text-primary-accent'}"
@@ -213,7 +215,7 @@
 						? 'left-6.5 rotate-360'
 						: 'left-[calc(100%-54px)] rotate-0'}"
 				></span>
-				<span>{open ? 'Close' : 'Menu'}</span>
+				<span>{open ? m.nav_close() : m.nav_menu()}</span>
 			</button>
 
 			<!-- Panneau du menu -->
@@ -222,7 +224,7 @@
 				id="site-menu"
 				class="invisible fixed inset-x-3 top-3 rounded-section px-6 pt-25 pb-8 transition-colors duration-500 {panelBg} shadow-[0_20px_60px_-30px_rgb(0_0_0/0.35)] lg:absolute lg:inset-x-auto lg:-top-4 lg:-right-5 lg:w-93.75 lg:px-7"
 			>
-				<nav aria-label="Main">
+				<nav aria-label={m.nav_main_label()}>
 					<ul class="flex flex-col gap-4">
 						{#each links as link (link.href)}
 							<li data-menu-item>
@@ -238,11 +240,11 @@
 						<!-- Contact : seulement dans le menu mobile -->
 						<li data-menu-item class="lg:hidden">
 							<a
-								href="/contact"
+								href={l('/contact')}
 								onclick={close}
 								class="text-menu {ink}"
 							>
-								<Roll>Contact</Roll>
+								<Roll>{m.nav_contact()}</Roll>
 							</a>
 						</li>
 					</ul>
@@ -265,12 +267,14 @@
 					</ul>
 				</div>
 
-				<ul data-menu-item class="mt-7 flex gap-3" aria-label="Language">
-					{#each ORDER.filter((l) => (locales as readonly string[]).includes(l)) as locale (locale)}
+				<!-- Changer de langue recharge la page entière (textes, Directus, <html lang>) -->
+				<ul data-menu-item class="mt-7 flex gap-3" aria-label={m.nav_language_label()}>
+					{#each ORDER.filter((code) => (locales as readonly string[]).includes(code)) as locale (locale)}
 						<li>
 							<a
 								href={localizeHref(page.url.pathname, { locale: locale as (typeof locales)[number] })}
 								hreflang={locale}
+								data-sveltekit-reload
 								aria-current={getLocale() === locale ? 'true' : undefined}
 								class="text-lg uppercase {getLocale() === locale
 									? onBlue

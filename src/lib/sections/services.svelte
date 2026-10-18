@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { m } from '#lib/paraglide/messages.js';
 	import { reveal } from '#lib/actions/reveal.ts';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -147,7 +148,7 @@
 							</div>
 
 							<!-- côte à côte : le bouton est poussé en bas, au même niveau sur les 4 cards -->
-							<Button href={item.href} variant="light" class="mt-6 {spread ? 'lg:mt-auto' : 'lg:mt-8'}">More information</Button>
+							<Button href={item.href} variant="light" class="mt-6 {spread ? 'lg:mt-auto' : 'lg:mt-8'}">{m.services_more_info()}</Button>
 						</div>
 					</article>
 				{/each}

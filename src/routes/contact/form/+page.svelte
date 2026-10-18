@@ -6,6 +6,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { tick } from 'svelte';
 	import Button from '#lib/components/Button.svelte';
+	import { m } from '#lib/paraglide/messages.js';
 
 	let { form } = $props();
 
@@ -39,26 +40,35 @@
 	if (['asap', 'soon', 'norush'].includes(qs.get('when') ?? '')) when = qs.get('when')!;
 
 	const SERVICE_OPTIONS = [
-		['website', 'A website'],
-		['google', 'Being found on Google'],
-		['ads', 'Ads'],
-		['app', 'A mobile app'],
-		['unsure', 'Not sure yet']
+		['website', m.form_opt_website()],
+		['google', m.form_opt_google()],
+		['ads', m.form_opt_ads()],
+		['app', m.form_opt_app()],
+		['unsure', m.form_opt_unsure()]
 	];
 	const WHEN_OPTIONS = [
-		['asap', 'As soon as possible'],
-		['soon', 'In 1 - 2 months'],
-		['norush', 'No rush']
+		['asap', m.when_asap()],
+		['soon', m.when_soon()],
+		['norush', m.when_norush()]
 	];
 
-	const SOURCES = ['Recommendation', 'Google', 'LinkedIn', 'Instagram', 'TikTok', 'AI (ChatGPT, Claude…)', 'Other'];
+	// [valeur envoyée (toujours en anglais, pour ton email), texte affiché]
+	const SOURCES = [
+		['Recommendation', m.form_src_recommendation()],
+		['Google', 'Google'],
+		['LinkedIn', 'LinkedIn'],
+		['Instagram', 'Instagram'],
+		['TikTok', 'TikTok'],
+		['AI (ChatGPT, Claude…)', m.form_src_ai()],
+		['Other', m.form_src_other()]
+	];
 
 	const TITLES = [
-		'Let’s meet',
-		'What can we help with?',
-		'Tell us about your business?',
-		'When would you like to start',
-		'How can we reach you?'
+		m.form_step1_title(),
+		m.form_step2_title(),
+		m.form_step3_title(),
+		m.form_step4_title(),
+		m.form_step5_title()
 	];
 
 	// On peut naviguer librement entre les étapes.
@@ -67,24 +77,24 @@
 	const validEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
 	const missingIn = (s: number): string[] => {
-		const m: string[] = [];
+		const missing: string[] = [];
 		if (s === 1) {
-			if (!first_name.trim()) m.push('first name');
-			if (!last_name.trim()) m.push('last name');
-			if (!business.trim()) m.push('business name');
+			if (!first_name.trim()) missing.push(m.form_miss_first_name());
+			if (!last_name.trim()) missing.push(m.form_miss_last_name());
+			if (!business.trim()) missing.push(m.form_miss_business());
 		}
-		if (s === 2 && !services.length) m.push('at least one option');
-		if (s === 4 && !when) m.push('when you’d like to start');
+		if (s === 2 && !services.length) missing.push(m.form_miss_option());
+		if (s === 4 && !when) missing.push(m.form_miss_when());
 		if (s === 5) {
-			if (!validEmail(email)) m.push(email.trim() ? 'a valid email' : 'email');
-			if (!source.trim()) m.push('how you heard about us');
+			if (!validEmail(email)) missing.push(email.trim() ? m.form_miss_valid_email() : m.form_miss_email());
+			if (!source.trim()) missing.push(m.form_miss_source());
 		}
-		return m;
+		return missing;
 	};
 	const firstIncomplete = () => [1, 2, 3, 4, 5].find((s) => missingIn(s).length);
 	const message = (s: number) => {
-		const m = missingIn(s);
-		return m.length ? `Still missing: ${m.join(', ')}.` : '';
+		const missing = missingIn(s);
+		return missing.length ? m.form_missing({ fields: missing.join(', ') }) : '';
 	};
 
 	// Champ obligatoire vide → souligné en rouge (seulement après un essai d'envoi)
@@ -129,7 +139,7 @@
 </script>
 
 <svelte:head>
-	<title>Text us — Unix Creative Studio</title>
+	<title>{m.form_meta_title()}</title>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
@@ -152,7 +162,7 @@
 				: 'border-primary'}"
 		/>
 		{#if isMissing(value, required)}
-			<span class="-mt-1 text-caption text-[#d64545]">Please fill this in</span>
+			<span class="-mt-1 text-caption text-[#d64545]">{m.form_fill_in()}</span>
 		{/if}
 	</label>
 {/snippet}
@@ -171,13 +181,12 @@
 		/>
 		<div class="relative col-span-8 flex flex-col items-start xl:col-span-4">
 			<h1 class="text-title text-primary-dark">
-				Thank you for reaching us!
+				{m.form_thanks_title()}
 			</h1>
 			<p class="mt-6 max-w-105 text-body text-dark">
-				Your message is on its way. We’ll get back to you within 24-48 hours with a clear plan and a fixed
-				price.
+				{m.form_thanks_text()}
 			</p>
-			<Button href="/" variant="solid" class="mt-10">Back to the website</Button>
+			<Button href="/" variant="solid" class="mt-10">{m.form_back()}</Button>
 		</div>
 	</main>
 {:else}
@@ -217,12 +226,12 @@
 						<span class="relative text-number text-background">{step}.</span>
 					</span>
 					<h1 class="text-step text-primary-dark">
-						<span class="sr-only">Step {step} of {TOTAL}: </span>{TITLES[step - 1]}
+						<span class="sr-only">{m.form_step_sr({ step, total: TOTAL })}</span>{TITLES[step - 1]}
 					</h1>
 				</div>
 
 				<div class="flex gap-3 self-end sm:self-auto">
-					{#each [{ dir: -1, icon: 'arrow-left', label: 'Previous step', disabled: step === 1 }, { dir: 1, icon: 'arrow-right', label: 'Next step', disabled: step === TOTAL }] as a (a.dir)}
+					{#each [{ dir: -1, icon: 'arrow-left', label: m.form_prev(), disabled: step === 1 }, { dir: 1, icon: 'arrow-right', label: m.form_next(), disabled: step === TOTAL }] as a (a.dir)}
 						<button
 							type="button"
 							aria-label={a.label}
@@ -247,12 +256,12 @@
 						class="flex max-w-197.5 flex-col gap-8 [grid-area:1/1]"
 					>
 						{#if step === 1}
-							{@render field('First name', '', 'Elisabeth', first_name, (v) => (first_name = v), 'text', 'given-name')}
-							{@render field('Last name', '', 'Martin', last_name, (v) => (last_name = v), 'text', 'family-name')}
-							{@render field('Business name', '', 'Martin’s studio', business, (v) => (business = v), 'text', 'organization')}
+							{@render field(m.form_first_name(), '', m.form_ph_first_name(), first_name, (v) => (first_name = v), 'text', 'given-name')}
+							{@render field(m.form_last_name(), '', m.form_ph_last_name(), last_name, (v) => (last_name = v), 'text', 'family-name')}
+							{@render field(m.form_business(), '', m.form_ph_business(), business, (v) => (business = v), 'text', 'organization')}
 						{:else if step === 2}
 							<fieldset>
-								<legend class="text-small text-dark-light">Pick one or more</legend>
+								<legend class="text-small text-dark-light">{m.form_pick_more()}</legend>
 								<div class="mt-4 flex flex-wrap gap-2.5">
 									{#each SERVICE_OPTIONS as [value, label] (value)}
 										<Button variant="outline" selected={services.includes(value)} onclick={() => toggleService(value)}>
@@ -262,10 +271,10 @@
 								</div>
 							</fieldset>
 						{:else if step === 3}
-							{@render field('What do you do, and what would you like to change? (optional)', '', 'I run a small bakery', about, (v) => (about = v), 'text', 'off', false)}
+							{@render field(m.form_about(), '', m.form_ph_about(), about, (v) => (about = v), 'text', 'off', false)}
 						{:else if step === 4}
 							<fieldset>
-								<legend class="sr-only">When would you like to start</legend>
+								<legend class="sr-only">{m.form_step4_title()}</legend>
 								<div class="flex flex-wrap gap-2.5">
 									{#each WHEN_OPTIONS as [value, label] (value)}
 										<Button variant="outline" selected={when === value} onclick={() => {
@@ -276,11 +285,11 @@
 								</div>
 							</fieldset>
 						{:else}
-							{@render field('Email', 'email', 'you@business.com', email, (v) => (email = v), 'email', 'email')}
-							{@render field('Phone (optional)', 'phone', '+32', phone, (v) => (phone = v), 'tel', 'tel', false)}
+							{@render field(m.form_email(), 'email', m.form_ph_email(), email, (v) => (email = v), 'email', 'email')}
+							{@render field(m.form_phone(), 'phone', '+32', phone, (v) => (phone = v), 'tel', 'tel', false)}
 							<!-- Liste déroulante native (comme AKIS) : s'ouvre avec le menu du système -->
 							<label class="flex flex-col gap-3">
-								<span class="text-label text-primary-dark">How did you hear about us?</span>
+								<span class="text-label text-primary-dark">{m.form_source()}</span>
 								<span class="relative">
 									<select
 										name="source"
@@ -291,9 +300,9 @@
 											? 'text-dark'
 											: 'text-dark-light'} {isMissing(source) ? 'border-[#d64545]' : 'border-primary'}"
 									>
-										<option value="" disabled>Pick one</option>
-										{#each SOURCES as option (option)}
-											<option value={option} class="text-dark">{option}</option>
+										<option value="" disabled>{m.form_pick_one()}</option>
+										{#each SOURCES as [value, label] (value)}
+											<option {value} class="text-dark">{label}</option>
 										{/each}
 									</select>
 									<!-- Petite flèche -->
@@ -303,7 +312,7 @@
 									></span>
 								</span>
 								{#if isMissing(source)}
-									<span class="-mt-1 text-caption text-[#d64545]">Please pick one</span>
+									<span class="-mt-1 text-caption text-[#d64545]">{m.form_please_pick()}</span>
 								{/if}
 							</label>
 						{/if}
@@ -314,9 +323,9 @@
 
 						<div>
 							{#if step < TOTAL}
-								<Button variant="solid" onclick={next}>Ok</Button>
+								<Button variant="solid" onclick={next}>{m.form_ok()}</Button>
 							{:else}
-								<Button variant="solid" type="submit" disabled={sending}>{sending ? 'Sending…' : 'Ok'}</Button>
+								<Button variant="solid" type="submit" disabled={sending}>{sending ? m.form_sending() : m.form_ok()}</Button>
 							{/if}
 						</div>
 					</div>
