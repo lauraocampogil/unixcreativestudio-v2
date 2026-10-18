@@ -283,7 +283,14 @@
 						</blockquote>
 						<figcaption class="mt-auto flex items-center gap-3 pt-10 lg:pt-22.5">
 							{#if review.logo}
-								<img data-logo src={review.logo} alt="" class="size-12 shrink-0 rounded-full object-contain lg:size-14" />
+								<!-- Si le logo ne charge pas (Directus redémarre…), on garde juste le rond, sans icône cassée -->
+								<img
+									data-logo
+									src={review.logo}
+									alt=""
+									onerror={(e) => e.currentTarget.removeAttribute('src')}
+									class="size-12 shrink-0 rounded-full object-contain lg:size-14"
+								/>
 							{:else}
 								<!-- Pas encore de logo dans Directus -->
 								<span data-logo class="size-12 shrink-0 rounded-full bg-primary/20 lg:size-14"></span>
