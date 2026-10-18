@@ -29,7 +29,7 @@
 		],
 		[
 			{ label: 'Cookies', href: '/cookies' },
-			{ label: 'Mentions legales', href: '/mentions-legales' },
+			{ label: 'Mentions légales', href: '/mentions-legales' },
 			{ label: 'Politique de confidentialité', href: '/politique-de-confidentialite' }
 		]
 	];
