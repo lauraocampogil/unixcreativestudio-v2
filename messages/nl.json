@@ -106,5 +106,15 @@
 	"error_go_home": "Naar de homepage",
 	"error_title_404": "Pagina niet gevonden",
 	"error_title_server": "Serverfout",
-	"error_title_generic": "Er ging iets mis"
+	"error_title_generic": "Er ging iets mis",
+	"email_subject": "Bedankt {name}, we hebben je aanvraag ontvangen",
+	"email_hello": "Hallo {name},",
+	"email_p1": "Bedankt dat je de tijd nam om ons formulier in te vullen. Je aanvraag is goed aangekomen en we bekijken ze nu.",
+	"email_p2": "We komen binnen 24 à 48 uur bij je terug met een duidelijk plan en een vaste prijs.",
+	"email_summary": "Je aanvraag",
+	"email_services": "Hulp bij:",
+	"email_when": "Start:",
+	"email_questions": "Een vraag in de tussentijd? Beantwoord gewoon deze e-mail.",
+	"email_signoff": "Tot snel,",
+	"email_footer": "Kleine, vriendelijke studio in Brussel"
 }

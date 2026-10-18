@@ -77,5 +77,36 @@ export async function safeSingleton<T extends Record<string, unknown>>(
 	}
 }
 
+/**
+ * Lit une collection (ex. « projects ») dans la langue demandée, triée par « sort ».
+ * Chaque élément = ses champs + ceux de sa traduction. Renvoie null si Directus est vide ou hors ligne.
+ */
+export async function safeCollection(
+	name: string,
+	locale = 'en'
+): Promise<Record<string, unknown>[] | null> {
+	try {
+		const rows = (await directus.request(
+			readItems(
+				name as never,
+				{
+					fields: ['*', { translations: ['*'] }],
+					deep: { translations: { _filter: { languages_code: { _eq: locale } } } },
+					sort: ['sort']
+				} as never
+			)
+		)) as (Record<string, unknown> & { translations?: Record<string, unknown>[] })[];
+		if (!rows?.length) return null;
+		return rows.map((row) => ({ ...clean(row), ...clean(row.translations?.[0]) }));
+	} catch (e) {
+		console.warn(`[directus] ${name} indisponible, contenu par défaut utilisé`, e);
+		return null;
+	}
+}
+
+/** Image : fichier Directus (id) → URL ; sinon on garde l'image par défaut du code. */
+export const imageOrFallback = (id: unknown, fallback: string, options: AssetOptions = {}) =>
+	typeof id === 'string' && id ? (assetUrl(id, options) ?? fallback) : fallback;
+
 export default directus;
 export { readItems, readSingleton };

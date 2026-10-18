@@ -10,7 +10,7 @@
 		category: string;
 		type: string;
 		tagline: string;
-		image: string; // chemin /images/... ou id d'un fichier Directus
+		image: string; // URL de l'image Directus (vide = pas encore d'image)
 		href: string;
 	};
 
@@ -161,12 +161,17 @@
 					data-work-link
 				>
 					<div class="overflow-hidden rounded-card lg:rounded-section">
-						<img
-							src={src(item.image)}
-							alt="Website {item.name}"
-							loading="lazy"
-							class="aspect-16/10 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-						/>
+						{#if item.image}
+							<img
+								src={src(item.image)}
+								alt="Website {item.name}"
+								loading="lazy"
+								class="aspect-16/10 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+							/>
+						{:else}
+							<!-- Pas encore d'image dans Directus : un bloc bleu clair à la place -->
+							<div class="aspect-16/10 w-full bg-primary/20"></div>
+						{/if}
 					</div>
 					<p class="mt-3 text-caption text-dark">
 						<strong class="font-bold uppercase">{item.name}</strong> | {item.category} · {item.type}

@@ -12,7 +12,7 @@
 	"nav_home_label": "Unix Studio, accueil",
 	"nav_main_label": "Principal",
 	"nav_language_label": "Langue",
-	"footer_cta_1": "Toute grande entreprise a commencé petit.",
+	"footer_cta_1": "Toute grande entreprise a commencé petite.",
 	"footer_cta_2": "Faisons grandir la vôtre.",
 	"footer_lets_talk": "Parlons ensemble",
 	"footer_nav_label": "Pied de page",
@@ -106,5 +106,15 @@
 	"error_go_home": "Retour à l’accueil",
 	"error_title_404": "Page introuvable",
 	"error_title_server": "Erreur du serveur",
-	"error_title_generic": "Un problème est survenu"
+	"error_title_generic": "Un problème est survenu",
+	"email_subject": "Merci {name}, nous avons bien reçu votre demande",
+	"email_hello": "Bonjour {name},",
+	"email_p1": "Merci d’avoir pris le temps de remplir notre formulaire. Votre demande est bien arrivée et nous sommes en train de l’étudier.",
+	"email_p2": "Nous revenons vers vous sous 24 à 48 heures avec un plan clair et un prix fixe.",
+	"email_summary": "Votre demande",
+	"email_services": "Besoin :",
+	"email_when": "Début :",
+	"email_questions": "Une question en attendant ? Répondez simplement à cet email.",
+	"email_signoff": "À très vite,",
+	"email_footer": "Petit studio sympa à Bruxelles"
 }

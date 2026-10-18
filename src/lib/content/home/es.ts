@@ -67,7 +67,7 @@ export const home = {
 				category: 'Academia de fútbol',
 				type: 'Web',
 				tagline: 'Una web deportiva que atrae nuevos jugadores',
-				image: '/images/work/bsa.webp',
+				image: '',
 				href: 'https://brussels-summitacademy.be/'
 			},
 			{
@@ -75,7 +75,7 @@ export const home = {
 				category: 'Estudio de pestañas',
 				type: 'Web',
 				tagline: 'Una web elegante con reservas online',
-				image: '/images/work/shiynelly.webp',
+				image: '',
 				href: 'https://shiynellylashes.com/'
 			},
 			{
@@ -83,7 +83,7 @@ export const home = {
 				category: 'Asociación sin ánimo de lucro',
 				type: 'Web',
 				tagline: 'Una web fresca y fácil de leer',
-				image: '/images/work/entraide.webp',
+				image: '',
 				href: 'https://www.entraide-bruxelles.be/'
 			},
 			{
@@ -91,7 +91,7 @@ export const home = {
 				category: 'Lavado de coches',
 				type: 'Web',
 				tagline: 'Reserva un lavado en pocos clics',
-				image: '/images/work/yaniswash.webp',
+				image: '',
 				href: 'https://yaniswash.be'
 			},
 			{
@@ -99,7 +99,7 @@ export const home = {
 				category: 'Coaching mental de fútbol',
 				type: 'Web',
 				tagline: 'Reserva y paga una sesión online',
-				image: '/images/work/inesscoach.webp',
+				image: '',
 				href: 'https://www.iness-coach.com/'
 			}
 		]
@@ -122,21 +122,21 @@ export const home = {
 					'La mejor diseñadora de la ciudad: buen trabajo, buena persona, siempre escucha. Gracias a Unix tenemos muchas más visitas de todas partes.',
 				name: 'InessCoach',
 				role: 'Fundadora',
-				logo: '/images/reviews/inesscoach.png'
+				logo: ''
 			},
 			{
 				quote:
 					'Nuestra nueva web es clara y fácil de leer para todos. Las familias encuentran nuestras actividades en segundos y cada mes tenemos más inscripciones.',
 				name: 'Entraide Bruxelles',
 				role: 'Coordinadora',
-				logo: '/images/reviews/entraide.png'
+				logo: ''
 			},
 			{
 				quote:
 					'Unix entendió nuestra academia desde el primer momento. La web es deportiva y transmite orgullo, y ahora los nuevos jugadores se inscriben directamente online.',
 				name: 'Brussels Summit Academy',
 				role: 'Fundador',
-				logo: '/images/reviews/bsa.png'
+				logo: ''
 			}
 		]
 	},

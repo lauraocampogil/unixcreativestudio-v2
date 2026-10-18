@@ -1,12 +1,15 @@
 import { fail } from '@sveltejs/kit';
 import { PUBLIC_DIRECTUS_URL } from '$app/env/public';
-import { RESEND_API_KEY, DIRECTUS_SERVICE_TOKEN } from '$app/env/private';
+import { RESEND_API_KEY, RESEND_FROM, DIRECTUS_SERVICE_TOKEN } from '$app/env/private';
+import { confirmationEmail } from '#lib/server/emails.ts';
 import { m } from '#lib/paraglide/messages.js';
 import type { Actions } from './$types';
 
 const TO = 'unixcreativestudio@gmail.com';
-// Tant que ton domaine n'est pas vérifié dans Resend, on envoie depuis l'adresse de test Resend
-const FROM = 'Unix website <onboarding@resend.dev>';
+// Expéditeur : ton domaine vérifié dans Resend (RESEND_FROM dans le .env).
+// Sans domaine vérifié, Resend n'envoie qu'à ta propre adresse : on utilise l'adresse de test
+// et on n'envoie pas encore l'email de confirmation au visiteur.
+const FROM = RESEND_FROM ?? 'Unix website <onboarding@resend.dev>';
 
 const SERVICES: Record<string, string> = {
 	website: 'A website',
@@ -15,15 +18,25 @@ const SERVICES: Record<string, string> = {
 	app: 'A mobile app',
 	unsure: 'Not sure yet'
 };
-const WHEN: Record<string, string> = { asap: 'As soon as possible', soon: 'In 1 - 2 months', norush: 'No rush' };
+const WHEN: Record<string, string> = {
+	asap: 'As soon as possible',
+	soon: 'In 1 - 2 months',
+	norush: 'No rush'
+};
 
 const escape = (s: string) =>
-	s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+	s.replace(
+		/[&<>"']/g,
+		(c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!
+	);
 
 export const actions: Actions = {
 	default: async ({ request, fetch }) => {
 		const form = await request.formData();
-		const get = (k: string) => String(form.get(k) ?? '').trim().slice(0, 2000);
+		const get = (k: string) =>
+			String(form.get(k) ?? '')
+				.trim()
+				.slice(0, 2000);
 
 		// Piège à robots : ce champ est caché, un humain ne le remplit jamais
 		if (get('website_url')) return { success: true };
@@ -32,7 +45,10 @@ export const actions: Actions = {
 			first_name: get('first_name'),
 			last_name: get('last_name'),
 			business: get('business'),
-			services: form.getAll('services').map(String).filter((s) => s in SERVICES),
+			services: form
+				.getAll('services')
+				.map(String)
+				.filter((s) => s in SERVICES),
 			about: get('about'),
 			when: get('when'),
 			email: get('email'),
@@ -58,7 +74,10 @@ export const actions: Actions = {
 			RESEND_API_KEY
 				? fetch('https://api.resend.com/emails', {
 						method: 'POST',
-						headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+						headers: {
+							Authorization: `Bearer ${RESEND_API_KEY}`,
+							'Content-Type': 'application/json'
+						},
 						body: JSON.stringify({
 							from: FROM,
 							to: [TO],
@@ -84,7 +103,10 @@ export const actions: Actions = {
 			DIRECTUS_SERVICE_TOKEN
 				? fetch(`${PUBLIC_DIRECTUS_URL}/items/contact_requests`, {
 						method: 'POST',
-						headers: { Authorization: `Bearer ${DIRECTUS_SERVICE_TOKEN}`, 'Content-Type': 'application/json' },
+						headers: {
+							Authorization: `Bearer ${DIRECTUS_SERVICE_TOKEN}`,
+							'Content-Type': 'application/json'
+						},
 						body: JSON.stringify(data)
 					}).then((r) => {
 						if (!r.ok) throw new Error(`Directus ${r.status}`);
@@ -93,6 +115,20 @@ export const actions: Actions = {
 		]);
 
 		results.forEach((r) => r.status === 'rejected' && console.warn('[contact]', r.reason));
+
+		// 3. Email de remerciement à la personne (dans la langue du site), seulement avec un domaine vérifié
+		if (RESEND_API_KEY && RESEND_FROM && results.some((r) => r.status === 'fulfilled')) {
+			const mail = confirmationEmail(data);
+			await fetch('https://api.resend.com/emails', {
+				method: 'POST',
+				headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+				body: JSON.stringify({ from: FROM, to: [data.email], reply_to: TO, ...mail })
+			})
+				.then(async (r) => {
+					if (!r.ok) console.warn('[contact] confirmation', r.status, await r.text());
+				})
+				.catch((e) => console.warn('[contact] confirmation', e));
+		}
 
 		// Si ni l'email ni Directus n'ont marché, on prévient la personne
 		if (results.every((r) => r.status === 'rejected')) {

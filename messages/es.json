@@ -14,7 +14,7 @@
 	"nav_language_label": "Idioma",
 	"footer_cta_1": "Todo gran negocio empezó pequeño.",
 	"footer_cta_2": "Hagamos crecer el tuyo.",
-	"footer_lets_talk": "Hablemos",
+	"footer_lets_talk": "¿Hablamos?",
 	"footer_nav_label": "Pie de página",
 	"footer_cookies": "Cookies",
 	"footer_legal": "Aviso legal",
@@ -106,5 +106,15 @@
 	"error_go_home": "Ir al inicio",
 	"error_title_404": "Página no encontrada",
 	"error_title_server": "Error del servidor",
-	"error_title_generic": "Algo ha fallado"
+	"error_title_generic": "Algo ha fallado",
+	"email_subject": "Gracias {name}, hemos recibido tu solicitud",
+	"email_hello": "Hola {name}:",
+	"email_p1": "Gracias por tomarte el tiempo de rellenar nuestro formulario. Tu solicitud ha llegado bien y ya la estamos revisando.",
+	"email_p2": "Te responderemos en 24-48 horas con un plan claro y un precio cerrado.",
+	"email_summary": "Tu solicitud",
+	"email_services": "Necesitas:",
+	"email_when": "Inicio:",
+	"email_questions": "¿Alguna pregunta mientras tanto? Responde a este email.",
+	"email_signoff": "¡Hasta pronto!",
+	"email_footer": "Estudio pequeño y cercano en Bruselas"
 }

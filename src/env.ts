@@ -20,5 +20,10 @@ export const variables = defineEnvVars({
 	RESEND_API_KEY: {
 		description: 'Clé API Resend pour le formulaire de contact',
 		schema: (value) => value || undefined
+	},
+	RESEND_FROM: {
+		description:
+			'Expéditeur des emails, ex. « Unix Creative Studio <hello@unixcreativestudio.com> ». Vide = adresse de test Resend (pas d’email de confirmation).',
+		schema: (value) => value || undefined
 	}
 });

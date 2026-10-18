@@ -282,7 +282,12 @@
 							{review.quote}
 						</blockquote>
 						<figcaption class="mt-auto flex items-center gap-3 pt-10 lg:pt-22.5">
-							<img data-logo src={review.logo} alt="" class="size-12 shrink-0 rounded-full object-contain lg:size-14" />
+							{#if review.logo}
+								<img data-logo src={review.logo} alt="" class="size-12 shrink-0 rounded-full object-contain lg:size-14" />
+							{:else}
+								<!-- Pas encore de logo dans Directus -->
+								<span data-logo class="size-12 shrink-0 rounded-full bg-primary/20 lg:size-14"></span>
+							{/if}
 							<span class="flex flex-col leading-tight">
 								<span data-split class="text-body font-medium text-dark">{review.name}</span>
 								<span data-split class="text-caption text-dark-light">{review.role}</span>

@@ -67,7 +67,7 @@ export const home = {
 				category: 'Voetbalacademie',
 				type: 'Website',
 				tagline: 'Een sportieve website die nieuwe spelers aantrekt',
-				image: '/images/work/bsa.webp',
+				image: '',
 				href: 'https://brussels-summitacademy.be/'
 			},
 			{
@@ -75,7 +75,7 @@ export const home = {
 				category: 'Wimperstudio',
 				type: 'Website',
 				tagline: 'Een elegante website met online boeken',
-				image: '/images/work/shiynelly.webp',
+				image: '',
 				href: 'https://shiynellylashes.com/'
 			},
 			{
@@ -83,7 +83,7 @@ export const home = {
 				category: 'Vzw',
 				type: 'Website',
 				tagline: 'Een frisse website die makkelijk leest',
-				image: '/images/work/entraide.webp',
+				image: '',
 				href: 'https://www.entraide-bruxelles.be/'
 			},
 			{
@@ -91,7 +91,7 @@ export const home = {
 				category: 'Carwash',
 				type: 'Website',
 				tagline: 'Een wasbeurt boeken in een paar klikken',
-				image: '/images/work/yaniswash.webp',
+				image: '',
 				href: 'https://yaniswash.be'
 			},
 			{
@@ -99,7 +99,7 @@ export const home = {
 				category: 'Mentale coaching voetbal',
 				type: 'Website',
 				tagline: 'Een sessie online boeken en betalen',
-				image: '/images/work/inesscoach.webp',
+				image: '',
 				href: 'https://www.iness-coach.com/'
 			}
 		]
@@ -122,21 +122,21 @@ export const home = {
 					'De beste designer van de stad: goed werk, een fijn persoon, luistert altijd. Dankzij Unix krijgen we veel meer bezoekers van overal.',
 				name: 'InessCoach',
 				role: 'Oprichtster',
-				logo: '/images/reviews/inesscoach.png'
+				logo: ''
 			},
 			{
 				quote:
 					'Onze nieuwe website is duidelijk en voor iedereen makkelijk te lezen. Gezinnen vinden onze activiteiten in een paar seconden, en we krijgen elke maand meer inschrijvingen.',
 				name: 'Entraide Bruxelles',
 				role: 'Coördinator',
-				logo: '/images/reviews/entraide.png'
+				logo: ''
 			},
 			{
 				quote:
 					'Unix begreep onze academie meteen. De website voelt sportief en trots, en nieuwe spelers schrijven zich nu rechtstreeks online in.',
 				name: 'Brussels Summit Academy',
 				role: 'Oprichter',
-				logo: '/images/reviews/bsa.png'
+				logo: ''
 			}
 		]
 	},

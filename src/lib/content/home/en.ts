@@ -66,7 +66,7 @@ export const home = {
 				category: 'Football academy',
 				type: 'Website',
 				tagline: 'A sporty website that brings in new players',
-				image: '/images/work/bsa.webp',
+				image: '',
 				href: 'https://brussels-summitacademy.be/'
 			},
 			{
@@ -74,7 +74,7 @@ export const home = {
 				category: 'Lash studio',
 				type: 'Website',
 				tagline: 'An elegant website with online booking',
-				image: '/images/work/shiynelly.webp',
+				image: '',
 				href: 'https://shiynellylashes.com/'
 			},
 			{
@@ -82,7 +82,7 @@ export const home = {
 				category: 'Non-profit',
 				type: 'Website',
 				tagline: "A fresh website that's easy to read",
-				image: '/images/work/entraide.webp',
+				image: '',
 				href: 'https://www.entraide-bruxelles.be/'
 			},
 			{
@@ -90,7 +90,7 @@ export const home = {
 				category: 'Carwash',
 				type: 'Website',
 				tagline: 'Book a car wash in a few clicks',
-				image: '/images/work/yaniswash.webp',
+				image: '',
 				href: 'https://yaniswash.be'
 			},
 			{
@@ -98,7 +98,7 @@ export const home = {
 				category: 'Football mental coaching',
 				type: 'Website',
 				tagline: 'Book and pay for a session online',
-				image: '/images/work/inesscoach.webp',
+				image: '',
 				href: 'https://www.iness-coach.com/'
 			}
 		]
@@ -121,21 +121,21 @@ export const home = {
 					'Best designer in town, good job, good person, always listening. Thanks to Unix we have a lot more views from all over.',
 				name: 'InessCoach',
 				role: 'Founder',
-				logo: '/images/reviews/inesscoach.png'
+				logo: ''
 			},
 			{
 				quote:
 					'Our new website is clear and easy to read for everyone. Families find our activities in a few seconds, and we get more sign-ups every month.',
 				name: 'Entraide Bruxelles',
 				role: 'Coordinator',
-				logo: '/images/reviews/entraide.png'
+				logo: ''
 			},
 			{
 				quote:
 					'Unix understood our academy right away. The website feels sporty and proud, and new players now sign up directly online.',
 				name: 'Brussels Summit Academy',
 				role: 'Founder',
-				logo: '/images/reviews/bsa.png'
+				logo: ''
 			}
 		]
 	},
