@@ -9,8 +9,8 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { afterNavigate, goto } from '$app/navigation';
-	import { visit } from '#lib/visit';
-	import { smooth } from '#lib/smooth';
+	import { visit } from '#lib/visit.ts';
+	import { smooth } from '#lib/smooth.ts';
 	import favicon from '#lib/assets/favicon.svg';
 	import Footer from '#lib/components/Footer.svelte';
 	import Nav from '#lib/components/Nav.svelte';
@@ -60,7 +60,7 @@
 			}
 			// Autre page : retour à l'accueil, puis on se place sur la section
 			visit.goingToSection = true;
-			await goto('/');
+			await goto(resolve('/'));
 			await new Promise((r) => setTimeout(r, 150)); // laisse ScrollTrigger recalculer la page
 			visit.goingToSection = false;
 			scrollToSection(id);

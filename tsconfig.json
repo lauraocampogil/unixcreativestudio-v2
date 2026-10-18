@@ -4,5 +4,7 @@
 		"strict": true,
 		"types": ["$app/types", "node", "./worker-configuration.d.ts"]
 	},
-	"include": ["src", "vite.config.ts"]
+	"include": ["src", "vite.config.ts"],
+	// Fichiers générés par Paraglide : on utilise leurs .d.ts, pas besoin de vérifier le JS
+	"exclude": ["src/lib/paraglide/**/*.js"]
 }

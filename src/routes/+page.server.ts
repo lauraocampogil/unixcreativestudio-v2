@@ -1,4 +1,4 @@
-import { safeSingleton } from '#lib/directus';
+import { safeSingleton } from '#lib/directus.ts';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {

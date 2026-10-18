@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { reveal } from '#lib/actions/reveal';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import Button from '#lib/components/Button.svelte';
 	import { afterNavigate } from '$app/navigation';
-	import { visit } from '#lib/visit';
-	import { smooth } from '#lib/smooth';
+	import { visit } from '#lib/visit.ts';
+	import { smooth } from '#lib/smooth.ts';
 
 	type Service = { title: string; problem: string; what: string; href: string };
 
@@ -104,7 +104,7 @@
 	>
 		<div
 			data-nav="blue"
-			class="grid-section {spread ? 'min-h-svh pb-20 lg:pb-24' : 'sticky top-0 h-svh'} flex flex-col items-center overflow-hidden rounded-section bg-primary-accent pt-[96px] pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-[125px] xl:grid-rows-[auto_1fr]"
+			class="grid-section {spread ? 'min-h-svh pb-20 lg:pb-24' : 'sticky top-0 h-svh'} flex flex-col items-center overflow-hidden rounded-section bg-primary-accent pt-24 pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-31.25 xl:grid-rows-[auto_1fr]"
 		>
 			<h2 data-reveal use:reveal class="col-span-8 text-center text-display text-background">{title}</h2>
 
@@ -118,19 +118,19 @@
 					<article
 						bind:this={cards[i]}
 						class="relative w-full overflow-hidden rounded-card bg-primary p-6 shadow-[0_10px_40px_-20px_rgb(0_0_0/0.25)] will-change-transform lg:rounded-section {spread
-							? '-mt-3 first:mt-0 lg:-mx-2 lg:mt-0 lg:flex lg:w-[300px] lg:flex-col lg:p-7'
-							: 'max-w-[920px] [grid-area:1/1] lg:p-10'}"
+							? '-mt-3 first:mt-0 lg:-mx-2 lg:mt-0 lg:flex lg:w-75 lg:flex-col lg:p-7'
+							: 'max-w-230 [grid-area:1/1] lg:p-10'}"
 					>
 						<!-- Grande fleur décorative à droite -->
 						<img
 							src="/assets/flower-card.svg"
 							alt=""
 							aria-hidden="true"
-							class="pointer-events-none absolute inset-y-0 -right-[12%] h-full w-auto max-w-none select-none sm:-right-[5%]"
+							class="pointer-events-none absolute inset-y-0 right-[-12%] h-full w-auto max-w-none select-none sm:right-[-5%]"
 						/>
 
-						<div class="relative flex max-w-[560px] flex-col items-start {spread ? 'lg:flex-1' : ''}">
-							<span class="relative grid size-[50px] place-items-center">
+						<div class="relative flex max-w-140 flex-col items-start {spread ? 'lg:flex-1' : ''}">
+							<span class="relative grid size-12.5 place-items-center">
 								<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
 								<span class="relative text-number text-background">{i + 1}.</span>
 							</span>

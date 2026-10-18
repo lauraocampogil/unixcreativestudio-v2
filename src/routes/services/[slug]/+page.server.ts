@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { SERVICES, HOW_WE_WORK } from '#lib/services-data';
+import { SERVICES, HOW_WE_WORK } from '#lib/services-data.ts';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = ({ params }) => {

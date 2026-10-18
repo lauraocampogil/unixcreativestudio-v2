@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reveal } from '#lib/actions/reveal';
+	import { reveal } from '#lib/actions/reveal.ts';
 	let {
 		title = 'Plant your idea. Watch your business grow.',
 		subtitle = 'We are a small, friendly studio in Brussels. We make websites, apps and Google work for you. Clear prices, no tech talk, no stress.'
@@ -10,7 +10,7 @@
 <div class="relative z-10 3xl:container 3xl:mx-auto">
 	<section
 		data-nav="blue"
-		class="grid-section relative flex min-h-[640px] items-center justify-center overflow-clip rounded-t-section bg-primary lg:h-[964px] xl:content-center"
+		class="grid-section relative flex min-h-160 items-center justify-center overflow-clip rounded-t-section bg-primary lg:h-241 xl:content-center"
 	>
 		<!-- Blob haut : mobile / desktop -->
 		<img
@@ -28,9 +28,9 @@
 			class="pointer-events-none absolute top-0 left-0 hidden w-[67.5%] max-w-none select-none lg:block"
 		/>
 
-		<div class="relative col-span-8 mx-auto flex max-w-[925px] flex-col items-center gap-4 text-center text-background">
+		<div class="relative col-span-8 mx-auto flex max-w-231.25 flex-col items-center gap-4 text-center text-background">
 			<h1 data-reveal use:reveal class="text-h1">{title}</h1>
-			<p data-reveal use:reveal={{ delay: 0.2 }} class="max-w-[453px] text-body-hero">{subtitle}</p>
+			<p data-reveal use:reveal={{ delay: 0.2 }} class="max-w-113.25 text-body-hero">{subtitle}</p>
 		</div>
 	</section>
 

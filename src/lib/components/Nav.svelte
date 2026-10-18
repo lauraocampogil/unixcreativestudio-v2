@@ -163,13 +163,13 @@
 
 <header
 	bind:this={nav}
-	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-5 pt-5 xl:px-20 lg:pt-[30px] 3xl:container 3xl:mx-auto"
+	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-5 pt-5 xl:px-20 lg:pt-7.5 3xl:container 3xl:mx-auto"
 >
 	<div class="relative flex items-center justify-between">
 		<!-- Gauche (desktop) : Contact us -->
 		<a
 			href="/contact"
-			class="pointer-events-auto hidden h-14 items-center rounded-pill px-[26px] text-button-lg transition-colors duration-500 lg:flex {pill}"
+			class="pointer-events-auto hidden h-14 items-center rounded-pill px-6.5 text-button-lg transition-colors duration-500 lg:flex {pill}"
 		>
 			<span class="roll-fast"><Roll>Contact us</Roll></span>
 		</a>
@@ -184,7 +184,9 @@
 				: 'text-primary-accent'}"
 		>
 			{#if logoSvg}
-				<span class="block w-[110px] lg:w-[150px] [&_svg]:h-auto [&_svg]:w-full">{@html logoSvg}</span>
+				<!-- SVG local du dossier static (pas de contenu externe) -->
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				<span class="block w-27.5 lg:w-37.5 [&_svg]:h-auto [&_svg]:w-full">{@html logoSvg}</span>
 			{:else}
 				<span class="block font-display text-[26px] leading-[0.82] font-black lg:text-[34px]">
 					Unix<br />Studio
@@ -201,14 +203,14 @@
 				aria-controls="site-menu"
 				onclick={() => (open = !open)}
 				class="relative z-10 flex h-14 cursor-pointer items-center rounded-pill text-button-lg transition-[background-color,color,padding] duration-500 ease-in-out {open
-					? `pr-[26px] pl-[66px] ${closePill}`
-					: `pr-[66px] pl-[26px] ${pill}`}"
+					? `pr-6.5 pl-16.5 ${closePill}`
+					: `pr-16.5 pl-6.5 ${pill}`}"
 			>
 				<!-- La fleur glisse de droite à gauche (et revient) en tournant -->
 				<span
 					aria-hidden="true"
 					class="absolute top-1/2 size-7 -translate-y-1/2 bg-current transition-[left,rotate] duration-500 ease-in-out [mask:url(/assets/flower-number.svg)_center/contain_no-repeat] {open
-						? 'left-[26px] rotate-[360deg]'
+						? 'left-6.5 rotate-360'
 						: 'left-[calc(100%-54px)] rotate-0'}"
 				></span>
 				<span>{open ? 'Close' : 'Menu'}</span>
@@ -218,7 +220,7 @@
 			<div
 				bind:this={panel}
 				id="site-menu"
-				class="invisible fixed inset-x-3 top-3 rounded-section px-6 pt-[100px] pb-8 transition-colors duration-500 {panelBg} shadow-[0_20px_60px_-30px_rgb(0_0_0/0.35)] lg:absolute lg:inset-x-auto lg:-top-4 lg:-right-5 lg:w-[375px] lg:px-7"
+				class="invisible fixed inset-x-3 top-3 rounded-section px-6 pt-25 pb-8 transition-colors duration-500 {panelBg} shadow-[0_20px_60px_-30px_rgb(0_0_0/0.35)] lg:absolute lg:inset-x-auto lg:-top-4 lg:-right-5 lg:w-93.75 lg:px-7"
 			>
 				<nav aria-label="Main">
 					<ul class="flex flex-col gap-4">

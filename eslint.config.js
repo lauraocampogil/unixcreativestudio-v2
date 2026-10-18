@@ -34,8 +34,10 @@ export default defineConfig(
 		}
 	},
 	{
-		// Override or add rule settings here, such as:
-		// 'svelte/button-has-type': 'error'
-		rules: {}
+		rules: {
+			// Le site n'a pas de « base path » : les liens <a href> (ancres /#…, liens externes, mailto,
+			// props de composants) n'ont pas besoin de resolve(). goto() reste vérifié.
+			'svelte/no-navigation-without-resolve': ['error', { ignoreLinks: true }]
+		}
 	}
 );

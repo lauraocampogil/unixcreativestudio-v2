@@ -2,7 +2,7 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { SplitText } from 'gsap/SplitText';
-	import { screenReady } from '#lib/screen';
+	import { screenReady } from '#lib/screen.ts';
 
 	type Review = { quote: string; name: string; role: string; logo: string };
 
@@ -219,7 +219,7 @@
 	data-nav="blue"
 	id="reviews"
 	bind:this={section}
-	class="grid-section relative overflow-hidden bg-primary-dark py-[120px] lg:py-[270px] 3xl:container 3xl:mx-auto"
+	class="grid-section relative overflow-hidden bg-primary-dark py-30 lg:py-67.5 3xl:container 3xl:mx-auto"
 	aria-roledescription="carousel"
 	aria-label="Client reviews"
 >
@@ -232,7 +232,7 @@
 			<img
 				src="/assets/flower-review.svg"
 				alt=""
-				class="-mx-[22px] w-[300px] max-w-none shrink-0 select-none"
+				class="-mx-5.5 w-75 max-w-none shrink-0 select-none"
 				style="rotate: {rotate}deg"
 			/>
 		{/each}
@@ -242,16 +242,16 @@
 	<!-- Card -->
 	<div
 		bind:this={card}
-		class="relative col-span-8 mx-auto grid w-full max-w-[927px] rounded-section bg-background p-7 sm:p-10 lg:grid-cols-[1fr_2fr] lg:gap-x-10 lg:px-[92px] lg:py-[60px]"
+		class="relative col-span-8 mx-auto grid w-full max-w-231.75 rounded-section bg-background p-7 sm:p-10 lg:grid-cols-[1fr_2fr] lg:gap-x-10 lg:px-23 lg:py-15"
 	>
 		<!-- Flèches : en haut à gauche sur desktop, en bas sur mobile -->
-		<div class="order-last mt-8 flex gap-3 lg:order-none lg:mt-0 lg:items-start">
+		<div class="order-last mt-8 flex gap-3 lg:order-0 lg:mt-0 lg:items-start">
 			{#each [{ step: -1, icon: 'arrow-left', label: 'Previous review' }, { step: 1, icon: 'arrow-right', label: 'Next review' }] as btn (btn.step)}
 				<button
 					type="button"
 					onclick={() => go(btn.step)}
 					aria-label={btn.label}
-					class="relative grid w-[50px] cursor-pointer place-items-center transition-transform duration-300 hover:scale-110 hover:rotate-12 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark"
+					class="relative grid w-12.5 cursor-pointer place-items-center transition-transform duration-300 hover:scale-110 hover:rotate-12 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark"
 				>
 					<img src="/assets/flower-button.svg" alt="" class="w-full" />
 					<img src="/assets/{btn.icon}.svg" alt="" class="absolute w-5" />
@@ -263,24 +263,24 @@
 		<div bind:this={stage} data-reveal class="flex flex-col">
 			<p class="flex gap-4 text-body text-primary-dark">
 				<span class="grid">
-					{#each items as _, i (i)}
+					{#each items, i (i)}
 						<span bind:this={counters[i]} class="[grid-area:1/1] {i === 0 ? '' : 'invisible'}">{i + 1}/{items.length}</span>
 					{/each}
 				</span>
 				<span>{label}</span>
 			</p>
 
-			<div class="mt-8 grid lg:mt-[70px]">
+			<div class="mt-8 grid lg:mt-17.5">
 				{#each items as review, i (i)}
 					<figure
 						bind:this={figures[i]}
 						class="flex flex-col [grid-area:1/1] {i === 0 ? '' : 'invisible'}"
 						aria-hidden={i === current ? undefined : 'true'}
 					>
-						<blockquote data-split class="max-w-[450px] text-quote text-primary-dark">
+						<blockquote data-split class="max-w-112.5 text-quote text-primary-dark">
 							{review.quote}
 						</blockquote>
-						<figcaption class="mt-auto flex items-center gap-3 pt-10 lg:pt-[90px]">
+						<figcaption class="mt-auto flex items-center gap-3 pt-10 lg:pt-22.5">
 							<img data-logo src={review.logo} alt="" class="size-12 shrink-0 rounded-full object-contain lg:size-14" />
 							<span class="flex flex-col leading-tight">
 								<span data-split class="text-body font-medium text-dark">{review.name}</span>

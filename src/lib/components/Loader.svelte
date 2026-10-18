@@ -6,8 +6,8 @@
 
 <script lang="ts">
 	import { gsap } from 'gsap';
-	import { smooth } from '#lib/smooth';
-	import { screen } from '#lib/screen';
+	import { smooth } from '#lib/smooth.ts';
+	import { screen } from '#lib/screen.ts';
 
 	// Logos qui apparaissent l'un après l'autre (le « U » si le fichier existe, sinon un texte)
 	const monogram = import.meta.glob('/static/assets/logo-u.svg', { eager: true, query: '?url', import: 'default' });
@@ -148,7 +148,7 @@
 	<div
 		bind:this={loader}
 		data-nav="blue"
-		class="loader fixed inset-0 z-[100] overflow-hidden bg-primary"
+		class="loader fixed inset-0 z-100 overflow-hidden bg-primary"
 		role="status"
 		aria-label="Loading Unix Creative Studio"
 	>
@@ -167,7 +167,7 @@
 		<div class="absolute inset-0 grid place-items-center">
 			<span bind:this={logos[0]} class="col-start-1 row-start-1 grid place-items-center opacity-0">
 				{#if hasMonogram}
-					<img src="/assets/logo-u.svg" alt="" class="w-[110px] lg:w-[180px]" />
+					<img src="/assets/logo-u.svg" alt="" class="w-27.5 lg:w-45" />
 				{:else}
 					<span class="font-display text-[110px] leading-none font-black text-background lg:text-[170px]">U</span>
 				{/if}
@@ -176,13 +176,13 @@
 				bind:this={logos[1]}
 				src="/assets/flower-loader.svg"
 				alt=""
-				class="col-start-1 row-start-1 w-[120px] opacity-0 lg:w-[190px]"
+				class="col-start-1 row-start-1 w-30 opacity-0 lg:w-47.5"
 			/>
 			<img
 				bind:this={logos[2]}
 				src="/assets/unix-studio-logo.svg"
 				alt=""
-				class="col-start-1 row-start-1 w-[170px] opacity-0 lg:w-[230px]"
+				class="col-start-1 row-start-1 w-42.5 opacity-0 lg:w-57.5"
 			/>
 		</div>
 	</div>

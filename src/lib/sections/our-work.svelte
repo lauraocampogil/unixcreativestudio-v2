@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { reveal } from '#lib/actions/reveal';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import Tag from '#lib/components/Tag.svelte';
-	import { assetUrl } from '#lib/directus';
+	import { assetUrl } from '#lib/directus.ts';
 
 	type Project = {
 		name: string;
@@ -50,7 +50,6 @@
 		if (!section || !cursor || !header || !headerInner) return;
 		const cursorEl = cursor;
 		const sectionEl = section;
-		const headerEl = header;
 		const innerEl = headerInner;
 		const els = [...projects];
 		gsap.registerPlugin(ScrollTrigger);
@@ -134,11 +133,11 @@
 <section
 	id="work" bind:this={section} class="relative bg-background 3xl:container 3xl:mx-auto">
 	<!-- Tag + grand titre : restent fixes pendant tout le scroll de la section -->
-	<div bind:this={header} class="sticky top-0 h-svh px-5 pt-16 text-center xl:px-20 xl:pt-[100px]">
+	<div bind:this={header} class="sticky top-0 h-svh px-5 pt-16 text-center xl:px-20 xl:pt-25">
 		<div bind:this={headerInner} class="flex flex-col items-center gap-4 will-change-transform">
 		<Tag label={tag} />
 		<h2 data-reveal use:reveal
-			class="max-w-[1100px] text-display-xl text-primary-dark"
+			class="max-w-275 text-display-xl text-primary-dark"
 		>
 			{title}
 		</h2>
@@ -147,7 +146,7 @@
 
 	<!-- Les projets remontent par-dessus le titre -->
 	<ul
-		class="grid-section relative z-10 -mt-[100svh] flex flex-col gap-y-20 pt-[90svh] pb-[30svh] xl:gap-y-28"
+		class="grid-section relative z-10 mt-[-100svh] flex flex-col gap-y-20 pt-[90svh] pb-[30svh] xl:gap-y-28"
 	>
 		{#each items as item, i (item.name)}
 			<li
@@ -166,7 +165,7 @@
 							src={src(item.image)}
 							alt="Website {item.name}"
 							loading="lazy"
-							class="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+							class="aspect-16/10 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
 						/>
 					</div>
 					<p class="mt-3 text-caption text-dark">
@@ -181,7 +180,7 @@
 	<!-- Curseur : fleur qui tourne sans arrêt + texte fixe au centre -->
 	<div
 		bind:this={cursor}
-		class="pointer-events-none fixed top-0 left-0 z-50 grid h-[75px] w-[78px] place-items-center {finePointer ? '' : 'hidden'}"
+		class="pointer-events-none fixed top-0 left-0 z-50 grid h-18.75 w-19.5 place-items-center {finePointer ? '' : 'hidden'}"
 		aria-hidden="true"
 	>
 		<img src="/assets/flower-cursor.svg" alt="" class="absolute inset-0 size-full animate-[spin_6s_linear_infinite]" />

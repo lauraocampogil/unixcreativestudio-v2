@@ -1,7 +1,7 @@
 // Savoir si l'écran est couvert (loader, transition de page).
 // Les animations de texte attendent que l'écran soit découvert avant de démarrer.
 let busy = 0;
-let waiters: (() => void)[] = [];
+const waiters: (() => void)[] = [];
 
 export const screen = {
 	cover() {

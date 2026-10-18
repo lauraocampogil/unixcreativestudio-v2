@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { steps } from '#lib/actions/steps';
-	import { reveal } from '#lib/actions/reveal';
+	import { steps } from '#lib/actions/steps.ts';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import HowWeWork from '#lib/sections/how-we-work.svelte';
-	import { visit } from '#lib/visit';
+	import { visit } from '#lib/visit.ts';
 
 	// Au retour sur l'accueil, Services s'affichera en cards côte à côte
 	$effect(() => {
@@ -20,7 +20,7 @@
 
 <main>
 	<section
-		class="grid-section flex flex-col bg-background pt-[150px] pb-[100px] xl:pt-[200px] xl:pb-[160px] 3xl:container 3xl:mx-auto"
+		class="grid-section flex flex-col bg-background pt-37.5 pb-25 xl:pt-50 xl:pb-40 3xl:container 3xl:mx-auto"
 	>
 		<!-- Titre : Apfel Satt 96px / 40px -->
 		<h1 data-reveal use:reveal
@@ -30,7 +30,7 @@
 		</h1>
 
 		<!-- Gauche : description + délai -->
-		<div class="col-span-8 mt-8 flex flex-col gap-6 xl:col-span-4 xl:mt-10 xl:max-w-[560px]">
+		<div class="col-span-8 mt-8 flex flex-col gap-6 xl:col-span-4 xl:mt-10 xl:max-w-140">
 			<p data-reveal use:reveal={{ delay: 0.15 }} class="text-subtitle text-primary-dark">
 				{service.tagline}<br />{service.description}
 			</p>
@@ -44,8 +44,8 @@
 			{#each service.steps as step, i (step)}
 				{@const last = i === service.steps.length - 1}
 				<li data-step class="flex gap-4">
-					<div class="flex w-[50px] shrink-0 flex-col items-center">
-						<span class="step-flower relative grid size-[50px] place-items-center">
+					<div class="flex w-12.5 shrink-0 flex-col items-center">
+						<span class="step-flower relative grid size-12.5 place-items-center">
 							<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
 							<span class="relative text-number text-background">{i + 1}.</span>
 						</span>

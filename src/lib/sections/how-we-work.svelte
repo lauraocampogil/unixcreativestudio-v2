@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reveal } from '#lib/actions/reveal';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -78,20 +78,20 @@
 				{#each items as item, i (item.title)}
 					<li
 						bind:this={cards[i]}
-						class="relative -mt-4 flex w-full flex-col justify-center gap-1.5 rounded-card bg-primary px-5 py-5 will-change-transform first:mt-0 lg:-mx-2 lg:mt-0 lg:h-[400px] lg:w-[300px] lg:items-center lg:rounded-section lg:px-8 lg:text-center"
+						class="relative -mt-4 flex w-full flex-col justify-center gap-1.5 rounded-card bg-primary px-5 py-5 will-change-transform first:mt-0 lg:-mx-2 lg:mt-0 lg:h-100 lg:w-75 lg:items-center lg:rounded-section lg:px-8 lg:text-center"
 					>
 						<!-- Fleur numérotée, en haut à gauche (à l'intérieur de la card) -->
 						<span
-							class="absolute top-4 left-4 grid size-[44px] place-items-center lg:top-6 lg:left-6 lg:size-[60px]"
+							class="absolute top-4 left-4 grid size-11 place-items-center lg:top-6 lg:left-6 lg:size-15"
 						>
 							<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
 							<span class="relative text-number text-background">{i + 1}.</span>
 						</span>
 
-						<h3 class="pl-[58px] text-h2-sans text-background lg:pl-0">
+						<h3 class="pl-14.5 text-h2-sans text-background lg:pl-0">
 							{item.title}
 						</h3>
-						<p class="pl-[58px] text-body font-medium text-background lg:pl-0">
+						<p class="pl-14.5 text-body font-medium text-background lg:pl-0">
 							{item.text}
 						</p>
 					</li>

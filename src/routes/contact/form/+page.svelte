@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import { fly, fade } from 'svelte/transition';
@@ -132,7 +133,7 @@
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-{#snippet field(label: string, name: string, placeholder: string, value: string, set: (v: string) => void, type = 'text', autocomplete = 'off', required = true)}
+{#snippet field(label: string, name: string, placeholder: string, value: string, set: (v: string) => void, type = 'text', autocomplete: HTMLInputAttributes['autocomplete'] = 'off', required = true)}
 	<label class="flex flex-col gap-3">
 		<span class="text-label text-primary-dark">{label}</span>
 		<input
@@ -166,13 +167,13 @@
 			src="/assets/flower-contact.svg"
 			alt=""
 			aria-hidden="true"
-			class="pointer-events-none absolute -right-[55%] bottom-0 w-[110%] max-w-none select-none sm:-right-[35%] sm:w-[80%] lg:inset-y-0 lg:right-0 lg:h-full lg:w-auto lg:translate-x-1/2"
+			class="pointer-events-none absolute right-[-55%] bottom-0 w-[110%] max-w-none select-none sm:right-[-35%] sm:w-[80%] lg:inset-y-0 lg:right-0 lg:h-full lg:w-auto lg:translate-x-1/2"
 		/>
 		<div class="relative col-span-8 flex flex-col items-start xl:col-span-4">
 			<h1 class="text-title text-primary-dark">
 				Thank you for reaching us!
 			</h1>
-			<p class="mt-6 max-w-[420px] text-body text-dark">
+			<p class="mt-6 max-w-105 text-body text-dark">
 				Your message is on its way. We’ll get back to you within 24-48 hours with a clear plan and a fixed
 				price.
 			</p>
@@ -181,6 +182,8 @@
 	</main>
 {:else}
 	<main class="grid-section flex min-h-svh items-center bg-background py-24 xl:content-center 3xl:container 3xl:mx-auto">
+		<!-- Entrée = étape suivante : le raccourci clavier est sur le formulaire entier -->
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<form
 			method="POST"
 			novalidate
@@ -209,7 +212,7 @@
 			<!-- En-tête : fleur numérotée + titre / flèches -->
 			<div class="flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:justify-between">
 				<div class="flex items-center gap-4" aria-live="polite">
-					<span class="relative grid size-[50px] shrink-0 place-items-center">
+					<span class="relative grid size-12.5 shrink-0 place-items-center">
 						<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
 						<span class="relative text-number text-background">{step}.</span>
 					</span>
@@ -225,7 +228,7 @@
 							aria-label={a.label}
 							disabled={a.disabled}
 							onclick={() => (a.dir < 0 ? prev() : next())}
-							class="relative grid w-[50px] cursor-pointer place-items-center rounded-full transition duration-300 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark hover:scale-110 hover:rotate-12 disabled:cursor-default disabled:opacity-40 disabled:hover:scale-100 disabled:hover:rotate-0"
+							class="relative grid w-12.5 cursor-pointer place-items-center rounded-full transition duration-300 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark hover:scale-110 hover:rotate-12 disabled:cursor-default disabled:opacity-40 disabled:hover:scale-100 disabled:hover:rotate-0"
 						>
 							<img src="/assets/flower-button.svg" alt="" aria-hidden="true" class="w-full" />
 							<img src="/assets/{a.icon}.svg" alt="" aria-hidden="true" class="absolute w-5" />
@@ -241,7 +244,7 @@
 						bind:this={stepEl}
 						in:fly={{ x: 40 * direction, duration: 450, easing: cubicOut, delay: 150 }}
 						out:fly={{ x: -40 * direction, duration: 200 }}
-						class="flex max-w-[790px] flex-col gap-8 [grid-area:1/1]"
+						class="flex max-w-197.5 flex-col gap-8 [grid-area:1/1]"
 					>
 						{#if step === 1}
 							{@render field('First name', '', 'Elisabeth', first_name, (v) => (first_name = v), 'text', 'given-name')}

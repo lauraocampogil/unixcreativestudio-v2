@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reveal } from '#lib/actions/reveal';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import { fly, scale } from 'svelte/transition';
 	import { backOut, cubicOut } from 'svelte/easing';
 	import Tag from '#lib/components/Tag.svelte';
@@ -83,20 +83,20 @@
 </script>
 
 <section
-	class="grid-section sm-grid-section flex flex-col bg-background pt-12 pb-[92px] xl:pt-[60px] xl:pb-[140px] 3xl:container 3xl:mx-auto"
+	class="grid-section sm-grid-section flex flex-col bg-background pt-12 pb-23 xl:pt-15 xl:pb-35 3xl:container 3xl:mx-auto"
 >
 	<Tag label={tag} class="col-span-8" />
 
 	<!-- L'animation est sur chaque paragraphe (sur le bloc entier, le « gap » s'appliquait entre chaque ligne) -->
 	<div
-		class="col-span-8 mt-8 ml-auto flex max-w-[300px] flex-col gap-6 text-right text-lead text-primary-dark sm:max-w-[600px] xl:col-span-4 xl:col-start-5 xl:mt-6 xl:max-w-none"
+		class="col-span-8 mt-8 ml-auto flex max-w-75 flex-col gap-6 text-right text-lead text-primary-dark sm:max-w-150 xl:col-span-4 xl:col-start-5 xl:mt-6 xl:max-w-none"
 	>
 		<p data-reveal use:reveal>{title}</p>
 		<p data-reveal use:reveal={{ delay: 0.15 }}>{intro}</p>
 	</div>
 
 	<!-- Questions -->
-	<div class="col-span-8 mt-14 xl:col-span-4 xl:mt-[110px]">
+	<div class="col-span-8 mt-14 xl:col-span-4 xl:mt-27.5">
 		<h2 data-reveal use:reveal class="text-h3 text-primary-dark">{questionsLabel}</h2>
 
 		<ol class="mt-5 flex flex-col gap-10">
@@ -124,21 +124,21 @@
 	</div>
 
 	<!-- Recommandation -->
-	<div class="col-span-8 mt-14 xl:col-span-4 xl:col-start-5 xl:mt-[110px]">
+	<div class="col-span-8 mt-14 xl:col-span-4 xl:col-start-5 xl:mt-27.5">
 		<h2 data-reveal use:reveal class="text-h3 text-primary-dark">{recommendationLabel}</h2>
 
-		<div class="relative mt-5 h-[356px] w-full sm:max-w-[400px] xl:max-w-[335px]">
+		<div class="relative mt-5 h-89 w-full sm:max-w-100 xl:max-w-83.75">
 		{#if !done}
 			<p
 				out:fly={{ y: -10, duration: 200 }}
-				class="absolute top-0 left-0 max-w-[300px] text-body text-dark-light"
+				class="absolute top-0 left-0 max-w-75 text-body text-dark-light"
 			>
 				Answer the 3 questions and your recommendation will bloom here.
 			</p>
 		{:else}
 		<article
 			in:scale={{ start: 0.85, duration: 600, easing: backOut, delay: 150 }}
-			class="absolute inset-0 flex h-[356px] w-full flex-col justify-between overflow-hidden rounded-card bg-primary p-5 lg:rounded-section"
+			class="absolute inset-0 flex h-89 w-full flex-col justify-between overflow-hidden rounded-card bg-primary p-5 lg:rounded-section"
 			aria-live="polite"
 		>
 			<!-- Mascotte : touche le haut et le bas, on n'en voit que la moitié -->
@@ -155,7 +155,7 @@
 					<h3
 						in:fly={{ y: 24, duration: 450, easing: cubicOut, delay: 120 }}
 						out:fly={{ y: -24, duration: 250 }}
-						class="max-w-[260px] text-h2 text-background [grid-area:1/1]"
+						class="max-w-65 text-h2 text-background [grid-area:1/1]"
 					>
 						{recommendation.name}
 					</h3>

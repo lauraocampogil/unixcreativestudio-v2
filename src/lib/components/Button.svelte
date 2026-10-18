@@ -24,7 +24,7 @@
 	}: Props = $props();
 
 	const base =
-		'inline-flex items-center justify-center gap-1.5 rounded-pill px-[26px] py-3 text-center whitespace-nowrap transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark';
+		'inline-flex items-center justify-center gap-1.5 rounded-pill px-6.5 py-3 text-center whitespace-nowrap transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark';
 
 	// $derived : la classe se met à jour quand `selected` change (sinon elle restait figée)
 	const variants: Record<Variant, string> = $derived({

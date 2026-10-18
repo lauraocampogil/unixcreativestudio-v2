@@ -19,7 +19,6 @@
 		if (!section || !blobDesktop || !blobMobile || !heading || !stage || !track) return;
 		const trackEl = track;
 		const stageEl = stage;
-		const sectionEl = section;
 		const headingEl = heading;
 		const desktop = blobDesktop;
 		const mobile = blobMobile;
@@ -110,7 +109,7 @@
 			<div class="grid-section absolute inset-0 flex items-center justify-center xl:content-center">
 				<h2
 					bind:this={heading}
-					class="col-span-8 mx-auto max-w-[351px] text-center text-h1 text-background lg:max-w-[600px]"
+					class="col-span-8 mx-auto max-w-87.75 text-center text-h1 text-background lg:max-w-150"
 				>
 					{title}
 				</h2>

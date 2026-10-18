@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
 	import { onNavigate, afterNavigate } from '$app/navigation';
-	import { screen } from '#lib/screen';
+	import { screen } from '#lib/screen.ts';
 
 	// Logo « U » avec la fleur (si le fichier existe, sinon un « U » en texte)
 	const monogram = import.meta.glob('/static/assets/logo-u.svg', { eager: true, query: '?url', import: 'default' });
@@ -86,7 +86,7 @@
 
 <div
 	bind:this={overlay}
-	class="pointer-events-none invisible fixed inset-0 z-[90] overflow-hidden"
+	class="pointer-events-none invisible fixed inset-0 z-90 overflow-hidden"
 	aria-hidden="true"
 >
 	<span bind:this={bg} class="absolute inset-0 bg-primary opacity-0"></span>
@@ -106,7 +106,7 @@
 	<div class="absolute inset-0 grid place-items-center">
 		<span bind:this={logo} class="grid place-items-center opacity-0">
 			{#if hasMonogram}
-				<img src="/assets/logo-u.svg" alt="" class="w-[100px] lg:w-[150px]" />
+				<img src="/assets/logo-u.svg" alt="" class="w-25 lg:w-37.5" />
 			{:else}
 				<span class="font-display text-[100px] leading-none font-black text-background lg:text-[150px]">U</span>
 			{/if}

@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { screenReady } from '#lib/screen';
+import { screenReady } from '#lib/screen.ts';
 
 type Options = { delay?: number; stagger?: number };
 

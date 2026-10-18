@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reveal } from '#lib/actions/reveal';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import { slide, fade } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 	import Tag from '#lib/components/Tag.svelte';
@@ -29,14 +29,14 @@
 
 <section
 	id="faq"
-	class="grid-section sm-grid-section flex flex-col gap-y-12 bg-background pt-16 pb-[92px] xl:pt-[100px] xl:pb-[160px] 3xl:container 3xl:mx-auto"
+	class="grid-section sm-grid-section flex flex-col gap-y-12 bg-background pt-16 pb-23 xl:pt-25 xl:pb-40 3xl:container 3xl:mx-auto"
 >
 	<!-- Gauche : reste collé en haut de l'écran et descend avec le scroll (desktop) -->
 	<div class="col-span-8 xl:col-span-3">
-		<div class="flex flex-col gap-6 xl:sticky xl:top-[100px]">
+		<div class="flex flex-col gap-6 xl:sticky xl:top-25">
 			<Tag label={tag} />
-			<h2 data-reveal use:reveal class="max-w-[330px] text-h1 text-primary-accent">{title}</h2>
-			<p data-reveal use:reveal={{ delay: 0.15 }} class="max-w-[340px] text-body text-dark-light">
+			<h2 data-reveal use:reveal class="max-w-82.5 text-h1 text-primary-accent">{title}</h2>
+			<p data-reveal use:reveal={{ delay: 0.15 }} class="max-w-85 text-body text-dark-light">
 				{text}
 				<a
 					href={linkHref}
@@ -50,7 +50,7 @@
 
 	<!-- Droite : questions -->
 	<!-- Au survol d'une question, les autres deviennent plus transparentes (les lignes restent) -->
-	<ul class="group/list col-span-8 flex flex-col border-t border-primary xl:col-span-5 xl:col-start-4 xl:mt-[170px]">
+	<ul class="group/list col-span-8 flex flex-col border-t border-primary xl:col-span-5 xl:col-start-4 xl:mt-42.5">
 		{#each items as item, i (item.question)}
 			{@const isOpen = open === i}
 			<li class="group/item border-b border-primary">
@@ -63,7 +63,7 @@
 						onclick={() => toggle(i)}
 						class="group flex w-full cursor-pointer items-center transition-opacity duration-300 group-hover/list:opacity-35 group-hover/item:opacity-100! group-focus-within/item:opacity-100! justify-between gap-6 px-5 py-6 text-left text-large text-primary-dark lg:px-2.5 lg:py-7"
 					>
-						<span class="max-w-[260px] sm:max-w-none">{item.question}</span>
+						<span class="max-w-65 sm:max-w-none">{item.question}</span>
 
 						<!-- Plus ↔ moins (le quart de tour au survol seulement sur le plus) -->
 						<span class="relative grid size-8 shrink-0 place-items-center">
@@ -87,7 +87,7 @@
 						aria-labelledby="faq-q-{i}"
 						transition:slide={{ duration: 400, easing: cubicInOut }}
 					>
-						<p class="max-w-[560px] px-5 pb-6 text-body lg:px-2.5 transition-opacity duration-300 group-hover/list:opacity-35 group-hover/item:opacity-100! group-focus-within/item:opacity-100!">{item.answer}</p>
+						<p class="max-w-140 px-5 pb-6 text-body lg:px-2.5 transition-opacity duration-300 group-hover/list:opacity-35 group-hover/item:opacity-100! group-focus-within/item:opacity-100!">{item.answer}</p>
 					</div>
 				{/if}
 			</li>
