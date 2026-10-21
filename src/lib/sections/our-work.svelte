@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { safeImg } from '#lib/actions/safe-img.ts';
 	import { reveal } from '#lib/actions/reveal.ts';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -35,7 +36,9 @@
 	const SPEED = [60, 120, 80, 140, 70];
 
 	const src = (image: string) =>
-		image.startsWith('/') || image.startsWith('http') ? image : (assetUrl(image, { width: 1400 }) ?? '');
+		image.startsWith('/') || image.startsWith('http')
+			? image
+			: (assetUrl(image, { width: 1400 }) ?? '');
 
 	let section = $state<HTMLElement>();
 	let cursor = $state<HTMLElement>();
@@ -99,9 +102,12 @@
 			const over = !!document.elementFromPoint(px, py)?.closest('[data-work-link]');
 			if (over === visible) return;
 			visible = over;
-			gsap.to(cursorEl, over
-				? { scale: 1, duration: 0.4, ease: 'back.out(1.7)', overwrite: 'auto' }
-				: { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' });
+			gsap.to(
+				cursorEl,
+				over
+					? { scale: 1, duration: 0.4, ease: 'back.out(1.7)', overwrite: 'auto' }
+					: { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' }
+			);
 		};
 		const onMove = (e: PointerEvent) => {
 			px = e.clientX;
@@ -127,20 +133,16 @@
 			mm.revert();
 		};
 	});
-
 </script>
 
-<section
-	id="work" bind:this={section} class="relative bg-background 3xl:container 3xl:mx-auto">
+<section id="work" bind:this={section} class="relative bg-background 3xl:container 3xl:mx-auto">
 	<!-- Tag + grand titre : restent fixes pendant tout le scroll de la section -->
 	<div bind:this={header} class="sticky top-0 h-svh px-5 pt-16 text-center xl:px-20 xl:pt-25">
 		<div bind:this={headerInner} class="flex flex-col items-center gap-4 will-change-transform">
-		<Tag label={tag} />
-		<h2 data-reveal use:reveal
-			class="max-w-275 text-display-xl text-primary-dark"
-		>
-			{title}
-		</h2>
+			<Tag label={tag} />
+			<h2 data-reveal use:reveal class="max-w-275 text-display-xl text-primary-dark">
+				{title}
+			</h2>
 		</div>
 	</div>
 
@@ -151,7 +153,9 @@
 		{#each items as item, i (item.name)}
 			<li
 				bind:this={projects[i]}
-				class="max-xl:w-[85%] sm:max-xl:w-[70%] lg:max-xl:w-[48%] xl:mx-0 {STAIRS[i % STAIRS.length]}"
+				class="max-xl:w-[85%] xl:mx-0 sm:max-xl:w-[70%] lg:max-xl:w-[48%] {STAIRS[
+					i % STAIRS.length
+				]}"
 			>
 				<a
 					href={item.href}
@@ -166,7 +170,8 @@
 								src={src(item.image)}
 								alt="Website {item.name}"
 								loading="lazy"
-								class="aspect-16/10 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+								use:safeImg
+								class="aspect-16/10 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] data-failed:bg-primary/20"
 							/>
 						{:else}
 							<!-- Pas encore d'image dans Directus : un bloc bleu clair à la place -->
@@ -185,10 +190,18 @@
 	<!-- Curseur : fleur qui tourne sans arrêt + texte fixe au centre -->
 	<div
 		bind:this={cursor}
-		class="pointer-events-none fixed top-0 left-0 z-50 grid h-18.75 w-19.5 place-items-center {finePointer ? '' : 'hidden'}"
+		class="pointer-events-none fixed top-0 left-0 z-50 grid h-18.75 w-19.5 place-items-center {finePointer
+			? ''
+			: 'hidden'}"
 		aria-hidden="true"
 	>
-		<img src="/assets/flower-cursor.svg" alt="" class="absolute inset-0 size-full animate-[spin_6s_linear_infinite]" />
-		<span class="relative font-display text-[13px] leading-none font-bold text-background">View<br />work</span>
+		<img
+			src="/assets/flower-cursor.svg"
+			alt=""
+			class="absolute inset-0 size-full animate-[spin_6s_linear_infinite]"
+		/>
+		<span class="relative font-display text-[13px] leading-none font-bold text-background"
+			>View<br />work</span
+		>
 	</div>
 </section>

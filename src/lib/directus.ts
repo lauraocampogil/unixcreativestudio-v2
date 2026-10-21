@@ -18,7 +18,8 @@ export const assetUrl = (id: string | null | undefined, options: AssetOptions = 
 	if (height) params.set('height', String(height));
 	params.set('quality', String(quality));
 	params.set('format', format);
-	return `${PUBLIC_DIRECTUS_URL}/assets/${id}?${params.toString()}`;
+	// Passe par le site (src/routes/media/[id]) : même adresse que la page, donc jamais bloquée
+	return `/media/${id}?${params.toString()}`;
 };
 
 // Champs techniques de Directus qu'on ne veut pas mélanger au contenu

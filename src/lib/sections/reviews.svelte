@@ -4,10 +4,12 @@
 	import { SplitText } from 'gsap/SplitText';
 	import { screenReady } from '#lib/screen.ts';
 	import { m } from '#lib/paraglide/messages.js';
+	import { safeImg } from '#lib/actions/safe-img.ts';
 
 	type Review = { quote: string; name: string; role: string; logo: string };
 
-	let { label = 'What our client says', items = [] }: { label?: string; items?: Review[] } = $props();
+	let { label = 'What our client says', items = [] }: { label?: string; items?: Review[] } =
+		$props();
 
 	// Temps avant de passer automatiquement à l'avis suivant
 	const AUTOPLAY = 6000;
@@ -81,7 +83,6 @@
 			logo: fig.querySelector<HTMLElement>('[data-logo]')
 		}));
 		const allLines = (i: number) => parts[i].lines.flat();
-
 
 		const schedule = () => {
 			clearTimeout(timer);
@@ -220,7 +221,7 @@
 	data-nav="blue"
 	id="reviews"
 	bind:this={section}
-	class="grid-section relative overflow-hidden bg-primary-dark py-30 lg:py-67.5 3xl:container 3xl:mx-auto"
+	class="grid-section relative overflow-hidden bg-primary-dark py-30 3xl:container 3xl:mx-auto lg:py-67.5"
 	aria-roledescription="carousel"
 	aria-label={m.reviews_label()}
 >
@@ -228,16 +229,16 @@
 	<!-- Le centrage vertical est sur un conteneur à part : GSAP n'anime que la rangée (x),
 	     sinon il reprend le « translate » CSS et la rangée descend en revenant sur la page -->
 	<div class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2" aria-hidden="true">
-	<div bind:this={row} class="flex w-max will-change-transform">
-		{#each MASCOTS as rotate, i (i)}
-			<img
-				src="/assets/flower-review.svg"
-				alt=""
-				class="-mx-5.5 w-75 max-w-none shrink-0 select-none"
-				style="rotate: {rotate}deg"
-			/>
-		{/each}
-	</div>
+		<div bind:this={row} class="flex w-max will-change-transform">
+			{#each MASCOTS as rotate, i (i)}
+				<img
+					src="/assets/flower-review.svg"
+					alt=""
+					class="-mx-5.5 w-75 max-w-none shrink-0 select-none"
+					style="rotate: {rotate}deg"
+				/>
+			{/each}
+		</div>
 	</div>
 
 	<!-- Card -->
@@ -265,7 +266,9 @@
 			<p class="flex gap-4 text-body text-primary-dark">
 				<span class="grid">
 					{#each items, i (i)}
-						<span bind:this={counters[i]} class="[grid-area:1/1] {i === 0 ? '' : 'invisible'}">{i + 1}/{items.length}</span>
+						<span bind:this={counters[i]} class="[grid-area:1/1] {i === 0 ? '' : 'invisible'}"
+							>{i + 1}/{items.length}</span
+						>
 					{/each}
 				</span>
 				<span>{label}</span>
@@ -283,17 +286,18 @@
 						</blockquote>
 						<figcaption class="mt-auto flex items-center gap-3 pt-10 lg:pt-22.5">
 							{#if review.logo}
-								<!-- Si le logo ne charge pas (Directus redémarre…), on garde juste le rond, sans icône cassée -->
+								<!-- Si le logo ne charge pas, safeImg enlève l’icône cassée et affiche un rond bleu clair -->
 								<img
 									data-logo
 									src={review.logo}
 									alt=""
-									onerror={(e) => e.currentTarget.removeAttribute('src')}
-									class="size-12 shrink-0 rounded-full object-contain lg:size-14"
+									use:safeImg
+									class="size-12 shrink-0 rounded-full object-contain data-failed:bg-primary/20 lg:size-14"
 								/>
 							{:else}
 								<!-- Pas encore de logo dans Directus -->
-								<span data-logo class="size-12 shrink-0 rounded-full bg-primary/20 lg:size-14"></span>
+								<span data-logo class="size-12 shrink-0 rounded-full bg-primary/20 lg:size-14"
+								></span>
 							{/if}
 							<span class="flex flex-col leading-tight">
 								<span data-split class="text-body font-medium text-dark">{review.name}</span>
