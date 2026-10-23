@@ -43,18 +43,23 @@
 	const scrollToSection = (id: string) => {
 		const target = document.getElementById(id);
 		if (!target) return;
-		if (lenis) lenis.scrollTo(target, { immediate: true, force: true });
-		else target.scrollIntoView();
+		const y = target.getBoundingClientRect().top + window.scrollY;
+		// resize : Lenis doit connaître la nouvelle hauteur de la page, sinon il s'arrête trop tôt
+		lenis?.resize();
+		lenis?.scrollTo(y, { immediate: true, force: true });
+		window.scrollTo(0, y);
 	};
 
 	$effect(() => {
 		const onClick = async (e: MouseEvent) => {
-			if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+			if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
+				return;
 			const link = (e.target as Element).closest?.('a[href*="#"]') as HTMLAnchorElement | null;
 			if (!link || link.target === '_blank') return;
 			// Seulement les ancres de l'accueil, dans n'importe quelle langue : /#faq, /fr/#faq…
 			const url = new URL(link.href);
-			if (url.origin !== location.origin || !url.hash || deLocalizeUrl(url).pathname !== '/') return;
+			if (url.origin !== location.origin || !url.hash || deLocalizeUrl(url).pathname !== '/')
+				return;
 			const id = url.hash.slice(1);
 			e.preventDefault();
 
@@ -66,12 +71,20 @@
 			// Autre page : retour à l'accueil, puis on se place sur la section
 			visit.goingToSection = true;
 			await goto(resolve(localizeHref('/') as Path));
-			await new Promise((r) => setTimeout(r, 150)); // laisse ScrollTrigger recalculer la page
+			// La page grandit encore quelques instants (sections épinglées, images) :
+			// on se replace sur la section jusqu'à ce qu'elle ne bouge plus.
+			for (let i = 0; i < 12; i++) {
+				await new Promise((r) => setTimeout(r, 150));
+				ScrollTrigger.refresh();
+				scrollToSection(id);
+				const top = document.getElementById(id)?.getBoundingClientRect().top ?? 0;
+				if (i >= 2 && Math.abs(top) < 2) break;
+			}
 			visit.goingToSection = false;
-			scrollToSection(id);
 		};
-		document.addEventListener('click', onClick);
-		return () => document.removeEventListener('click', onClick);
+		// capture : notre gestion passe avant celle de SvelteKit (sinon il navigue vers /#faq tout seul)
+		document.addEventListener('click', onClick, true);
+		return () => document.removeEventListener('click', onClick, true);
 	});
 
 	// Scroll fluide (Lenis) synchronisé avec GSAP ScrollTrigger
@@ -122,9 +135,17 @@
 	})}
 	<!-- Google : la même page dans les autres langues -->
 	{#each locales as locale (locale)}
-		<link rel="alternate" hreflang={locale} href={new URL(localizeHref(page.url.pathname, { locale }), page.url.origin).href} />
+		<link
+			rel="alternate"
+			hreflang={locale}
+			href={new URL(localizeHref(page.url.pathname, { locale }), page.url.origin).href}
+		/>
 	{/each}
-	<link rel="alternate" hreflang="x-default" href={new URL(localizeHref(page.url.pathname, { locale: 'en' }), page.url.origin).href} />
+	<link
+		rel="alternate"
+		hreflang="x-default"
+		href={new URL(localizeHref(page.url.pathname, { locale: 'en' }), page.url.origin).href}
+	/>
 </svelte:head>
 
 <!-- Pas de nav ni de footer sur le formulaire et la page d'erreur (404…) -->

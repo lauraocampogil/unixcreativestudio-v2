@@ -65,16 +65,16 @@
 		style="--n: {items.length}"
 	>
 		<div
-			class="grid-section sticky top-0 flex h-svh flex-col items-center justify-start overflow-hidden rounded-section bg-primary-dark pt-24 pb-6 lg:justify-center lg:pt-32 lg:pb-16 motion-reduce:static motion-reduce:h-auto xl:content-center"
+			class="grid-section sticky top-0 flex h-svh flex-col items-center justify-start overflow-hidden bg-primary-dark pt-24 pb-6 motion-reduce:static motion-reduce:h-auto xl:content-center lg:justify-center lg:pt-32 lg:pb-16"
 		>
-			<h2 data-reveal use:reveal
-				class="col-span-8 text-center text-display text-background"
-			>
+			<h2 data-reveal use:reveal class="col-span-8 text-center text-display text-background">
 				{title}
 			</h2>
 
 			<!-- Mobile : une colonne (cards qui se chevauchent un peu) / desktop : 4 cards côte à côte -->
-			<ol class="col-span-8 mt-6 flex w-full flex-col lg:mt-16 lg:flex-row lg:items-center lg:justify-center">
+			<ol
+				class="col-span-8 mt-6 flex w-full flex-col lg:mt-16 lg:flex-row lg:items-center lg:justify-center"
+			>
 				{#each items as item, i (item.title)}
 					<li
 						bind:this={cards[i]}
@@ -84,7 +84,12 @@
 						<span
 							class="absolute top-4 left-4 grid size-11 place-items-center lg:top-6 lg:left-6 lg:size-15"
 						>
-							<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
+							<img
+								src="/assets/flower-number.svg"
+								alt=""
+								aria-hidden="true"
+								class="absolute inset-0 size-full"
+							/>
 							<span class="relative text-number text-background">{i + 1}.</span>
 						</span>
 

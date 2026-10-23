@@ -26,8 +26,10 @@
 	const ROTATIONS = [-3, 2.5, -1.5, 3];
 
 	// En arrivant en mode côte à côte : on se place directement sur la section Services
-	afterNavigate(() => {
+	// (sauf si on vient d'un lien vers une autre section, ex. /#faq)
+	afterNavigate(({ to }) => {
 		if (!spread || !section || visit.goingToSection) return;
+		if (to?.url.hash && to.url.hash !== '#services') return;
 		const el = section;
 		setTimeout(() => {
 			const y = el.getBoundingClientRect().top + window.scrollY;
@@ -45,7 +47,14 @@
 			const rot = ctx.conditions?.desktop ? SPREAD_DESKTOP : SPREAD_MOBILE;
 			gsap.set(els, { rotation: (i) => rot[i % rot.length] });
 			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-				gsap.from(els, { y: 80, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08, delay: 0.5 });
+				gsap.from(els, {
+					y: 80,
+					opacity: 0,
+					duration: 0.8,
+					ease: 'power3.out',
+					stagger: 0.08,
+					delay: 0.5
+				});
 			}
 		});
 		return () => mm.revert();
@@ -95,9 +104,7 @@
 </script>
 
 <!-- Piste : 100svh de scroll par card. Sans animation (reduced motion) : simple liste -->
-<section
-	bind:this={section}
-	id="services" class="relative bg-background 3xl:container 3xl:mx-auto">
+<section bind:this={section} id="services" class="relative bg-background 3xl:container 3xl:mx-auto">
 	<div
 		bind:this={track}
 		class="relative {spread ? '' : 'h-[calc(var(--n)*100svh)]'} motion-reduce:h-auto"
@@ -105,9 +112,13 @@
 	>
 		<div
 			data-nav="blue"
-			class="grid-section {spread ? 'min-h-svh pb-20 lg:pb-24' : 'sticky top-0 h-svh'} flex flex-col items-center overflow-hidden rounded-section bg-primary-accent pt-24 pb-10 motion-reduce:static motion-reduce:h-auto lg:pt-31.25 xl:grid-rows-[auto_1fr]"
+			class="grid-section {spread
+				? 'min-h-svh pb-20 lg:pb-24'
+				: 'sticky top-0 h-svh'} flex flex-col items-center overflow-hidden bg-primary-accent pt-24 pb-10 motion-reduce:static motion-reduce:h-auto xl:grid-rows-[auto_1fr] lg:pt-31.25"
 		>
-			<h2 data-reveal use:reveal class="col-span-8 text-center text-display text-background">{title}</h2>
+			<h2 data-reveal use:reveal class="col-span-8 text-center text-display text-background">
+				{title}
+			</h2>
 
 			<!-- Toutes les cards dans la même cellule de grille = empilées -->
 			<div
@@ -132,23 +143,34 @@
 
 						<div class="relative flex max-w-140 flex-col items-start {spread ? 'lg:flex-1' : ''}">
 							<span class="relative grid size-12.5 place-items-center">
-								<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
+								<img
+									src="/assets/flower-number.svg"
+									alt=""
+									aria-hidden="true"
+									class="absolute inset-0 size-full"
+								/>
 								<span class="relative text-number text-background">{i + 1}.</span>
 							</span>
 
-							<h3
-								class="text-h2 text-background {spread ? 'mt-6' : 'mt-8 lg:mt-12'}"
-							>
+							<h3 class="text-h2 text-background {spread ? 'mt-6' : 'mt-8 lg:mt-12'}">
 								{item.title}
 							</h3>
 
-							<div class="mt-4 flex flex-col gap-3 text-background {spread ? 'text-small lg:mb-8' : 'text-body'}">
+							<div
+								class="mt-4 flex flex-col gap-3 text-background {spread
+									? 'text-small lg:mb-8'
+									: 'text-body'}"
+							>
 								<p>{item.problem}</p>
 								<p>{item.what}</p>
 							</div>
 
 							<!-- côte à côte : le bouton est poussé en bas, au même niveau sur les 4 cards -->
-							<Button href={item.href} variant="light" class="mt-6 {spread ? 'lg:mt-auto' : 'lg:mt-8'}">{m.services_more_info()}</Button>
+							<Button
+								href={item.href}
+								variant="light"
+								class="mt-6 {spread ? 'lg:mt-auto' : 'lg:mt-8'}">{m.services_more_info()}</Button
+							>
 						</div>
 					</article>
 				{/each}
