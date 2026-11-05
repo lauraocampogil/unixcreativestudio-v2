@@ -5,7 +5,7 @@ export const home = {
 	hero: {
 		title: 'Plant je idee. Zie je bedrijf groeien.',
 		subtitle:
-			'Wij zijn een kleine, vriendelijke studio in Brussel. We laten websites, apps en Google voor je werken. Duidelijke prijzen, geen vakjargon, geen stress.'
+			'We zijn een kleine, vriendelijke studio in Brussel. We maken websites en apps, en zetten AI aan het werk in je bedrijf. Duidelijke prijzen, geen vakjargon, geen stress.'
 	},
 	titleLine: {
 		title: 'Jij runt het. Wij laten het groeien'
@@ -13,19 +13,19 @@ export const home = {
 	whatWeDo: {
 		tag: 'Wat we doen',
 		intro:
-			'Je hoeft niets te weten over websites, Google of advertenties. Je wil gewoon dat mensen je vinden en contact opnemen. Dat is precies wat we bouwen.',
+			'Je hoeft niets te weten over websites of AI. Je wilt gewoon meer klanten en meer tijd. Dat is precies wat we bouwen.',
 		items: [
 			{
 				title: 'Mensen vinden je',
-				text: 'Op dit moment zoekt iemand in je buurt naar wat jij doet. Laten we zorgen dat jouw naam eerst verschijnt, niet die van je concurrent.'
+				text: 'Op dit moment zoekt iemand in je buurt naar wat jij doet, op Google of door het aan ChatGPT te vragen. Laten we zorgen dat jouw naam eerst verschijnt, niet die van je concurrent.'
 			},
 			{
 				title: 'Mensen vertrouwen je',
-				text: 'Online heb je maar een paar seconden voor een goede eerste indruk. Wij laten die seconden tellen, met een website die echt bij je past.'
+				text: 'Online heb je maar een paar seconden om een goede eerste indruk te maken. Wij laten die seconden tellen, met een website die echt bij je past.'
 			},
 			{
-				title: 'Mensen nemen contact op',
-				text: 'Een bezoeker die je knop niet vindt, is een klant die je verliest. Wij maken contact makkelijk: één tik om te bellen, te schrijven of te boeken.'
+				title: 'Je krijgt je tijd terug',
+				text: 'Steeds dezelfde vragen beantwoorden, offertes opvolgen, gegevens overtypen… Dat werk geven we aan AI, zodat jij je op je klanten kunt richten.'
 			}
 		]
 	},
@@ -35,25 +35,19 @@ export const home = {
 			{
 				title: 'Webdesign & ontwikkeling',
 				problem:
-					'Op dit moment zoekt iemand naar wat jij doet. Zonder goede website kiest die persoon iemand anders. Laten we zorgen dat ze voor jou kiezen.',
+					'Op dit moment zoekt iemand naar wat jij doet, op Google of in ChatGPT. Zonder goede website kiest hij iemand anders. Laten we zorgen dat hij jou vindt en jou kiest.',
 				href: '/services/web-design'
 			},
 			{
-				title: 'SEO',
+				title: 'AI-consulting',
 				problem:
-					'Elke dag zoeken mensen op Google naar jouw dienst. Sta je niet op de eerste pagina, dan krijgt je concurrent het telefoontje.',
-				href: '/services/seo'
-			},
-			{
-				title: 'Advertenties',
-				problem:
-					'Je concurrenten staan al op het scherm van je klanten. Met advertenties sta jij er ook, vanaf de eerste week.',
-				href: '/services/ads'
+					'Je verliest elke week uren aan taken die een computer kan doen. We vinden je grootste tijdvreter en bouwen het AI-systeem dat het van je overneemt.',
+				href: '/services/ai-consulting'
 			},
 			{
 				title: 'Mobiele app',
 				problem:
-					'Je klanten zitten uren op hun telefoon. Met een app ben je maar één tik ver, zodat ze bij jou terugkomen en niet bij een ander.',
+					'Je klanten zitten uren op hun telefoon. Een app houdt je op één tik afstand, zodat ze bij jou terugkomen en niet bij een ander.',
 				href: '/services/mobile-app'
 			}
 		]
@@ -168,6 +162,11 @@ export const home = {
 			{
 				question: 'Wat als er iets kapotgaat?',
 				answer: 'Tot een jaar na de lancering lossen we elke technische bug gratis op.'
+			},
+			{
+				question: 'Ik weet niets van AI. Is dat een probleem?',
+				answer:
+					'Helemaal niet. We leggen alles in eenvoudige woorden uit, zetten alles voor je op en jij ziet alleen het resultaat: elke week uren bespaard.'
 			}
 		]
 	},
@@ -176,7 +175,7 @@ export const home = {
 			'Laat je bedrijf bloeien',
 			'Word gevonden',
 			'Vind klanten',
-			'Groei online',
+			'Bespaar tijd',
 			'Minder stress'
 		]
 	}

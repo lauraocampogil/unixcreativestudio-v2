@@ -29,11 +29,10 @@
 	let phone = $state('');
 	let source = $state('');
 
-	// Pré-remplissage depuis le quiz (?service=seo&when=asap)
+	// Pré-remplissage depuis le quiz (?service=ai-consulting&when=asap)
 	const FROM_QUIZ: Record<string, string> = {
 		'web-design': 'website',
-		seo: 'google',
-		ads: 'ads',
+		'ai-consulting': 'ai',
 		'mobile-app': 'app'
 	};
 	const qs = page.url.searchParams;
@@ -42,8 +41,7 @@
 
 	const SERVICE_OPTIONS = [
 		['website', m.form_opt_website()],
-		['google', m.form_opt_google()],
-		['ads', m.form_opt_ads()],
+		['ai', m.form_opt_ai()],
 		['app', m.form_opt_app()],
 		['unsure', m.form_opt_unsure()]
 	];
@@ -87,7 +85,8 @@
 		if (s === 2 && !services.length) missing.push(m.form_miss_option());
 		if (s === 4 && !when) missing.push(m.form_miss_when());
 		if (s === 5) {
-			if (!validEmail(email)) missing.push(email.trim() ? m.form_miss_valid_email() : m.form_miss_email());
+			if (!validEmail(email))
+				missing.push(email.trim() ? m.form_miss_valid_email() : m.form_miss_email());
 			if (!source.trim()) missing.push(m.form_miss_source());
 		}
 		return missing;
@@ -107,7 +106,10 @@
 		error = showMissing ? message(to) : '';
 		await tick();
 		// Focus sur le premier champ de la nouvelle étape (clavier + lecteurs d'écran)
-		setTimeout(() => stepEl?.querySelector<HTMLElement>('input, button[aria-pressed]')?.focus(), 450);
+		setTimeout(
+			() => stepEl?.querySelector<HTMLElement>('input, button[aria-pressed]')?.focus(),
+			450
+		);
 	};
 
 	const next = () => step < TOTAL && go(step + 1);
@@ -141,7 +143,16 @@
 
 <Seo title={m.form_meta_title()} description={m.contact_meta_description()} noindex />
 
-{#snippet field(label: string, name: string, placeholder: string, value: string, set: (v: string) => void, type = 'text', autocomplete: HTMLInputAttributes['autocomplete'] = 'off', required = true)}
+{#snippet field(
+	label: string,
+	name: string,
+	placeholder: string,
+	value: string,
+	set: (v: string) => void,
+	type = 'text',
+	autocomplete: HTMLInputAttributes['autocomplete'] = 'off',
+	required = true
+)}
 	<label class="flex flex-col gap-3">
 		<span class="text-label text-primary-dark">{label}</span>
 		<input
@@ -155,7 +166,10 @@
 				set(e.currentTarget.value);
 				if (showMissing) error = message(step);
 			}}
-			class="w-full border-b bg-transparent pb-2 text-small text-dark outline-none placeholder:text-dark-light focus:border-primary-dark {isMissing(value, required)
+			class="w-full border-b bg-transparent pb-2 text-small text-dark outline-none placeholder:text-dark-light focus:border-primary-dark {isMissing(
+				value,
+				required
+			)
 				? 'border-[#d64545]'
 				: 'border-primary'}"
 		/>
@@ -188,7 +202,9 @@
 		</div>
 	</main>
 {:else}
-	<main class="grid-section flex min-h-svh items-center bg-background py-24 xl:content-center 3xl:container 3xl:mx-auto">
+	<main
+		class="grid-section flex min-h-svh items-center bg-background py-24 xl:content-center 3xl:container 3xl:mx-auto"
+	>
 		<!-- Entrée = étape suivante : le raccourci clavier est sur le formulaire entier -->
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<form
@@ -214,13 +230,25 @@
 			<input type="hidden" name="about" value={about} />
 			<input type="hidden" name="when" value={when} />
 			<!-- Piège à robots -->
-			<input type="text" name="website_url" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+			<input
+				type="text"
+				name="website_url"
+				tabindex="-1"
+				autocomplete="off"
+				class="hidden"
+				aria-hidden="true"
+			/>
 
 			<!-- En-tête : fleur numérotée + titre / flèches -->
 			<div class="flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:justify-between">
 				<div class="flex items-center gap-4" aria-live="polite">
 					<span class="relative grid size-12.5 shrink-0 place-items-center">
-						<img src="/assets/flower-number.svg" alt="" aria-hidden="true" class="absolute inset-0 size-full" />
+						<img
+							src="/assets/flower-number.svg"
+							alt=""
+							aria-hidden="true"
+							class="absolute inset-0 size-full"
+						/>
 						<span class="relative text-number text-background">{step}.</span>
 					</span>
 					<h1 class="text-step text-primary-dark">
@@ -235,7 +263,7 @@
 							aria-label={a.label}
 							disabled={a.disabled}
 							onclick={() => (a.dir < 0 ? prev() : next())}
-							class="relative grid w-12.5 cursor-pointer place-items-center rounded-full transition duration-300 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark hover:scale-110 hover:rotate-12 disabled:cursor-default disabled:opacity-40 disabled:hover:scale-100 disabled:hover:rotate-0"
+							class="relative grid w-12.5 cursor-pointer place-items-center rounded-full transition duration-300 outline-none hover:scale-110 hover:rotate-12 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark disabled:cursor-default disabled:opacity-40 disabled:hover:scale-100 disabled:hover:rotate-0"
 						>
 							<img src="/assets/flower-button.svg" alt="" aria-hidden="true" class="w-full" />
 							<img src="/assets/{a.icon}.svg" alt="" aria-hidden="true" class="absolute w-5" />
@@ -254,37 +282,95 @@
 						class="flex max-w-197.5 flex-col gap-8 [grid-area:1/1]"
 					>
 						{#if step === 1}
-							{@render field(m.form_first_name(), '', m.form_ph_first_name(), first_name, (v) => (first_name = v), 'text', 'given-name')}
-							{@render field(m.form_last_name(), '', m.form_ph_last_name(), last_name, (v) => (last_name = v), 'text', 'family-name')}
-							{@render field(m.form_business(), '', m.form_ph_business(), business, (v) => (business = v), 'text', 'organization')}
+							{@render field(
+								m.form_first_name(),
+								'',
+								m.form_ph_first_name(),
+								first_name,
+								(v) => (first_name = v),
+								'text',
+								'given-name'
+							)}
+							{@render field(
+								m.form_last_name(),
+								'',
+								m.form_ph_last_name(),
+								last_name,
+								(v) => (last_name = v),
+								'text',
+								'family-name'
+							)}
+							{@render field(
+								m.form_business(),
+								'',
+								m.form_ph_business(),
+								business,
+								(v) => (business = v),
+								'text',
+								'organization'
+							)}
 						{:else if step === 2}
 							<fieldset>
 								<legend class="text-small text-dark-light">{m.form_pick_more()}</legend>
 								<div class="mt-4 flex flex-wrap gap-2.5">
 									{#each SERVICE_OPTIONS as [value, label] (value)}
-										<Button variant="outline" selected={services.includes(value)} onclick={() => toggleService(value)}>
+										<Button
+											variant="outline"
+											selected={services.includes(value)}
+											onclick={() => toggleService(value)}
+										>
 											{label}
 										</Button>
 									{/each}
 								</div>
 							</fieldset>
 						{:else if step === 3}
-							{@render field(m.form_about(), '', m.form_ph_about(), about, (v) => (about = v), 'text', 'off', false)}
+							{@render field(
+								m.form_about(),
+								'',
+								m.form_ph_about(),
+								about,
+								(v) => (about = v),
+								'text',
+								'off',
+								false
+							)}
 						{:else if step === 4}
 							<fieldset>
 								<legend class="sr-only">{m.form_step4_title()}</legend>
 								<div class="flex flex-wrap gap-2.5">
 									{#each WHEN_OPTIONS as [value, label] (value)}
-										<Button variant="outline" selected={when === value} onclick={() => {
-											when = value;
-											if (showMissing) error = message(step);
-										}}>{label}</Button>
+										<Button
+											variant="outline"
+											selected={when === value}
+											onclick={() => {
+												when = value;
+												if (showMissing) error = message(step);
+											}}>{label}</Button
+										>
 									{/each}
 								</div>
 							</fieldset>
 						{:else}
-							{@render field(m.form_email(), 'email', m.form_ph_email(), email, (v) => (email = v), 'email', 'email')}
-							{@render field(m.form_phone(), 'phone', '+32', phone, (v) => (phone = v), 'tel', 'tel', false)}
+							{@render field(
+								m.form_email(),
+								'email',
+								m.form_ph_email(),
+								email,
+								(v) => (email = v),
+								'email',
+								'email'
+							)}
+							{@render field(
+								m.form_phone(),
+								'phone',
+								'+32',
+								phone,
+								(v) => (phone = v),
+								'tel',
+								'tel',
+								false
+							)}
 							<!-- Liste déroulante native (comme AKIS) : s'ouvre avec le menu du système -->
 							<label class="flex flex-col gap-3">
 								<span class="text-label text-primary-dark">{m.form_source()}</span>
@@ -296,7 +382,9 @@
 										aria-invalid={isMissing(source) || undefined}
 										class="w-full cursor-pointer appearance-none border-b bg-transparent pr-8 pb-2 text-small outline-none focus:border-primary-dark {source
 											? 'text-dark'
-											: 'text-dark-light'} {isMissing(source) ? 'border-[#d64545]' : 'border-primary'}"
+											: 'text-dark-light'} {isMissing(source)
+											? 'border-[#d64545]'
+											: 'border-primary'}"
 									>
 										<option value="" disabled>{m.form_pick_one()}</option>
 										{#each SOURCES as [value, label] (value)}
@@ -323,7 +411,9 @@
 							{#if step < TOTAL}
 								<Button variant="solid" onclick={next}>{m.form_ok()}</Button>
 							{:else}
-								<Button variant="solid" type="submit" disabled={sending}>{sending ? m.form_sending() : m.form_ok()}</Button>
+								<Button variant="solid" type="submit" disabled={sending}
+									>{sending ? m.form_sending() : m.form_ok()}</Button
+								>
 							{/if}
 						</div>
 					</div>

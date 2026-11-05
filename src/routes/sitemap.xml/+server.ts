@@ -1,11 +1,11 @@
 import { locales, localizeHref } from '#lib/paraglide/runtime.js';
-import { PAGES, SITE_URL } from '#lib/seo.ts';
+import { PAGES, pageUrl } from '#lib/seo.ts';
 import type { RequestHandler } from './$types';
 
 // sitemap.xml : chaque page dans les 4 langues, avec les liens entre les versions (hreflang)
 export const GET: RequestHandler = () => {
 	const url = (path: string, locale: (typeof locales)[number]) =>
-		`${SITE_URL}${localizeHref(path, { locale }).replace(/\/$/, '')}` || SITE_URL;
+		pageUrl(localizeHref(path, { locale }));
 	const today = new Date().toISOString().slice(0, 10);
 
 	const entries = PAGES.flatMap(({ path, priority }) =>

@@ -13,7 +13,7 @@
 	import { smooth } from '#lib/smooth.ts';
 	import { getLocale } from '#lib/i18n.ts';
 	import { m } from '#lib/paraglide/messages.js';
-	import { SITE_URL, SITE_NAME, organization, jsonLd } from '#lib/seo.ts';
+	import { SITE_URL, SITE_NAME, organization, jsonLd, pageUrl } from '#lib/seo.ts';
 	import Footer from '#lib/components/Footer.svelte';
 	import Nav from '#lib/components/Nav.svelte';
 	import PageTransition from '#lib/components/PageTransition.svelte';
@@ -138,13 +138,13 @@
 		<link
 			rel="alternate"
 			hreflang={locale}
-			href={new URL(localizeHref(page.url.pathname, { locale }), page.url.origin).href}
+			href={pageUrl(localizeHref(page.url.pathname, { locale }))}
 		/>
 	{/each}
 	<link
 		rel="alternate"
 		hreflang="x-default"
-		href={new URL(localizeHref(page.url.pathname, { locale: 'en' }), page.url.origin).href}
+		href={pageUrl(localizeHref(page.url.pathname, { locale: 'en' }))}
 	/>
 </svelte:head>
 

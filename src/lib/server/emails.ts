@@ -17,8 +17,10 @@ const escape = (s: string) =>
 
 const SERVICE_LABEL: Record<string, () => string> = {
 	website: m.form_opt_website,
-	google: m.form_opt_google,
-	ads: m.form_opt_ads,
+	ai: m.form_opt_ai,
+	// anciennes demandes (avant le passage au consulting IA)
+	google: () => 'Google / SEO',
+	ads: () => 'Ads',
 	app: m.form_opt_app,
 	unsure: m.form_opt_unsure
 };

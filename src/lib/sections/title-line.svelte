@@ -70,7 +70,7 @@
 		};
 
 		document.fonts.ready.then(() => {
-			split = SplitText.create(headingEl, { type: 'words,chars' });
+			split = SplitText.create(headingEl, { type: 'words,chars', aria: 'none' });
 			mm.add('(prefers-reduced-motion: no-preference) and (min-width: 1024px)', () =>
 				build(desktop)
 			);

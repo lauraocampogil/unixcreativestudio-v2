@@ -7,44 +7,29 @@ export const services: ServiceInfo[] = [
 		title: 'Website',
 		tagline: 'Je beste eerste indruk.',
 		description:
-			'Een mooie, snelle website die vertelt wie je bent en waarmee mensen je makkelijk kunnen contacteren.',
+			'Een mooie, snelle website die vertelt wie je bent, het makkelijk maakt om je te contacteren en je laat vinden op Google en in AI-antwoorden.',
 		timeline: '2 à 4 weken',
 		steps: [
 			'Een kort formulier over je bedrijf en je doelen',
 			'Een duidelijke structuur en wireframes',
 			'Een design op maat dat bij je past',
 			'Een snelle website, op gsm en computer',
-			'Lancering, Google-instellingen, CMS en een korte opleiding'
+			'Lancering, Google- en AI-zoekinstellingen, CMS en een korte opleiding'
 		]
 	},
 	{
-		slug: 'seo',
-		title: 'SEO',
-		tagline: 'Wees de naam die ze eerst vinden.',
+		slug: 'ai-consulting',
+		title: 'AI-consulting',
+		tagline: 'Minder routinewerk. Meer business.',
 		description:
-			'We helpen mensen je bedrijf te vinden op Google en Google Maps, elke maand een beetje meer.',
-		timeline: 'eerste resultaten na 2 à 3 maanden',
+			'We vinden de taak die je bedrijf het meest vertraagt en bouwen een AI-systeem dat het voor je doet: klanten antwoorden, offertes opvolgen, e-mails sorteren, afspraken inplannen.',
+		timeline: 'eerste systeem live in 2-4 weken',
 		steps: [
-			'Een volledige check van je website op Google',
-			'Je Google-bedrijfsprofiel, ingesteld en volledig',
-			'Technische verbeteringen: snelheid, structuur, mobiel',
-			'Elke maand nieuwe content',
-			'Een eenvoudig maandrapport: wat we deden en wat er veranderde'
-		]
-	},
-	{
-		slug: 'ads',
-		title: 'Advertenties',
-		tagline: 'Nieuwe klanten, vanaf deze week.',
-		description:
-			'Advertenties op Google, Instagram en Facebook die je bedrijf aan de juiste mensen tonen.',
-		timeline: 'live binnen ongeveer 1 week',
-		steps: [
-			'Je doel en budget, samen bepaald',
-			'Onderzoek: wie je klanten zijn en waar ze zitten',
-			'Design en teksten van de advertenties',
-			'Lancering, daarna elke week kleine verbeteringen',
-			'Een maandrapport: wat elke klant kost'
+			'Een gratis gesprek om je grootste knelpunt te vinden',
+			'Een duidelijk plan: wat we automatiseren, hoeveel uur het je bespaart, de prijs',
+			'We bouwen je AI-systeem met de tools die je al gebruikt',
+			'Lancering, een korte opleiding voor jou en je team, en dagelijkse controle',
+			'Elke week: we meten, verbeteren en kiezen de volgende taak om te automatiseren'
 		]
 	},
 	{
@@ -74,5 +59,8 @@ export const howWeWork = [
 		title: 'Groeien',
 		text: 'We gaan aan de slag. Je ziet de vooruitgang en geeft bij elke stap je OK.'
 	},
-	{ title: 'Bloeien', text: 'Lanceringsdag. Je dienst staat online en is klaar voor klanten.' }
+	{
+		title: 'Bloeien',
+		text: 'Lanceringsdag. Je website, app of AI-systeem staat live en werkt voor jou.'
+	}
 ];

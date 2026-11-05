@@ -7,44 +7,29 @@ export const services: ServiceInfo[] = [
 		title: 'Site web',
 		tagline: 'Votre meilleure première impression.',
 		description:
-			'Un beau site rapide qui dit qui vous êtes, et qui permet de vous contacter facilement.',
+			'Un beau site rapide qui dit qui vous êtes, qui permet de vous contacter facilement, et qui vous fait trouver sur Google et dans les réponses des IA.',
 		timeline: '2 à 4 semaines',
 		steps: [
 			'Un court formulaire sur votre entreprise et vos objectifs',
 			'Une structure claire et des wireframes',
 			'Un design sur mesure qui vous ressemble',
 			'Un site rapide, sur téléphone et ordinateur',
-			'Mise en ligne, configuration Google, CMS et une courte formation'
+			'Mise en ligne, configuration Google et recherche IA, CMS et une courte formation'
 		]
 	},
 	{
-		slug: 'seo',
-		title: 'SEO',
-		tagline: 'Soyez le nom qu’on trouve en premier.',
+		slug: 'ai-consulting',
+		title: 'Consulting IA',
+		tagline: 'Moins de tâches répétitives. Plus de business.',
 		description:
-			'Nous aidons les gens à trouver votre entreprise sur Google et Google Maps, un peu plus chaque mois.',
-		timeline: 'premiers résultats en 2 à 3 mois',
+			'Nous trouvons la tâche qui ralentit le plus votre entreprise, puis nous construisons un système IA qui la fait pour vous : répondre aux clients, relancer les devis, trier les emails, prendre les rendez-vous.',
+		timeline: 'premier système en place en 2 à 4 semaines',
 		steps: [
-			'Une analyse complète de votre site sur Google',
-			'Votre fiche Google Business, créée et complète',
-			'Corrections techniques : vitesse, structure, mobile',
-			'Du nouveau contenu chaque mois',
-			'Un rapport mensuel simple : ce que nous avons fait, ce qui a changé'
-		]
-	},
-	{
-		slug: 'ads',
-		title: 'Publicités',
-		tagline: 'De nouveaux clients, dès cette semaine.',
-		description:
-			'Des publicités sur Google, Instagram et Facebook qui montrent votre entreprise aux bonnes personnes.',
-		timeline: 'en ligne en 1 semaine environ',
-		steps: [
-			'Votre objectif et votre budget, fixés ensemble',
-			'Recherche : qui sont vos clients et où ils se trouvent',
-			'Création des visuels et des textes',
-			'Lancement, puis de petites améliorations chaque semaine',
-			'Un rapport mensuel : ce que coûte chaque client'
+			'Un appel gratuit pour trouver ce qui vous bloque le plus',
+			'Un plan clair : ce que nous automatisons, les heures gagnées, le prix',
+			'Nous construisons votre système IA avec les outils que vous utilisez déjà',
+			'Mise en place, une courte formation pour vous et votre équipe, et un contrôle chaque jour',
+			'Chaque semaine : nous mesurons, améliorons et choisissons la prochaine tâche à automatiser'
 		]
 	},
 	{
@@ -76,6 +61,6 @@ export const howWeWork = [
 	},
 	{
 		title: 'Fleurir',
-		text: 'Le jour du lancement. Votre service est en ligne et prêt pour vos clients.'
+		text: 'Le jour du lancement. Votre site, votre app ou votre système IA est en ligne et travaille pour vous.'
 	}
 ];

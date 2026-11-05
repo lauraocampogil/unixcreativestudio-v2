@@ -137,6 +137,7 @@
 						SplitText.create(t, {
 							type: 'lines',
 							mask: 'lines',
+							aria: 'none',
 							autoSplit: true,
 							// Re-découpe au resize : on remet les lignes dans le bon état
 							onSplit(self) {

@@ -1,7 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { getLocale } from '#lib/i18n.ts';
-	import { SITE_URL, SITE_NAME, OG_IMAGE, OG_LOCALE, jsonLd } from '#lib/seo.ts';
+	import {
+		SITE_NAME,
+		OG_IMAGE,
+		OG_LOCALE,
+		KEYWORDS,
+		PUBLISHER,
+		pageUrl,
+		jsonLd
+	} from '#lib/seo.ts';
 
 	// Toutes les balises SEO d'une page : titre, description, URL canonique, partage (Open Graph / X), schema.org
 	type Props = {
@@ -11,6 +19,7 @@
 		type?: 'website' | 'article';
 		noindex?: boolean;
 		schema?: unknown[]; // objets schema.org propres à la page
+		keywords?: string; // mots-clés propres à la page (sinon ceux de la langue)
 	};
 	let {
 		title,
@@ -18,14 +27,12 @@
 		image = OG_IMAGE,
 		type = 'website',
 		noindex = false,
-		schema = []
+		schema = [],
+		keywords
 	}: Props = $props();
 
 	const locale = $derived(getLocale());
-	const canonical = $derived(
-		`${SITE_URL}${page.url.pathname === '/' ? '' : page.url.pathname.replace(/\/$/, '')}` ||
-			SITE_URL
-	);
+	const canonical = $derived(pageUrl(page.url.pathname));
 	const others = $derived(
 		Object.entries(OG_LOCALE)
 			.filter(([l]) => l !== locale)
@@ -36,6 +43,9 @@
 <svelte:head>
 	<title>{title}</title>
 	<meta name="description" content={description} />
+	<meta name="keywords" content={keywords ?? KEYWORDS[locale]} />
+	<meta name="author" content={PUBLISHER} />
+	<meta name="publisher" content={PUBLISHER} />
 	<link rel="canonical" href={canonical} />
 	<meta
 		name="robots"

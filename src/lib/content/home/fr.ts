@@ -5,7 +5,7 @@ export const home = {
 	hero: {
 		title: 'Plantez votre idée. Regardez votre entreprise grandir.',
 		subtitle:
-			'Nous sommes un petit studio sympa à Bruxelles. Nous faisons travailler les sites web, les apps et Google pour vous. Des prix clairs, sans jargon, sans stress.'
+			'Nous sommes un petit studio sympa à Bruxelles. Nous créons des sites web et des apps, et nous mettons l’IA au travail dans votre entreprise. Des prix clairs, sans jargon, sans stress.'
 	},
 	titleLine: {
 		title: 'Vous la gérez. Nous l’aidons à grandir'
@@ -13,19 +13,19 @@ export const home = {
 	whatWeDo: {
 		tag: 'Ce que nous faisons',
 		intro:
-			'Pas besoin de connaître les sites web, Google ou la publicité. Vous voulez juste qu’on vous trouve et qu’on vous contacte. C’est exactement ce que nous construisons.',
+			'Pas besoin de connaître les sites web ou l’IA. Vous voulez juste plus de clients et plus de temps. C’est exactement ce que nous construisons.',
 		items: [
 			{
 				title: 'On vous trouve',
-				text: 'En ce moment, quelqu’un près de chez vous cherche ce que vous faites. Faisons en sorte que votre nom apparaisse en premier, pas celui de votre concurrent.'
+				text: 'En ce moment, quelqu’un près de chez vous cherche ce que vous faites, sur Google ou en demandant à ChatGPT. Faisons en sorte que votre nom sorte en premier, pas celui de votre concurrent.'
 			},
 			{
 				title: 'On vous fait confiance',
 				text: 'En ligne, vous n’avez que quelques secondes pour faire bonne impression. Nous faisons compter ces secondes, avec un site qui vous ressemble.'
 			},
 			{
-				title: 'On vous contacte',
-				text: 'Un visiteur qui ne trouve pas votre bouton, c’est un client perdu. Nous rendons le contact facile : un clic pour appeler, écrire ou réserver.'
+				title: 'Vous gagnez du temps',
+				text: 'Répondre aux mêmes questions, relancer les devis, recopier des données… Nous confions ce travail à l’IA, pour que vous puissiez vous concentrer sur vos clients.'
 			}
 		]
 	},
@@ -35,20 +35,14 @@ export const home = {
 			{
 				title: 'Création de site web',
 				problem:
-					'En ce moment, quelqu’un cherche ce que vous faites. Sans un bon site, il choisit quelqu’un d’autre. Faisons en sorte qu’il vous choisisse.',
+					'En ce moment, quelqu’un cherche ce que vous faites, sur Google ou sur ChatGPT. Sans un bon site, il choisit quelqu’un d’autre. Faisons en sorte qu’il vous trouve et qu’il vous choisisse.',
 				href: '/services/web-design'
 			},
 			{
-				title: 'SEO',
+				title: 'Consulting IA',
 				problem:
-					'Chaque jour, des gens cherchent votre service sur Google. Si vous n’êtes pas en première page, ce sont vos concurrents qui reçoivent l’appel.',
-				href: '/services/seo'
-			},
-			{
-				title: 'Publicités',
-				problem:
-					'Vos concurrents sont déjà sur l’écran de vos clients. La publicité vous y met aussi, dès la première semaine.',
-				href: '/services/ads'
+					'Vous perdez des heures chaque semaine sur des tâches qu’un ordinateur pourrait faire. Nous trouvons ce qui vous fait perdre le plus de temps et construisons le système IA qui s’en charge.',
+				href: '/services/ai-consulting'
 			},
 			{
 				title: 'Application mobile',
@@ -170,6 +164,11 @@ export const home = {
 				question: 'Et si quelque chose ne marche plus ?',
 				answer:
 					'Pendant un an après la mise en ligne, nous corrigeons gratuitement tout bug technique.'
+			},
+			{
+				question: 'Je ne connais rien à l’IA. Est-ce un problème ?',
+				answer:
+					'Pas du tout. Nous expliquons tout avec des mots simples, nous installons tout pour vous, et vous ne voyez que le résultat : des heures gagnées chaque semaine.'
 			}
 		]
 	},
@@ -178,7 +177,7 @@ export const home = {
 			'Faites fleurir votre entreprise',
 			'Soyez trouvé',
 			'Trouvez des clients',
-			'Grandissez en ligne',
+			'Gagnez du temps',
 			'Moins de stress'
 		]
 	}

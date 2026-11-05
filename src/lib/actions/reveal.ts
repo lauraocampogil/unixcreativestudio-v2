@@ -52,6 +52,9 @@ export function reveal(node: HTMLElement, options: Options = {}) {
 		split = SplitText.create(node, {
 			type: 'lines',
 			mask: 'lines', // chaque ligne dans une fenêtre qui la cache
+			// aria « none » : pas d'aria-hidden/aria-label ajoutés → les liens dans le texte restent
+			// accessibles (lecteurs d'écran et agents IA lisent le texte normalement)
+			aria: 'none',
 			autoSplit: true, // re-découpe si la largeur change
 			onSplit(self) {
 				lines = self.lines;

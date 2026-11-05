@@ -4,7 +4,7 @@ export const home = {
 	hero: {
 		title: 'Plant your idea. Watch your business grow.',
 		subtitle:
-			'We are a small, friendly studio in Brussels. We make websites, apps and Google work for you. Clear prices, no tech talk, no stress.'
+			'We are a small, friendly studio in Brussels. We build websites and apps, and put AI to work in your business. Clear prices, no tech talk, no stress.'
 	},
 	titleLine: {
 		title: 'You run it. We help it grow'
@@ -12,19 +12,19 @@ export const home = {
 	whatWeDo: {
 		tag: 'What we do?',
 		intro:
-			"You don't need to know about websites, Google or ads. You just want people to find you, and get in touch. That's exactly what we build.",
+			"You don't need to know about websites or AI. You just want more clients and more time. That's exactly what we build.",
 		items: [
 			{
 				title: 'People find you',
-				text: "Right now, someone near you is searching for what you do. Let's make sure your name shows up first, not your competitor's."
+				text: "Right now, someone near you is searching for what you do, on Google or by asking ChatGPT. Let's make sure your name comes up first, not your competitor's."
 			},
 			{
 				title: 'People trust you',
 				text: 'You only get a few seconds to make a good first impression online. We make those seconds count, with a website that feels just like you.'
 			},
 			{
-				title: 'People contact you',
-				text: "A visitor who can't find your button is a client you lose. We make reaching you easy: one tap to call, write or book."
+				title: 'You get your time back',
+				text: 'Answering the same questions, chasing quotes, copying data… We hand that work to AI, so you can focus on your clients.'
 			}
 		]
 	},
@@ -34,20 +34,14 @@ export const home = {
 			{
 				title: 'Web Design & Development',
 				problem:
-					"Right now, someone is looking for what you do. Without a good website, they choose someone else. Let's make sure they choose you.",
+					"Right now, someone is looking for what you do, on Google or in ChatGPT. Without a good website, they choose someone else. Let's make sure they find you and choose you.",
 				href: '/services/web-design'
 			},
 			{
-				title: 'SEO',
+				title: 'AI consulting',
 				problem:
-					"Every day, people search Google for your service. If you're not on the first page, your competitors get the call.",
-				href: '/services/seo'
-			},
-			{
-				title: 'Ads',
-				problem:
-					"Your competitors are already on your clients' screens. Ads put you there too, from the first week.",
-				href: '/services/ads'
+					'You lose hours every week on tasks a computer could do. We find your biggest time-waster and build the AI system that takes it off your plate.',
+				href: '/services/ai-consulting'
 			},
 			{
 				title: 'Mobile app',
@@ -167,11 +161,16 @@ export const home = {
 			{
 				question: 'What if something breaks?',
 				answer: 'For one year after launch, we fix any technical bug for free.'
+			},
+			{
+				question: 'I know nothing about AI. Is that a problem?',
+				answer:
+					'Not at all. We explain everything in plain words, set it all up for you, and you only see the result: hours saved every week.'
 			}
 		]
 	},
 	marquee: {
-		items: ['Bloom your business', 'Get found', 'Get clients', 'Grow online', 'Stress less']
+		items: ['Bloom your business', 'Get found', 'Get clients', 'Save time', 'Stress less']
 	}
 };
 

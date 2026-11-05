@@ -11,7 +11,11 @@
 	import { visit } from '#lib/visit.ts';
 
 	// Logos qui apparaissent l'un après l'autre (le « U » si le fichier existe, sinon un texte)
-	const monogram = import.meta.glob('/static/assets/logo-u.svg', { eager: true, query: '?url', import: 'default' });
+	const monogram = import.meta.glob('/static/assets/logo-u.svg', {
+		eager: true,
+		query: '?url',
+		import: 'default'
+	});
 	const hasMonogram = Object.keys(monogram).length > 0;
 
 	let loader = $state<HTMLElement>();
@@ -53,7 +57,8 @@
 		document.documentElement.style.overflow = 'hidden';
 		const block = (e: Event) => e.preventDefault();
 		const blockKeys = (e: KeyboardEvent) => {
-			if ([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) e.preventDefault();
+			if ([' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key))
+				e.preventDefault();
 		};
 		window.addEventListener('wheel', block, { passive: false, capture: true });
 		window.addEventListener('touchmove', block, { passive: false, capture: true });
@@ -79,7 +84,12 @@
 		const vh = window.innerHeight;
 		const vw = window.innerWidth;
 
-		gsap.set([top, bottom], { width: vw, height: vh * 0.62 });
+		// Les blobs gardent leur taille de départ et sont « rétrécis » avec scale (transform) :
+		// changer width/height ferait bouger la mise en page (mauvais score CLS sur PageSpeed)
+		const H0 = vh * 0.62;
+		gsap.set([top, bottom], { width: vw, height: H0 });
+		gsap.set(top, { transformOrigin: 'left top' });
+		gsap.set(bottom, { transformOrigin: 'right bottom' });
 		gsap.set(marks, { scale: 0, opacity: 0, rotation: -15 });
 
 		const tl = gsap.timeline({
@@ -94,11 +104,15 @@
 		});
 
 		// 1. Les deux blobs étirés rétrécissent jusqu'à la moitié de l'écran
-		tl.to([top, bottom], { height: vh * 0.4, duration: 0.8, ease: 'power3.inOut' });
+		tl.to([top, bottom], { scaleY: (vh * 0.4) / H0, duration: 0.8, ease: 'power3.inOut' });
 
 		// 2. Les 3 logos apparaissent l'un après l'autre
 		marks.forEach((m, i) => {
-			tl.to(m, { scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: 'back.out(2)' }, i === 0 ? '-=0.2' : '>');
+			tl.to(
+				m,
+				{ scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: 'back.out(2)' },
+				i === 0 ? '-=0.2' : '>'
+			);
 			if (i < marks.length - 1) {
 				tl.to(m, { scale: 0.6, opacity: 0, duration: 0.25, ease: 'power2.in' }, '+=0.25');
 			}
@@ -110,8 +124,8 @@
 		tl.to(
 			top,
 			{
-				width: () => visible('top')?.getBoundingClientRect().width ?? vw * 0.675,
-				height: () => visible('top')?.getBoundingClientRect().height ?? vh * 0.4,
+				scaleX: () => (visible('top')?.getBoundingClientRect().width ?? vw * 0.675) / vw,
+				scaleY: () => (visible('top')?.getBoundingClientRect().height ?? vh * 0.4) / H0,
 				duration: 1.1,
 				ease: 'power3.inOut'
 			},
@@ -120,8 +134,8 @@
 		tl.to(
 			bottom,
 			{
-				width: () => visible('bottom')?.getBoundingClientRect().width ?? vw * 0.655,
-				height: () => visible('bottom')?.getBoundingClientRect().height ?? vh * 0.4,
+				scaleX: () => (visible('bottom')?.getBoundingClientRect().width ?? vw * 0.655) / vw,
+				scaleY: () => (visible('bottom')?.getBoundingClientRect().height ?? vh * 0.4) / H0,
 				// le bas du hero peut être plus bas que l'écran
 				y: () => (visible('bottom')?.getBoundingClientRect().bottom ?? vh) - vh,
 				duration: 1.1,
@@ -129,7 +143,11 @@
 			},
 			'toHero'
 		);
-		tl.to(marks.at(-1)!, { scale: 0.8, opacity: 0, duration: 0.4, ease: 'power2.in' }, 'toHero+=0.5');
+		tl.to(
+			marks.at(-1)!,
+			{ scale: 0.8, opacity: 0, duration: 0.4, ease: 'power2.in' },
+			'toHero+=0.5'
+		);
 		// Le titre et le sous-titre du hero commencent à monter pendant que les blobs se posent
 		tl.call(release, [], 'toHero+=0.6');
 
@@ -170,7 +188,10 @@
 				{#if hasMonogram}
 					<img src="/assets/logo-u.svg" alt="" class="w-27.5 lg:w-45" />
 				{:else}
-					<span class="font-display text-[110px] leading-none font-black text-background lg:text-[170px]">U</span>
+					<span
+						class="font-display text-[110px] leading-none font-black text-background lg:text-[170px]"
+						>U</span
+					>
 				{/if}
 			</span>
 			<img

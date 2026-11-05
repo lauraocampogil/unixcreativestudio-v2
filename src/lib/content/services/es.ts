@@ -13,37 +13,22 @@ export const services: ServiceInfo[] = [
 			'Una estructura clara y wireframes',
 			'Un diseño a medida que se parece a ti',
 			'Una web rápida, en móvil y ordenador',
-			'Lanzamiento, configuración de Google, CMS y una formación corta'
+			'Lanzamiento, configuración de Google y búsqueda con IA, CMS y una formación corta'
 		]
 	},
 	{
-		slug: 'seo',
-		title: 'SEO',
-		tagline: 'Sé el primer nombre que encuentran.',
+		slug: 'ai-consulting',
+		title: 'Consultoría IA',
+		tagline: 'Menos tareas repetitivas. Más negocio.',
 		description:
-			'Ayudamos a que la gente encuentre tu negocio en Google y Google Maps, un poco más cada mes.',
-		timeline: 'primeros resultados en 2-3 meses',
+			'Una web bonita y rápida que cuenta quién eres, hace fácil contactarte y te hace aparecer en Google y en las respuestas de la IA.',
+		timeline: 'primer sistema funcionando en 2-4 semanas',
 		steps: [
-			'Una revisión completa de tu web en Google',
-			'Tu perfil de Google Business, creado y completo',
-			'Mejoras técnicas: velocidad, estructura, móvil',
-			'Contenido nuevo cada mes',
-			'Un informe mensual sencillo: qué hicimos y qué cambió'
-		]
-	},
-	{
-		slug: 'ads',
-		title: 'Anuncios',
-		tagline: 'Nuevos clientes, desde esta semana.',
-		description:
-			'Anuncios en Google, Instagram y Facebook que muestran tu negocio a las personas adecuadas.',
-		timeline: 'activos en 1 semana aprox.',
-		steps: [
-			'Tu objetivo y tu presupuesto, definidos juntos',
-			'Investigación: quiénes son tus clientes y dónde están',
-			'Diseño y textos de los anuncios',
-			'Lanzamiento y pequeñas mejoras cada semana',
-			'Un informe mensual: cuánto cuesta cada cliente'
+			'Una llamada gratis para encontrar tu mayor bloqueo',
+			'Un plan claro: qué automatizamos, las horas que te ahorra y el precio',
+			'Construimos tu sistema de IA con las herramientas que ya usas',
+			'Lanzamiento, una formación corta para ti y tu equipo, y revisión diaria',
+			'Cada semana: medimos, mejoramos y elegimos la siguiente tarea a automatizar'
 		]
 	},
 	{
@@ -72,6 +57,6 @@ export const howWeWork = [
 	{ title: 'Crecer', text: 'Nos ponemos a trabajar. Ves el avance y das el OK en cada paso.' },
 	{
 		title: 'Florecer',
-		text: 'Día de lanzamiento. Tu servicio está online y listo para tus clientes.'
+		text: 'Día del lanzamiento. Tu web, tu app o tu sistema de IA está en marcha y trabajando para ti.'
 	}
 ];
