@@ -87,6 +87,7 @@ export const actions: Actions = {
 							reply_to: data.email,
 							subject: `New request: ${data.first_name} ${data.last_name} (${data.business})`,
 							html: `
+								<img src="https://unixcreativestudio.com/email-logo.png" width="96" height="42" alt="Unix Creative Studio" style="display:block;border:0;margin-bottom:16px;" />
 								<h2>New request from the website 🌸</h2>
 								<p><b>Name:</b> ${escape(data.first_name)} ${escape(data.last_name)}</p>
 								<p><b>Business:</b> ${escape(data.business)}</p>

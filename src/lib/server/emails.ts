@@ -32,7 +32,18 @@ const WHEN_LABEL: Record<string, () => string> = {
 
 // ✍️ Ta signature email (HTML). Colle ici celle de Gmail (Paramètres → Signature) quand tu l'as.
 // Les images doivent être en ligne (URL https), pas des fichiers sur ton ordinateur.
-export const SIGNATURE_HTML = `<p style="margin:0;">Laura<br />Unix Creative Studio<br /><a href="https://unixcreativestudio.com">unixcreativestudio.com</a></p>`;
+// Logo : static/email-logo.png (PNG, car Gmail et Outlook n'affichent pas les SVG)
+export const SIGNATURE_HTML = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;">
+<tr>
+<td style="padding-right:14px;vertical-align:middle;">
+<a href="https://unixcreativestudio.com"><img src="https://unixcreativestudio.com/email-logo.png" width="96" height="42" alt="Unix Creative Studio" style="display:block;border:0;" /></a>
+</td>
+<td style="border-left:2px solid #94ADFF;padding-left:14px;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#222;">
+<strong>Laura</strong><br />Unix Creative Studio<br />
+<a href="https://unixcreativestudio.com" style="color:#466FF8;text-decoration:none;">unixcreativestudio.com</a>
+</td>
+</tr>
+</table>`;
 const SIGNATURE_TEXT = 'Laura\nUnix Creative Studio\nhttps://unixcreativestudio.com';
 
 export function confirmationEmail(data: ContactData) {
