@@ -6,6 +6,8 @@ import { m } from '#lib/paraglide/messages.js';
 import type { Actions } from './$types';
 
 const TO = 'unixcreativestudio@gmail.com';
+// Adresse pro affichée aux visiteurs (Cloudflare Email Routing la renvoie vers ta boîte Gmail)
+const REPLY_TO = 'hello@unixcreativestudio.com';
 // Expéditeur : ton domaine vérifié dans Resend (RESEND_FROM dans le .env).
 // Sans domaine vérifié, Resend n'envoie qu'à ta propre adresse : on utilise l'adresse de test
 // et on n'envoie pas encore l'email de confirmation au visiteur.
@@ -13,8 +15,9 @@ const FROM = RESEND_FROM ?? 'Unix website <onboarding@resend.dev>';
 
 const SERVICES: Record<string, string> = {
 	website: 'A website',
-	google: 'Being found on Google',
-	ads: 'Ads',
+	ai: 'AI for my business',
+	google: 'Being found on Google (old)',
+	ads: 'Ads (old)',
 	app: 'A mobile app',
 	unsure: 'Not sure yet'
 };
@@ -122,7 +125,7 @@ export const actions: Actions = {
 			await fetch('https://api.resend.com/emails', {
 				method: 'POST',
 				headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-				body: JSON.stringify({ from: FROM, to: [data.email], reply_to: TO, ...mail })
+				body: JSON.stringify({ from: FROM, to: [data.email], reply_to: REPLY_TO, ...mail })
 			})
 				.then(async (r) => {
 					if (!r.ok) console.warn('[contact] confirmation', r.status, await r.text());
