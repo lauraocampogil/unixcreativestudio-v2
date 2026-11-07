@@ -10,8 +10,11 @@
 	},
 	// Variables publiques du site en ligne (les secrets, eux, se mettent dans Cloudflare : Settings → Variables and Secrets)
 	"vars": {
-		"PUBLIC_DIRECTUS_URL": "http://directus-fuivg7lj906mgs14ueptnqgd.128.140.85.57.sslip.io"
+		"PUBLIC_DIRECTUS_URL": "http://directus-fuivg7lj906mgs14ueptnqgd.128.140.85.57.sslip.io",
+		"RESEND_FROM": "Unix Creative Studio <hello@unixcreativestudio.com>"
 	},
+	// Garde les variables ajoutées dans le tableau de bord Cloudflare lors des déploiements
+	"keep_vars": true,
 	"workers_dev": true,
 	"preview_urls": true
 }
