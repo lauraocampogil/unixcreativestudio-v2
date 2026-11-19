@@ -56,6 +56,23 @@
 				.elementsFromPoint(window.innerWidth / 2, y)
 				.find((el) => !navEl.contains(el));
 			onBlue = hit?.closest('[data-nav]')?.getAttribute('data-nav') === 'blue';
+			tintBrowserBar();
+		};
+		// Safari iOS 26 colore la zone de la barre d'adresse (en bas) avec le fond de <html>.
+		// On donne à <html> la couleur de la section qui passe en bas de l'écran, sinon une bande crème apparaît.
+		const tintBrowserBar = () => {
+			let el = document.elementFromPoint(window.innerWidth / 2, window.innerHeight - 2);
+			let color = '';
+			while (el && el !== document.documentElement) {
+				const c = getComputedStyle(el).backgroundColor;
+				if (c && c !== 'transparent' && !/rgba\(.*,\s*0\)$/.test(c)) {
+					color = c;
+					break;
+				}
+				el = el.parentElement;
+			}
+			if (document.documentElement.style.backgroundColor !== color)
+				document.documentElement.style.backgroundColor = color;
 		};
 		const onScroll = () => {
 			if (!frame) frame = requestAnimationFrame(check);
@@ -81,7 +98,13 @@
 	const toButton = () => {
 		const p = panel!.getBoundingClientRect();
 		const b = menuButton!.getBoundingClientRect();
-		return { t: b.top - p.top, r: p.right - b.right, b: p.bottom - b.bottom, l: b.left - p.left, radius: 40 };
+		return {
+			t: b.top - p.top,
+			r: p.right - b.right,
+			b: p.bottom - b.bottom,
+			l: b.left - p.left,
+			radius: 40
+		};
 	};
 	const applyClip = () => {
 		if (panel)
@@ -114,10 +137,32 @@
 			applyClip();
 			gsap.set(panelEl, { autoAlpha: 1 });
 			gsap.set(items, { yPercent: 60, opacity: 0 });
-			gsap.to(clip, { t: 0, r: 0, b: 0, l: 0, radius: 30, duration: 0.8, ease: 'expo.inOut', onUpdate: applyClip });
-			gsap.to(items, { yPercent: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.06, delay: 0.35 });
+			gsap.to(clip, {
+				t: 0,
+				r: 0,
+				b: 0,
+				l: 0,
+				radius: 30,
+				duration: 0.8,
+				ease: 'expo.inOut',
+				onUpdate: applyClip
+			});
+			gsap.to(items, {
+				yPercent: 0,
+				opacity: 1,
+				duration: 0.6,
+				ease: 'power3.out',
+				stagger: 0.06,
+				delay: 0.35
+			});
 		} else {
-			gsap.to(items, { opacity: 0, yPercent: -20, duration: 0.2, ease: 'power2.in', stagger: { each: 0.02, from: 'end' } });
+			gsap.to(items, {
+				opacity: 0,
+				yPercent: -20,
+				duration: 0.2,
+				ease: 'power2.in',
+				stagger: { each: 0.02, from: 'end' }
+			});
 			gsap.to(clip, {
 				...toButton(),
 				duration: 0.6,
@@ -154,15 +199,19 @@
 
 	// Couleurs des boutons selon le fond
 	// Sur fond bleu : boutons beiges / panneau beige. Sur fond beige : tout en primary-accent.
-	const pill = $derived(onBlue ? 'bg-background text-primary' : 'bg-primary-accent text-background');
-	const closePill = $derived(onBlue ? 'bg-primary-accent text-background' : 'bg-background text-primary-accent');
+	const pill = $derived(
+		onBlue ? 'bg-background text-primary' : 'bg-primary-accent text-background'
+	);
+	const closePill = $derived(
+		onBlue ? 'bg-primary-accent text-background' : 'bg-background text-primary-accent'
+	);
 	const panelBg = $derived(onBlue ? 'bg-background' : 'bg-primary-accent');
 	const ink = $derived(onBlue ? 'text-primary-dark' : 'text-background');
 </script>
 
 <header
 	bind:this={nav}
-	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-5 pt-5 xl:px-20 lg:pt-7.5 3xl:container 3xl:mx-auto"
+	class="pointer-events-none fixed inset-x-0 top-0 z-40 px-5 pt-5 xl:px-20 3xl:container 3xl:mx-auto lg:pt-7.5"
 >
 	<div class="relative flex items-center justify-between">
 		<!-- Gauche (desktop) : Contact us -->
@@ -225,29 +274,24 @@
 					<ul class="flex flex-col gap-4">
 						{#each links as link (link.href)}
 							<li data-menu-item>
-								<a
-									href={link.href}
-									onclick={close}
-									class="text-menu {ink}"
-								>
+								<a href={link.href} onclick={close} class="text-menu {ink}">
 									<Roll>{link.label}</Roll>
 								</a>
 							</li>
 						{/each}
 						<!-- Contact : seulement dans le menu mobile -->
 						<li data-menu-item class="lg:hidden">
-							<a
-								href={l('/contact')}
-								onclick={close}
-								class="text-menu {ink}"
-							>
+							<a href={l('/contact')} onclick={close} class="text-menu {ink}">
 								<Roll>{m.nav_contact()}</Roll>
 							</a>
 						</li>
 					</ul>
 				</nav>
 
-				<div data-menu-item class="mt-8 border-t pt-5 {onBlue ? 'border-primary' : 'border-background/70'}">
+				<div
+					data-menu-item
+					class="mt-8 border-t pt-5 {onBlue ? 'border-primary' : 'border-background/70'}"
+				>
 					<ul class="flex justify-between gap-4">
 						{#each socials as s (s.label)}
 							<li>
@@ -266,10 +310,12 @@
 
 				<!-- Changer de langue recharge la page entière (textes, Directus, <html lang>) -->
 				<ul data-menu-item class="mt-7 flex gap-3" aria-label={m.nav_language_label()}>
-					{#each ORDER.filter((code) => (locales as readonly string[]).includes(code)) as locale (locale)}
+					{#each ORDER.filter( (code) => (locales as readonly string[]).includes(code) ) as locale (locale)}
 						<li>
 							<a
-								href={localizeHref(page.url.pathname, { locale: locale as (typeof locales)[number] })}
+								href={localizeHref(page.url.pathname, {
+									locale: locale as (typeof locales)[number]
+								})}
 								hreflang={locale}
 								data-sveltekit-reload
 								aria-current={getLocale() === locale ? 'true' : undefined}

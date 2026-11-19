@@ -5,7 +5,11 @@
 	import { screen } from '#lib/screen.ts';
 
 	// Logo « U » avec la fleur (si le fichier existe, sinon un « U » en texte)
-	const monogram = import.meta.glob('/static/assets/logo-u.svg', { eager: true, query: '?url', import: 'default' });
+	const monogram = import.meta.glob('/static/assets/logo-u.svg', {
+		eager: true,
+		query: '?url',
+		import: 'default'
+	});
 	const hasMonogram = Object.keys(monogram).length > 0;
 
 	let overlay = $state<HTMLElement>();
@@ -36,7 +40,7 @@
 			const vh = window.innerHeight;
 			gsap.killTweensOf([overlay, blobTop, blobBottom, logo, bg]);
 			gsap.set(bg!, { opacity: 0 });
-			gsap.set(overlay, { autoAlpha: 1 });
+			gsap.set(overlay, { autoAlpha: 1, display: 'block' });
 			gsap.set([blobTop, blobBottom], { height: 0 });
 			gsap.set(logo, { scale: 0, rotation: -20, opacity: 0 });
 
@@ -48,7 +52,11 @@
 				.to([blobTop, blobBottom], { height: vh * 0.7, duration: 0.65, ease: 'power3.inOut' })
 				// fond bleu derrière les blobs : on ne voit jamais la page pendant le changement
 				.to(bg!, { opacity: 1, duration: 0.2, ease: 'none' }, '-=0.2')
-				.to(logo, { scale: 1, rotation: 0, opacity: 1, duration: 0.45, ease: 'back.out(2)' }, '-=0.25')
+				.to(
+					logo,
+					{ scale: 1, rotation: 0, opacity: 1, duration: 0.45, ease: 'back.out(2)' },
+					'-=0.25'
+				)
 				.to({}, { duration: 0.1 });
 		});
 
@@ -61,7 +69,8 @@
 			.timeline({
 				delay: 0.25,
 				onComplete: () => {
-					gsap.set(el, { autoAlpha: 0 });
+					// display: none → Safari iOS ne prend plus ce calque fixe pour teinter sa barre d'adresse
+					gsap.set(el, { autoAlpha: 0, display: 'none' });
 					release();
 					// la nav reprend la couleur de ce qu'il y a dessous
 					window.dispatchEvent(new Event('resize'));
@@ -79,7 +88,8 @@
 		const from = nav.from?.url;
 		const to = nav.to?.url;
 		// Pas d'animation : même page (ancre #services…), bouton retour, ou animations réduites
-		if (!from || !to || from.pathname === to.pathname || nav.type === 'popstate' || reduce()) return;
+		if (!from || !to || from.pathname === to.pathname || nav.type === 'popstate' || reduce())
+			return;
 		return cover();
 	});
 
@@ -88,7 +98,7 @@
 
 <div
 	bind:this={overlay}
-	class="pointer-events-none invisible fixed inset-0 z-90 overflow-hidden"
+	class="pointer-events-none invisible fixed inset-0 z-90 hidden overflow-hidden"
 	aria-hidden="true"
 >
 	<span bind:this={bg} class="absolute inset-0 bg-primary opacity-0"></span>
@@ -110,7 +120,10 @@
 			{#if hasMonogram}
 				<img src="/assets/logo-u.svg" alt="" class="w-25 lg:w-37.5" />
 			{:else}
-				<span class="font-display text-[100px] leading-none font-black text-background lg:text-[150px]">U</span>
+				<span
+					class="font-display text-[100px] leading-none font-black text-background lg:text-[150px]"
+					>U</span
+				>
 			{/if}
 		</span>
 	</div>

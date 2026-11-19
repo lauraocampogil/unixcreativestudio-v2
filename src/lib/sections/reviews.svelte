@@ -26,7 +26,9 @@
 	let current = $state(0); // avis affiché (pour les lecteurs d'écran)
 
 	// Mascottes derrière la card : inclinaison de chacune
-	const MASCOTS = [-8, 12, -20, 6, -14, 18, -6, 10];
+	const MASCOTS = [
+		-8, 12, -20, 6, -14, 18, -6, 10, -12, 16, -4, 8, -18, 14, -10, 4, -16, 20, -2, 12
+	]; // assez pour couvrir 135vw
 
 	// Mascottes : scroll vers le bas → à droite ; vers le haut → à gauche
 	$effect(() => {
@@ -226,7 +228,7 @@
 	aria-roledescription="carousel"
 	aria-label={m.reviews_label()}
 >
-	<!-- Rangée de mascottes (300px) qui glisse avec le scroll -->
+	<!-- Rangée de mascottes (112px en mobile, 176px en desktop) qui glisse avec le scroll -->
 	<!-- Le centrage vertical est sur un conteneur à part : GSAP n'anime que la rangée (x),
 	     sinon il reprend le « translate » CSS et la rangée descend en revenant sur la page -->
 	<div class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2" aria-hidden="true">
@@ -235,7 +237,7 @@
 				<img
 					src="/assets/flower-review.svg"
 					alt=""
-					class="-mx-5.5 w-75 max-w-none shrink-0 select-none"
+					class="-mx-2 w-28 max-w-none shrink-0 select-none lg:-mx-3 lg:w-44"
 					style="rotate: {rotate}deg"
 				/>
 			{/each}
