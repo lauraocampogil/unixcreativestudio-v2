@@ -228,7 +228,7 @@
 	aria-roledescription="carousel"
 	aria-label={m.reviews_label()}
 >
-	<!-- Rangée de mascottes (112px en mobile, 176px en desktop) qui glisse avec le scroll -->
+	<!-- Rangée de mascottes (112px en mobile, 300px en desktop comme avant) qui glisse avec le scroll -->
 	<!-- Le centrage vertical est sur un conteneur à part : GSAP n'anime que la rangée (x),
 	     sinon il reprend le « translate » CSS et la rangée descend en revenant sur la page -->
 	<div class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2" aria-hidden="true">
@@ -237,7 +237,7 @@
 				<img
 					src="/assets/flower-review.svg"
 					alt=""
-					class="-mx-2 w-28 max-w-none shrink-0 select-none lg:-mx-3 lg:w-44"
+					class="-mx-2 w-28 max-w-none shrink-0 select-none lg:-mx-5.5 lg:w-75"
 					style="rotate: {rotate}deg"
 				/>
 			{/each}
